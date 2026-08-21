@@ -136,4 +136,3 @@ Artifacts: `results/metrics_table.csv`, `results/*.png`
 > When transaction-level behavior looks normal, does explicitly modeling the relationships surrounding that transaction provide additional predictive information for detecting coordinated suspicious activity?
 
 The experiment prints a data-driven conclusion to stdout.
-# Relationship-Intelligence-Layer

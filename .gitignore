@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mpl/
+results/.mpl/
+*.joblib
+.DS_Store
+._*
+.vscode/
+.venv/
+venv/
+.env
