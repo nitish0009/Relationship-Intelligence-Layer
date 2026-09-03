@@ -70,21 +70,7 @@ python run_experiment.py
 # Run tests
 python -m pytest tests/ -q
 
-# Start API (after experiment)
-uvicorn src.api:app --reload --port 8000
-
-# Demo dashboard (optional)
-streamlit run dashboard.py
 ```
-
-### API Example
-
-```bash
-curl -X POST http://localhost:8000/risk/analyze \
-  -H "Content-Type: application/json" \
-  -d '{"transaction_id": "TX050000"}'
-```
-
 ## Project Structure
 
 ```
