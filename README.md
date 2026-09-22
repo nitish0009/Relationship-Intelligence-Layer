@@ -2,7 +2,7 @@
 
 Research prototype for testing whether **relationship context** around a payment transaction adds predictive value beyond conventional transaction-level features.
 
-> **Disclaimer:** This is a research prototype using synthetic data and is **not** representative of Razorpay's production fraud detection system.
+> **Disclaimer:** This is a research prototype using synthetic data .
 
 ## Problem
 
