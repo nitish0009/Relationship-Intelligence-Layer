@@ -1,0 +1,30 @@
+{
+  "seed": 42,
+  "classifier": "XGBoost",
+  "n_transactions": 100000,
+  "fraud_rate": 0.035,
+  "split_sizes": [
+    70000,
+    15000,
+    15000
+  ],
+  "test_fraud_rings": 32,
+  "test_rings_also_in_train": 0,
+  "delta_pr_auc_ci": [
+    0.10959461225489583,
+    0.21579620093562962
+  ],
+  "graph_hidden_recall": {
+    "Transaction Baseline": 0.5667870036101083,
+    "Relationship Intelligence Model": 0.8700361010830325,
+    "Combined Transaction + Relationship Model": 0.8664259927797834,
+    "GraphSAGE Model": 0.7833935018050542
+  },
+  "legit_shared_fpr": {
+    "Transaction Baseline": 0.0169424743892829,
+    "Relationship Intelligence Model": 0.0007880220646178094,
+    "Combined Transaction + Relationship Model": 0.001182033096926714,
+    "GraphSAGE Model": 0.001182033096926714
+  },
+  "hidden_intrinsic_auc": 0.5095299973714511
+}

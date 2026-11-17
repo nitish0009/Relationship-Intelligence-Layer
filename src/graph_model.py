@@ -1,272 +1,195 @@
-"""Relationship intelligence and combined classifiers + lightweight GraphSAGE."""
+"""Relationship / combined tabular classifiers and a lightweight GraphSAGE model."""
 
 from __future__ import annotations
 
-import os
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Dict, List, Optional
 
-import joblib
 import numpy as np
 import pandas as pd
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+# Single-threaded torch: the graph is small, and on macOS torch's OpenMP pool deadlocks once
+# XGBoost's (separate) libomp pool has been used in the same process. It also keeps the
+# encoder bit-for-bit deterministic.
+torch.set_num_threads(1)
+
 from src.classifier_utils import get_classifier
 from src.graph_features import GRAPH_FEATURE_COLS
-from src.preprocessing import TRANSACTION_FEATURE_COLS, prepare_feature_matrix
+from src.preprocessing import TRANSACTION_FEATURE_COLS, prepare_feature_matrix, sort_chronologically
 
 
 class TabularRiskModel:
-    """Generic tabular classifier for graph-only or combined features."""
+    """Gradient-boosted classifier over an explicit list of feature columns."""
 
-    def __init__(self, feature_cols: List[str], name: str = "model"):
-        self.feature_cols = feature_cols
+    def __init__(self, feature_cols: List[str], name: str = "model", seed: int = 42):
+        self.feature_cols = list(feature_cols)
         self.name = name
-        self.model = get_classifier()
-        self.tx_encoders: dict = {}
-        self.use_transaction_features = any(
-            c in TRANSACTION_FEATURE_COLS for c in feature_cols
-        ) or any(c in TRANSACTION_FEATURE_COLS for c in [])
-
-    def _build_X(self, df: pd.DataFrame) -> np.ndarray:
-        parts = []
-        has_tx = any(c in self.feature_cols for c in TRANSACTION_FEATURE_COLS)
-        if has_tx:
-            X_tx, self.tx_encoders = prepare_feature_matrix(
-                df, TRANSACTION_FEATURE_COLS, self.tx_encoders
-            )
-            parts.append(X_tx)
-        graph_cols = [c for c in self.feature_cols if c in GRAPH_FEATURE_COLS]
-        if graph_cols:
-            parts.append(df[graph_cols].fillna(0).values.astype(np.float32))
-        if not parts:
-            raise ValueError("No features available")
-        return np.hstack(parts) if len(parts) > 1 else parts[0]
+        self.model = get_classifier(seed)
 
     def fit(self, df: pd.DataFrame, y: np.ndarray) -> "TabularRiskModel":
-        X = self._build_X(df)
-        self.model.fit(X, y)
+        self.model.fit(prepare_feature_matrix(df, self.feature_cols), y)
         return self
 
-    def predict_proba(self, df: pd.DataFrame) -> np.ndarray:
-        X = self._build_X(df)
-        return self.model.predict_proba(X)[:, 1]
-
-    def save(self, path: str) -> None:
-        os.makedirs(os.path.dirname(path), exist_ok=True)
-        joblib.dump(
-            {
-                "model": self.model,
-                "feature_cols": self.feature_cols,
-                "tx_encoders": self.tx_encoders,
-                "name": self.name,
-            },
-            path,
-        )
-
-    @classmethod
-    def load(cls, path: str) -> "TabularRiskModel":
-        data = joblib.load(path)
-        obj = cls(feature_cols=data["feature_cols"], name=data["name"])
-        obj.model = data["model"]
-        obj.tx_encoders = data["tx_encoders"]
-        return obj
+    def predict_proba(self, df: pd.DataFrame, history: Optional[pd.DataFrame] = None) -> np.ndarray:
+        return self.model.predict_proba(prepare_feature_matrix(df, self.feature_cols))[:, 1]
 
 
 class RelationshipModel(TabularRiskModel):
-    def __init__(self):
-        super().__init__(feature_cols=GRAPH_FEATURE_COLS, name="Relationship Intelligence Model")
+    def __init__(self, seed: int = 42):
+        super().__init__(GRAPH_FEATURE_COLS, name="Relationship Intelligence Model", seed=seed)
 
 
 class CombinedModel(TabularRiskModel):
-    def __init__(self):
+    def __init__(self, seed: int = 42):
         super().__init__(
-            feature_cols=TRANSACTION_FEATURE_COLS + GRAPH_FEATURE_COLS,
-            name="Combined Transaction + Relationship Model",
+            TRANSACTION_FEATURE_COLS + GRAPH_FEATURE_COLS, name="Combined Transaction + Relationship Model", seed=seed
         )
 
 
+# ---------------------------------------------------------------------------- GraphSAGE
+
+ENTITY_COLS = [("customer_id", 0), ("device_id", 1), ("card_id", 2), ("ip_id", 3), ("merchant_id", 4)]
+N_TYPES = len(ENTITY_COLS)
+
+
 class SimpleGraphSAGE(nn.Module):
-    """Lightweight sparse message-passing encoder (no PyG dependency)."""
+    """Two-layer mean-aggregation GraphSAGE encoder (no PyG dependency)."""
 
     def __init__(self, in_dim: int, hidden: int = 32, out_dim: int = 16):
         super().__init__()
         self.lin1 = nn.Linear(in_dim * 2, hidden)
-        self.lin2 = nn.Linear(hidden, out_dim)
+        self.lin2 = nn.Linear(hidden * 2, out_dim)
+
+    @staticmethod
+    def _mean_neigh(h: torch.Tensor, src: torch.Tensor, dst: torch.Tensor, deg: torch.Tensor) -> torch.Tensor:
+        agg = torch.zeros_like(h)
+        agg.index_add_(0, dst, h[src])
+        return agg / deg
 
     def forward(self, x: torch.Tensor, edge_index: torch.Tensor) -> torch.Tensor:
-        n = x.size(0)
         src, dst = edge_index[0], edge_index[1]
-        neigh = torch.zeros_like(x)
-        neigh.index_add_(0, dst, x[src])
-        deg = torch.zeros(n, device=x.device)
-        deg.index_add_(0, dst, torch.ones(dst.size(0), device=x.device))
+        deg = torch.zeros(x.size(0), device=x.device).index_add_(0, dst, torch.ones_like(dst, dtype=torch.float32))
         deg = deg.clamp(min=1).unsqueeze(1)
-        neigh = neigh / deg
-        h = torch.cat([x, neigh], dim=1)
-        h = F.relu(self.lin1(h))
-        return self.lin2(h)
+        h = F.relu(self.lin1(torch.cat([x, self._mean_neigh(x, src, dst, deg)], dim=1)))
+        return self.lin2(torch.cat([h, self._mean_neigh(h, src, dst, deg)], dim=1))
+
+
+class _EntityGraph:
+    """Undirected entity graph built from a set of (past) transactions."""
+
+    def __init__(self, history: pd.DataFrame):
+        keys = []
+        for col, t in ENTITY_COLS:
+            keys.append(np.char.add(f"{t}:", history[col].astype(str).to_numpy()))
+        all_keys = np.concatenate(keys)
+        uniq, inv = np.unique(all_keys, return_inverse=True)
+        self.node_index: Dict[str, int] = {k: i for i, k in enumerate(uniq)}
+        n_tx = len(history)
+        node_of = inv.reshape(N_TYPES, n_tx)  # [type, tx]
+
+        # node features: one-hot type, log txn count, failure rate, log degree
+        n = len(uniq)
+        succ = history["success"].to_numpy(dtype=np.float32)
+        count = np.zeros(n, dtype=np.float32)
+        fails = np.zeros(n, dtype=np.float32)
+        ntype = np.zeros(n, dtype=np.int64)
+        for t in range(N_TYPES):
+            np.add.at(count, node_of[t], 1.0)
+            np.add.at(fails, node_of[t], 1.0 - succ)
+            ntype[node_of[t]] = t
+
+        pairs = []
+        for a in range(N_TYPES):
+            for b in range(a + 1, N_TYPES):
+                pairs.append(np.stack([node_of[a], node_of[b]]))
+        e = np.unique(np.concatenate(pairs, axis=1), axis=1)
+        self.edge_index = np.concatenate([e, e[::-1]], axis=1).astype(np.int64)
+        deg = np.bincount(self.edge_index[1], minlength=n).astype(np.float32)
+
+        feat = np.zeros((n, N_TYPES + 3), dtype=np.float32)
+        feat[np.arange(n), ntype] = 1.0
+        feat[:, N_TYPES] = np.log1p(count)
+        feat[:, N_TYPES + 1] = fails / np.maximum(count, 1)
+        feat[:, N_TYPES + 2] = np.log1p(deg)
+        self.x = feat
 
 
 class GraphSAGEModel:
-    """Train GraphSAGE-style embeddings on a sampled entity graph."""
+    """GraphSAGE embeddings (self-supervised link prediction) + gradient-boosted classifier.
+
+    Leakage-safe protocol:
+      * fit(): the training period is split in time. The graph is built from the first
+        ``graph_frac`` of it; the classifier is trained on embeddings of the *later*
+        training transactions, which are not part of that graph (so a row never
+        contributes to its own embedding, matching what happens at test time).
+      * predict_proba(df, history): embeddings come from a graph built only from
+        ``history`` (all transactions before ``df``). The encoder is inductive, so it can
+        be applied to the larger history graph. Entities first seen inside ``df`` get a
+        zero embedding.
+    """
 
     EMBED_DIM = 16
-    MAX_TRAIN_TX = 12_000  # keep graph small for one-day MVP
 
-    def __init__(self, hidden: int = 32):
-        self.hidden = hidden
+    def __init__(self, hidden: int = 32, epochs: int = 60, graph_frac: float = 0.6, seed: int = 42):
+        self.name = "GraphSAGE Model"
+        self.hidden, self.epochs, self.graph_frac, self.seed = hidden, epochs, graph_frac, seed
         self.encoder: Optional[SimpleGraphSAGE] = None
-        self.classifier = get_classifier()
-        self.node_id_map: Dict[str, int] = {}
-        self.node_features: Optional[np.ndarray] = None
-        self.edge_index: Optional[np.ndarray] = None
-        self._cached_emb: Optional[np.ndarray] = None
-        self.fitted = False
+        self.classifier = get_classifier(seed)
 
-    def _build_graph_from_train(self, train_df: pd.DataFrame) -> None:
-        sample = train_df
-        if len(sample) > self.MAX_TRAIN_TX:
-            sample = train_df.sample(self.MAX_TRAIN_TX, random_state=42)
-
-        nodes: Dict[str, Tuple[int, list]] = {}
-        edges: List[Tuple[int, int]] = []
-
-        def get_node(key: str, ntype: int) -> int:
-            if key not in nodes:
-                idx = len(nodes)
-                nodes[key] = (idx, [ntype, 0, 0, 0])
-            return nodes[key][0]
-
-        for _, row in sample.iterrows():
-            ids = [
-                (f"c:{row['customer_id']}", 0),
-                (f"d:{row['device_id']}", 1),
-                (f"k:{row['card_id']}", 2),
-                (f"i:{row['ip_id']}", 3),
-                (f"m:{row['merchant_id']}", 4),
-            ]
-            nids = [get_node(k_, t) for k_, t in ids]
-            for i in range(len(nids)):
-                for j in range(i + 1, len(nids)):
-                    edges.append((nids[i], nids[j]))
-                    edges.append((nids[j], nids[i]))
-            succ = int(row["success"])
-            for key, _ in ids:
-                _, f = nodes[key]
-                f[1] += 1
-                f[2] += succ
-                f[3] += 1 - succ
-
-        n = len(nodes)
-        self.node_id_map = {k: v[0] for k, v in nodes.items()}
-        feat = np.zeros((n, 4), dtype=np.float32)
-        for _, (idx, f) in nodes.items():
-            feat[idx] = [
-                f[0] / 4.0,
-                np.log1p(f[1]),
-                f[2] / max(f[1], 1),
-                f[3] / max(f[1], 1),
-            ]
-        if not edges:
-            edges = [(0, 0)]
-        ei = np.array(edges, dtype=np.int64).T  # [2, E]
-        self.node_features = feat
-        self.edge_index = ei
-
-    def _encode_all(self) -> np.ndarray:
-        x = torch.tensor(self.node_features, dtype=torch.float32)
-        ei = torch.tensor(self.edge_index, dtype=torch.long)
+    def _embed(self, graph: _EntityGraph) -> np.ndarray:
         with torch.no_grad():
-            return self.encoder(x, ei).numpy()
+            return self.encoder(torch.from_numpy(graph.x), torch.from_numpy(graph.edge_index)).numpy()
 
-    def _transaction_embeddings(self, df: pd.DataFrame) -> np.ndarray:
-        if self._cached_emb is None:
-            self._cached_emb = self._encode_all()
-        all_emb = self._cached_emb
-        out = np.zeros((len(df), 5 * self.EMBED_DIM), dtype=np.float32)
-        keys_cols = [
-            ("customer_id", "c:"),
-            ("device_id", "d:"),
-            ("card_id", "k:"),
-            ("ip_id", "i:"),
-            ("merchant_id", "m:"),
-        ]
-        for i, (_, row) in enumerate(df.iterrows()):
-            parts = []
-            for col, prefix in keys_cols:
-                key = f"{prefix}{row[col]}"
-                if key in self.node_id_map:
-                    parts.append(all_emb[self.node_id_map[key]])
-                else:
-                    parts.append(np.zeros(self.EMBED_DIM, dtype=np.float32))
-            out[i] = np.concatenate(parts)
+    def _tx_matrix(self, df: pd.DataFrame, graph: _EntityGraph, emb: np.ndarray) -> np.ndarray:
+        out = np.zeros((len(df), N_TYPES * (self.EMBED_DIM + 1)), dtype=np.float32)
+        for col, t in ENTITY_COLS:
+            keys = [f"{t}:{v}" for v in df[col].astype(str).to_numpy()]
+            idx = np.array([graph.node_index.get(k, -1) for k in keys])
+            seen = idx >= 0
+            base = t * (self.EMBED_DIM + 1)
+            out[seen, base : base + self.EMBED_DIM] = emb[idx[seen]]
+            out[:, base + self.EMBED_DIM] = seen  # "entity seen before" indicator
         return out
 
-    def fit(self, train_df: pd.DataFrame, y: np.ndarray) -> "GraphSAGEModel":
-        self._build_graph_from_train(train_df)
-        in_dim = self.node_features.shape[1]
-        self.encoder = SimpleGraphSAGE(in_dim, self.hidden, self.EMBED_DIM)
-        x = torch.tensor(self.node_features, dtype=torch.float32)
-        ei = torch.tensor(self.edge_index, dtype=torch.long)
-        opt = torch.optim.Adam(self.encoder.parameters(), lr=0.02)
-
-        for _ in range(40):
+    def _train_encoder(self, graph: _EntityGraph) -> None:
+        torch.manual_seed(self.seed)
+        gen = torch.Generator().manual_seed(self.seed)
+        x, ei = torch.from_numpy(graph.x), torch.from_numpy(graph.edge_index)
+        self.encoder = SimpleGraphSAGE(x.size(1), self.hidden, self.EMBED_DIM)
+        opt = torch.optim.Adam(self.encoder.parameters(), lr=0.01)
+        n_e = min(20_000, ei.size(1))
+        for _ in range(self.epochs):
             opt.zero_grad()
             out = self.encoder(x, ei)
-            # sample edges for link-prediction loss
-            e = self.edge_index
-            n_e = min(2000, e.shape[1])
-            idx = np.random.choice(e.shape[1], size=n_e, replace=False)
-            src, dst = e[0, idx], e[1, idx]
-            pos_score = (out[src] * out[dst]).sum(dim=1)
-            neg_dst = torch.randint(0, out.size(0), (n_e,))
-            neg_score = (out[src] * out[neg_dst]).sum(dim=1)
+            idx = torch.randint(0, ei.size(1), (n_e,), generator=gen)
+            src, dst = ei[0, idx], ei[1, idx]
+            neg = torch.randint(0, x.size(0), (n_e,), generator=gen)
+            pos_s = (out[src] * out[dst]).sum(1)
+            neg_s = (out[src] * out[neg]).sum(1)
             loss = F.binary_cross_entropy_with_logits(
-                torch.cat([pos_score, neg_score]),
-                torch.cat([torch.ones(n_e), torch.zeros(n_e)]),
+                torch.cat([pos_s, neg_s]), torch.cat([torch.ones(n_e), torch.zeros(n_e)])
             )
             loss.backward()
             opt.step()
+        self.encoder.eval()
 
-        self._cached_emb = self._encode_all()
-        # Align labels if we subsampled for graph; train classifier on full train embeddings
-        X = self._transaction_embeddings(train_df)
-        self.classifier.fit(X, y)
-        self.fitted = True
+    def fit(self, train_df: pd.DataFrame, y: np.ndarray) -> "GraphSAGEModel":
+        order = np.argsort(train_df["timestamp"].to_numpy(), kind="stable")
+        df = train_df.iloc[order].reset_index(drop=True)
+        y = np.asarray(y)[order]
+        cut = int(len(df) * self.graph_frac)
+        graph = _EntityGraph(df.iloc[:cut])
+        self._train_encoder(graph)
+        X = self._tx_matrix(df.iloc[cut:], graph, self._embed(graph))
+        self.classifier.fit(X, y[cut:])
         return self
 
-    def predict_proba(self, df: pd.DataFrame) -> np.ndarray:
-        self._cached_emb = self._encode_all()
-        X = self._transaction_embeddings(df)
-        return self.classifier.predict_proba(X)[:, 1]
-
-    def save(self, path: str) -> None:
-        os.makedirs(os.path.dirname(path), exist_ok=True)
-        joblib.dump(
-            {
-                "encoder_state": self.encoder.state_dict() if self.encoder else None,
-                "classifier": self.classifier,
-                "node_id_map": self.node_id_map,
-                "node_features": self.node_features,
-                "edge_index": self.edge_index,
-                "hidden": self.hidden,
-            },
-            path,
-        )
-
-    @classmethod
-    def load(cls, path: str) -> "GraphSAGEModel":
-        data = joblib.load(path)
-        obj = cls(hidden=data["hidden"])
-        obj.node_id_map = data["node_id_map"]
-        obj.node_features = data["node_features"]
-        obj.edge_index = data["edge_index"]
-        obj.classifier = data["classifier"]
-        if data["encoder_state"]:
-            in_dim = obj.node_features.shape[1]
-            obj.encoder = SimpleGraphSAGE(in_dim, obj.hidden, obj.EMBED_DIM)
-            obj.encoder.load_state_dict(data["encoder_state"])
-        obj.fitted = True
-        return obj
+    def predict_proba(self, df: pd.DataFrame, history: Optional[pd.DataFrame] = None) -> np.ndarray:
+        if history is None or len(history) == 0:
+            raise ValueError("GraphSAGEModel.predict_proba needs the transactions preceding df as history")
+        if history["timestamp"].max() > df["timestamp"].min():
+            raise ValueError("history must end before the scored transactions start (leakage guard)")
+        graph = _EntityGraph(sort_chronologically(history))
+        return self.classifier.predict_proba(self._tx_matrix(df, graph, self._embed(graph)))[:, 1]

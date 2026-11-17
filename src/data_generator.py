@@ -1,374 +1,412 @@
-"""Synthetic payment dataset generator with realistic behavioral structure."""
+"""Synthetic payment dataset generator.
+
+Design goals (see README "Synthetic data design"):
+
+* **Fraud rings rotate.** Every ring is created with *fresh* accounts, devices, IPs and
+  stolen cards, is active only for a short window (3-21 days) and is then retired.  Rings
+  active in the test period therefore use entities never seen during training, so a model
+  cannot score well by memorising "bad" entity IDs -- it has to learn relational
+  *behaviour* (e.g. many new accounts on one device within a week).
+* **Graph-hidden fraud is genuinely hidden.** Its intrinsic transaction attributes
+  (amount, payment method, success, time of day) are drawn from exactly the same
+  distributions as legitimate traffic.
+* **Legitimate sharing exists.** Households share devices/IPs/cards, many customers
+  transact over public Wi-Fi and carrier-grade NAT IPs, and some customers borrow
+  devices -- so "shared" does not mean "fraud".
+* **New users are not a fraud proxy.** Legitimate customers also sign up during the
+  observation window.
+* **Fully reproducible.** All randomness comes from one seeded ``numpy`` Generator and
+  nothing iterates over a Python ``set`` (whose order depends on ``PYTHONHASHSEED``).
+"""
 
 from __future__ import annotations
 
 import os
-from datetime import timedelta
-from typing import Tuple
+from dataclasses import dataclass
 
 import numpy as np
 import pandas as pd
 
 RANDOM_SEED = 42
-N_CUSTOMERS = 20_000
-N_DEVICES = 5_000
-N_CARDS = 10_000
-N_IPS = 8_000
-N_MERCHANTS = 1_000
-N_TRANSACTIONS = 100_000
+DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data")
 
-DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data")
+TIMELINE_START = pd.Timestamp("2024-03-01")
+TIMELINE_END = pd.Timestamp("2024-09-30")
+
+PAYMENT_METHODS = np.array(["upi", "card", "netbanking", "wallet"])
+PM_PROBS = np.array([0.45, 0.35, 0.12, 0.08])
+
+# Legitimate traffic peaks in the day/evening; overt fraud is flatter / more nocturnal.
+_LEGIT_HOURS = np.array(
+    [1, 0.6, 0.4, 0.3, 0.3, 0.5, 1.2, 2.5, 4, 5, 5.5, 6, 6.5, 6, 5.5, 5.5, 6, 6.5, 7, 7.5, 7, 5.5, 3.5, 2]
+)
+LEGIT_HOUR_P = _LEGIT_HOURS / _LEGIT_HOURS.sum()
+_FRAUD_HOURS = np.array(
+    [4, 4.5, 5, 5, 4.5, 3.5, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3.5, 4, 4]
+)
+FRAUD_HOUR_P = _FRAUD_HOURS / _FRAUD_HOURS.sum()
+
+FRAUD_PATTERNS = [
+    "device_farm",
+    "card_testing",
+    "account_farm",
+    "ip_concentration",
+    "merchant_targeting",
+    "account_takeover",
+]
 
 
-def _rng(seed: int = RANDOM_SEED) -> np.random.Generator:
-    return np.random.default_rng(seed)
+@dataclass(frozen=True)
+class GeneratorConfig:
+    n_customers: int = 20_000
+    n_transactions: int = 100_000
+    n_merchants: int = 1_000
+    fraud_rate: float = 0.035
+    graph_hidden_share: float = 0.45  # share of fraud txns with normal-looking intrinsic attrs
+    noisy_infra_share: float = 0.25  # share of fraud txns that use clean/legit-looking infra
+    household_share: float = 0.12
+    new_user_share: float = 0.08
+    n_carrier_ips: int = 300  # carrier-grade NAT: many legit users behind one IP
+    n_public_wifi_ips: int = 60
 
 
-def generate_entity_tables(rng: np.random.Generator) -> dict[str, pd.DataFrame]:
-    """Create static entity tables."""
-    customers = pd.DataFrame(
-        {
-            "customer_id": [f"C{i:05d}" for i in range(N_CUSTOMERS)],
-            "created_at": pd.date_range("2024-01-01", periods=N_CUSTOMERS, freq="30min"),
-            "segment": rng.choice(
-                ["normal", "household", "new_user"], size=N_CUSTOMERS, p=[0.82, 0.12, 0.06]
-            ),
-        }
-    )
+class _IdFactory:
+    """Sequential ID allocation (deterministic, no collisions across legit/fraud)."""
 
-    devices = pd.DataFrame(
-        {
-            "device_id": [f"D{i:05d}" for i in range(N_DEVICES)],
-            "device_type": rng.choice(
-                ["mobile", "desktop", "tablet"], size=N_DEVICES, p=[0.65, 0.30, 0.05]
-            ),
-        }
-    )
+    def __init__(self, prefix: str, width: int):
+        self.prefix, self.width, self.n = prefix, width, 0
 
-    cards = pd.DataFrame(
-        {
-            "card_id": [f"K{i:05d}" for i in range(N_CARDS)],
-            "issuer": rng.choice(
-                ["visa", "mastercard", "rupay", "amex"], size=N_CARDS, p=[0.45, 0.35, 0.15, 0.05]
-            ),
-        }
-    )
+    def new(self) -> str:
+        out = f"{self.prefix}{self.n:0{self.width}d}"
+        self.n += 1
+        return out
 
-    ips = pd.DataFrame(
-        {
-            "ip_id": [f"I{i:05d}" for i in range(N_IPS)],
-            "region": rng.choice(
-                ["north", "south", "east", "west", "central"],
-                size=N_IPS,
-                p=[0.22, 0.25, 0.18, 0.20, 0.15],
-            ),
-        }
-    )
+    def many(self, k: int) -> list[str]:
+        return [self.new() for _ in range(int(k))]
 
-    merchants = pd.DataFrame(
-        {
-            "merchant_id": [f"M{i:04d}" for i in range(N_MERCHANTS)],
-            "category": rng.choice(
-                ["retail", "food", "travel", "digital", "utilities", "education"],
-                size=N_MERCHANTS,
-                p=[0.25, 0.20, 0.10, 0.20, 0.15, 0.10],
-            ),
-            "risk_tier": rng.choice(["low", "medium", "high"], size=N_MERCHANTS, p=[0.7, 0.25, 0.05]),
-        }
-    )
 
+def _timestamps(
+    rng: np.random.Generator, n: int, lo: pd.Timestamp, hi: pd.Timestamp, hour_p: np.ndarray
+) -> np.ndarray:
+    """Sample n timestamps in [lo, hi): uniform day, hour from a diurnal profile."""
+    lo_day = lo.normalize()
+    n_days = max(1, (hi.normalize() - lo_day).days)
+    day = rng.integers(0, n_days, size=n)
+    hour = rng.choice(24, size=n, p=hour_p)
+    sec = rng.uniform(0, 3600, size=n)
+    ts = lo_day + pd.to_timedelta(day, unit="D") + pd.to_timedelta(hour, unit="h") + pd.to_timedelta(sec, unit="s")
+    ts = ts.where(ts >= lo, lo)
+    ts = ts.where(ts < TIMELINE_END, TIMELINE_END - pd.Timedelta(seconds=1))
+    return np.asarray(ts)
+
+
+def _legit_intrinsics(rng: np.random.Generator, n: int) -> dict[str, np.ndarray]:
+    amount = np.clip(rng.lognormal(mean=7.3, sigma=0.65, size=n), 10, 25_000)
     return {
-        "customers": customers,
-        "devices": devices,
-        "cards": cards,
-        "ips": ips,
-        "merchants": merchants,
+        "amount": np.round(amount, 2),
+        "success": (rng.random(n) > 0.04).astype(int),
+        "payment_method": rng.choice(PAYMENT_METHODS, size=n, p=PM_PROBS),
     }
 
 
-def _assign_households(
-    customers: pd.DataFrame, devices: pd.DataFrame, cards: pd.DataFrame, ips: pd.DataFrame, rng: np.random.Generator
-) -> Tuple[dict, dict, dict]:
-    """Map household customers to shared devices/IPs/cards."""
-    household_customers = customers[customers["segment"] == "household"]["customer_id"].tolist()
-    n_households = max(1, len(household_customers) // 3)
-    household_groups: list[list[str]] = []
-    idx = 0
-    for _ in range(n_households):
-        size = rng.integers(2, 5)
-        group = household_customers[idx : idx + size]
-        if len(group) >= 2:
-            household_groups.append(list(group))
-        idx += size
-        if idx >= len(household_customers):
-            break
+def generate_all(
+    output_dir: str | None = DATA_DIR, seed: int = RANDOM_SEED, config: GeneratorConfig | None = None
+) -> dict[str, pd.DataFrame]:
+    """Generate all entity tables + transactions; save CSVs if output_dir is given."""
+    cfg = config or GeneratorConfig()
+    rng = np.random.default_rng(seed)
 
-    shared_device_map: dict[str, str] = {}
-    shared_ip_map: dict[str, str] = {}
-    shared_card_map: dict[str, list[str]] = {}
+    cust_ids = _IdFactory("C", 6)
+    dev_ids = _IdFactory("D", 6)
+    card_ids = _IdFactory("K", 6)
+    ip_ids = _IdFactory("I", 6)
 
-    device_pool = devices["device_id"].tolist()
-    ip_pool = ips["ip_id"].tolist()
-    card_pool = cards["card_id"].tolist()
-
-    for group in household_groups:
-        dev = rng.choice(device_pool)
-        ip = rng.choice(ip_pool)
-        household_cards = rng.choice(card_pool, size=min(3, len(group)), replace=False).tolist()
-        for i, cid in enumerate(group):
-            shared_device_map[cid] = dev
-            shared_ip_map[cid] = ip
-            shared_card_map[cid] = household_cards[i % len(household_cards)]
-
-    return shared_device_map, shared_ip_map, shared_card_map
-
-
-def _pick_normal_entities(
-    customer_id: str,
-    rng: np.random.Generator,
-    customer_devices: dict,
-    customer_cards: dict,
-    customer_ips: dict,
-    customer_merchants: dict,
-    devices: pd.DataFrame,
-    cards: pd.DataFrame,
-    ips: pd.DataFrame,
-    merchants: pd.DataFrame,
-    shared_device_map: dict,
-    shared_ip_map: dict,
-    shared_card_map: dict,
-) -> Tuple[str, str, str, str]:
-    """Pick entities for a normal transaction with stable preferences."""
-    if customer_id in shared_device_map:
-        device_id = shared_device_map[customer_id]
-        ip_id = shared_ip_map[customer_id]
-        card_id = shared_card_map[customer_id]
-    else:
-        if customer_id not in customer_devices:
-            customer_devices[customer_id] = rng.choice(devices["device_id"].values, size=3).tolist()
-            customer_cards[customer_id] = rng.choice(cards["card_id"].values, size=2).tolist()
-            customer_ips[customer_id] = rng.choice(ips["ip_id"].values, size=2).tolist()
-
-        if rng.random() < 0.92:
-            device_id = rng.choice(customer_devices[customer_id][:2])
-            ip_id = rng.choice(customer_ips[customer_id][:1])
-        else:
-            device_id = rng.choice(devices["device_id"].values)
-            ip_id = rng.choice(ips["ip_id"].values)
-
-        card_id = rng.choice(customer_cards[customer_id])
-
-    if customer_id not in customer_merchants:
-        customer_merchants[customer_id] = rng.choice(
-            merchants["merchant_id"].values, size=rng.integers(3, 8)
-        ).tolist()
-    merchant_id = rng.choice(customer_merchants[customer_id])
-
-    return device_id, card_id, ip_id, merchant_id
-
-
-def generate_transactions(
-    entities: dict[str, pd.DataFrame], rng: np.random.Generator
-) -> pd.DataFrame:
-    """Generate transactions with normal, shared-legitimate, and fraud patterns."""
-    customers = entities["customers"]
-    devices = entities["devices"]
-    cards = entities["cards"]
-    ips = entities["ips"]
-    merchants = entities["merchants"]
-
-    shared_device_map, shared_ip_map, shared_card_map = _assign_households(
-        customers, devices, cards, ips, rng
+    # ------------------------------------------------------------------ merchants
+    merchants = pd.DataFrame(
+        {
+            "merchant_id": [f"M{i:04d}" for i in range(cfg.n_merchants)],
+            "category": rng.choice(
+                ["retail", "food", "travel", "digital", "utilities", "education"],
+                size=cfg.n_merchants,
+                p=[0.25, 0.20, 0.10, 0.20, 0.15, 0.10],
+            ),
+            "risk_tier": rng.choice(["low", "medium", "high"], size=cfg.n_merchants, p=[0.7, 0.25, 0.05]),
+        }
     )
+    merchant_arr = merchants["merchant_id"].to_numpy()
+    pop = 1.0 / np.arange(1, cfg.n_merchants + 1) ** 0.8  # Zipf-like popularity
+    pop = pop[rng.permutation(cfg.n_merchants)]
+    merchant_p = pop / pop.sum()
 
-    start = pd.Timestamp("2024-03-01")
-    end = pd.Timestamp("2024-09-30")
-    timestamps = pd.date_range(start, end, periods=N_TRANSACTIONS)
+    # ------------------------------------------------------------------ shared legit IP pools
+    residential_ips = ip_ids.many(max(1, int(cfg.n_customers / 2.5)))
+    carrier_ips = ip_ids.many(cfg.n_carrier_ips)
+    public_wifi_ips = ip_ids.many(cfg.n_public_wifi_ips)
+    ip_kind = {**{i: "residential" for i in residential_ips}, **{i: "carrier" for i in carrier_ips},
+               **{i: "public_wifi" for i in public_wifi_ips}}
 
-    customer_devices: dict[str, list] = {}
-    customer_cards: dict[str, list] = {}
-    customer_ips: dict[str, list] = {}
-    customer_merchants: dict[str, list] = {}
-
-    normal_customers = customers[customers["segment"] == "normal"]["customer_id"].tolist()
-    new_users = customers[customers["segment"] == "new_user"]["customer_id"].tolist()
-    household_ids = set(shared_device_map.keys())
-
-    # Fraud infrastructure pools (also bleed into normal IDs so graph signals aren't perfect)
-    fraud_devices = rng.choice(devices["device_id"].values, size=40, replace=False).tolist()
-    fraud_ips = rng.choice(ips["ip_id"].values, size=35, replace=False).tolist()
-    fraud_merchants = merchants[merchants["risk_tier"] == "high"]["merchant_id"].tolist()
-    if len(fraud_merchants) < 5:
-        fraud_merchants = merchants["merchant_id"].sample(10, random_state=RANDOM_SEED).tolist()
-    # Contaminate some normal households onto fraud devices (noise / hard negatives)
-    for cid in rng.choice(list(shared_device_map.keys()) or normal_customers[:50], size=30, replace=False):
-        if rng.random() < 0.4:
-            shared_device_map[cid] = rng.choice(fraud_devices)
-
-    fraud_customer_pool = list(new_users[:800]) + rng.choice(
-        normal_customers, size=400, replace=False
-    ).tolist()
-
-    target_fraud_rate = 0.035
-    n_fraud_target = int(N_TRANSACTIONS * target_fraud_rate)
-    # Pre-assign fraud slots evenly across timeline to avoid train/test skew
-    fraud_slot_indices = set(
-        rng.choice(N_TRANSACTIONS, size=n_fraud_target, replace=False).tolist()
+    # ------------------------------------------------------------------ legit customers
+    n = cfg.n_customers
+    segment = rng.choice(
+        ["normal", "household", "new_user"],
+        size=n,
+        p=[1 - cfg.household_share - cfg.new_user_share, cfg.household_share, cfg.new_user_share],
     )
+    timeline_s = (TIMELINE_END - TIMELINE_START).total_seconds()
+    created_at = np.where(
+        segment == "new_user",
+        TIMELINE_START.value + (rng.uniform(0, 0.9, size=n) * timeline_s * 1e9).astype(np.int64),
+        (TIMELINE_START - pd.Timedelta(days=60)).value - (rng.uniform(0, 700, size=n) * 86400e9).astype(np.int64),
+    ).astype("datetime64[ns]")
 
-    rows = []
-    fraud_count = 0
-    graph_hidden_count = 0
-    legitimate_shared_count = 0
+    legit_customers = cust_ids.many(n)
+    aligned: list[dict | None] = [None] * n
+    for j in range(n):
+        if aligned[j] is not None:
+            continue
+        if segment[j] == "household":
+            size = int(rng.integers(2, 5))
+            members = [j]
+            k = j + 1
+            while len(members) < size and k < n:
+                if segment[k] == "household" and aligned[k] is None:
+                    members.append(k)
+                k += 1
+            if len(members) >= 2:
+                shared_dev, home_ip = dev_ids.new(), ip_ids.new()
+                ip_kind[home_ip] = "residential"
+                shared_cards = card_ids.many(min(2, len(members)))
+                for m_i, m in enumerate(members):
+                    own_dev = [dev_ids.new()] if rng.random() < 0.5 else []
+                    aligned[m] = {
+                        "devices": [shared_dev] + own_dev,
+                        "device_p": [0.7, 0.3] if own_dev else [1.0],
+                        "cards": [shared_cards[m_i % len(shared_cards)]]
+                        + ([card_ids.new()] if rng.random() < 0.3 else []),
+                        "home_ip": home_ip,
+                        "household": True,
+                    }
+                continue
+            segment[j] = "normal"  # lone household member at the tail
+        n_dev = 1 + int(rng.random() < 0.35)
+        aligned[j] = {
+            "devices": dev_ids.many(n_dev),
+            "device_p": [1.0] if n_dev == 1 else [0.8, 0.2],
+            "cards": card_ids.many(1 + int(rng.random() < 0.4)),
+            "home_ip": residential_ips[int(rng.integers(len(residential_ips)))],
+            "household": False,
+        }
+    for p in aligned:
+        k = int(rng.integers(3, 9))
+        p["merchants"] = rng.choice(merchant_arr, size=k, replace=False, p=merchant_p)
 
-    payment_methods = ["upi", "card", "netbanking", "wallet"]
-    pm_probs = [0.45, 0.35, 0.12, 0.08]
+    all_personal_devices = np.array([d for p in aligned for d in p["devices"]])
 
-    for i, ts in enumerate(timestamps):
-        is_fraud = False
-        is_graph_hidden = False
-        is_legitimate_shared = False
-        fraud_pattern = ""
+    # ------------------------------------------------------------------ fraud rings
+    n_fraud_target = int(round(cfg.n_transactions * cfg.fraud_rate))
+    n_days = (TIMELINE_END - TIMELINE_START).days
+    fraud_rows: list[dict] = []
+    fraud_customers: list[tuple[str, np.datetime64]] = []
+    established = np.flatnonzero(segment != "new_user")
+    ring_id = 0
+    while len(fraud_rows) < n_fraud_target:
+        pattern = FRAUD_PATTERNS[int(rng.integers(len(FRAUD_PATTERNS)))]
+        duration = int(rng.integers(3, 22))
+        # Rings may straddle the timeline edges (clipped, volume scaled by the visible share),
+        # which keeps ring density uniform over time -> no prevalence drift between splits.
+        start_day = int(rng.integers(-duration + 1, n_days))
+        lo_day, hi_day = max(start_day, 0), min(start_day + duration, n_days)
+        start = TIMELINE_START + pd.Timedelta(days=lo_day)
+        end = TIMELINE_START + pd.Timedelta(days=hi_day)
+        n_events = int(rng.integers(20, 51) if pattern == "card_testing" else rng.integers(10, 41))
+        n_events = max(1, int(round(n_events * (hi_day - lo_day) / duration)))
+        n_events = min(n_events, n_fraud_target - len(fraud_rows))
 
-        # Fraud at pre-assigned evenly distributed indices
-        if i in fraud_slot_indices:
-            is_fraud = True
-            fraud_count += 1
-            pattern_type = rng.integers(0, 6)
+        def new_accounts(k: int) -> list[str]:
+            ids = cust_ids.many(k)
+            for cid in ids:
+                lead = pd.Timedelta(days=float(rng.uniform(0, 10)))
+                fraud_customers.append((cid, np.datetime64(start - lead, "ns")))
+            return ids
 
-            # With some probability, reuse normal-looking infrastructure (harder cases)
-            use_noisy_infra = rng.random() < 0.25
+        if pattern == "device_farm":
+            accounts, devices, ips = new_accounts(rng.integers(15, 41)), dev_ids.many(rng.integers(2, 5)), ip_ids.many(rng.integers(3, 9))
+        elif pattern == "card_testing":
+            accounts, devices, ips = new_accounts(rng.integers(1, 4)), dev_ids.many(rng.integers(1, 3)), ip_ids.many(rng.integers(1, 3))
+        elif pattern == "account_farm":
+            accounts, devices, ips = new_accounts(rng.integers(20, 51)), dev_ids.many(rng.integers(3, 7)), ip_ids.many(rng.integers(1, 3))
+        elif pattern == "ip_concentration":
+            accounts, devices, ips = new_accounts(rng.integers(10, 31)), dev_ids.many(rng.integers(8, 21)), ip_ids.many(rng.integers(1, 4))
+        elif pattern == "merchant_targeting":
+            accounts, devices, ips = new_accounts(rng.integers(10, 31)), dev_ids.many(rng.integers(3, 7)), ip_ids.many(rng.integers(2, 5))
+        else:  # account_takeover: compromised *existing* legit accounts on attacker infra
+            victims = rng.choice(established, size=int(rng.integers(5, 16)), replace=False)
+            accounts = [legit_customers[v] for v in victims]
+            devices, ips = dev_ids.many(rng.integers(1, 4)), ip_ids.many(rng.integers(1, 4))
+        for ip in ips:
+            ip_kind[ip] = "fraud"
 
-            if pattern_type == 0:  # device farm
-                fraud_pattern = "device_farm"
-                device_id = rng.choice(fraud_devices)
-                customer_id = rng.choice(fraud_customer_pool)
-                ip_id = rng.choice(ips["ip_id"].values) if use_noisy_infra else rng.choice(fraud_ips)
-                card_id = rng.choice(cards["card_id"].values)
-            elif pattern_type == 1:  # card testing
-                fraud_pattern = "card_testing"
-                customer_id = rng.choice(fraud_customer_pool)
-                device_id = rng.choice(devices["device_id"].values) if use_noisy_infra else rng.choice(fraud_devices)
-                ip_id = rng.choice(fraud_ips)
-                card_id = rng.choice(cards["card_id"].values)
-            elif pattern_type == 2:  # account farm
-                fraud_pattern = "account_farm"
-                customer_id = rng.choice(new_users)
-                device_id = rng.choice(fraud_devices)
-                ip_id = rng.choice(fraud_ips)
-                card_id = rng.choice(cards["card_id"].values)
-            elif pattern_type == 3:  # IP concentration
-                fraud_pattern = "ip_concentration"
-                ip_id = rng.choice(fraud_ips)
-                customer_id = rng.choice(fraud_customer_pool)
-                device_id = rng.choice(devices["device_id"].values)
-                card_id = rng.choice(cards["card_id"].values)
-            elif pattern_type == 4:  # coordinated merchant
-                fraud_pattern = "merchant_targeting"
-                merchant_id = rng.choice(fraud_merchants)
-                customer_id = rng.choice(fraud_customer_pool)
-                device_id = rng.choice(fraud_devices) if not use_noisy_infra else rng.choice(devices["device_id"].values)
-                ip_id = rng.choice(fraud_ips) if not use_noisy_infra else rng.choice(ips["ip_id"].values)
-                card_id = rng.choice(cards["card_id"].values)
-            else:  # rapid relationships
-                fraud_pattern = "rapid_relationships"
-                customer_id = rng.choice(new_users)
-                device_id = rng.choice(fraud_devices)
-                ip_id = rng.choice(fraud_ips)
-                card_id = rng.choice(cards["card_id"].values)
-
-            # Graph-hidden: normal-looking transaction-level features
-            if rng.random() < 0.45:
-                is_graph_hidden = True
-                amount = float(rng.choice([499, 999, 1499, 1999, 2499, 2999]))
-                success = True
-                payment_method = rng.choice(["upi", "card"], p=[0.5, 0.5])
-            else:
-                amount = float(rng.lognormal(mean=7.0, sigma=0.8))
-                amount = min(max(amount, 50), 50000)
-                success = rng.random() > 0.55
-                payment_method = rng.choice(payment_methods, p=pm_probs)
-
-            if pattern_type != 4:
-                merchant_id = rng.choice(fraud_merchants) if rng.random() < 0.6 else rng.choice(
-                    merchants["merchant_id"].values
-                )
+        # stolen cards: fresh, occasionally a real legit customer's card
+        n_cards = max(2, int(len(accounts) * 1.5))
+        ring_cards = card_ids.many(n_cards)
+        if pattern == "account_takeover":
+            ring_cards = [rng.choice(aligned[v]["cards"]) for v in victims] + ring_cards[:3]
         else:
-            # Normal or legitimate shared
-            if rng.random() < 0.15 and household_ids:
-                customer_id = rng.choice(list(household_ids))
-                is_legitimate_shared = True
-                legitimate_shared_count += 1
-            else:
-                customer_id = rng.choice(normal_customers)
+            for c_i in range(len(ring_cards)):
+                if rng.random() < 0.1:
+                    ring_cards[c_i] = rng.choice(aligned[int(rng.choice(established))]["cards"])
 
-            device_id, card_id, ip_id, merchant_id = _pick_normal_entities(
-                customer_id,
-                rng,
-                customer_devices,
-                customer_cards,
-                customer_ips,
-                customer_merchants,
-                devices,
-                cards,
-                ips,
-                merchants,
-                shared_device_map,
-                shared_ip_map,
-                shared_card_map,
+        if pattern == "merchant_targeting":
+            ring_merchants = rng.choice(merchant_arr, size=int(rng.integers(1, 3)), replace=False)
+        else:
+            ring_merchants = rng.choice(merchant_arr, size=int(rng.integers(2, 5)), replace=False)
+
+        hidden = rng.random(n_events) < cfg.graph_hidden_share
+        ts_hidden = _timestamps(rng, n_events, start, end, LEGIT_HOUR_P)
+        ts_overt = _timestamps(rng, n_events, start, end, FRAUD_HOUR_P)
+        legit_like = _legit_intrinsics(rng, n_events)
+        for e in range(n_events):
+            noisy = rng.random() < cfg.noisy_infra_share
+            device = rng.choice(devices) if not noisy or rng.random() < 0.5 else (
+                dev_ids.new() if rng.random() < 0.5 else rng.choice(all_personal_devices)
             )
-            amount = float(rng.lognormal(mean=7.3, sigma=0.65))
-            amount = min(max(amount, 10), 25000)
-            success = rng.random() > 0.04
-            payment_method = rng.choice(payment_methods, p=pm_probs)
-            fraud_pattern = ""
+            ip = rng.choice(ips) if not noisy or rng.random() < 0.5 else carrier_ips[int(rng.integers(len(carrier_ips)))]
+            if pattern == "card_testing" and rng.random() < 0.7:
+                card = card_ids.new()
+            else:
+                card = rng.choice(ring_cards)
+            if pattern == "merchant_targeting" or rng.random() < 0.5:
+                merchant = rng.choice(ring_merchants)
+            else:
+                merchant = rng.choice(merchant_arr, p=merchant_p)
 
-        if is_graph_hidden:
-            graph_hidden_count += 1
+            if hidden[e]:
+                ts = ts_hidden[e]
+                amount, success, pm = legit_like["amount"][e], legit_like["success"][e], legit_like["payment_method"][e]
+            else:
+                ts = ts_overt[e]
+                if pattern == "card_testing":
+                    amount = float(np.clip(rng.lognormal(4.0, 0.8), 1, 2_000))
+                    success = int(rng.random() > 0.65)
+                    pm = "card"
+                else:
+                    amount = float(np.clip(rng.lognormal(7.9, 0.9), 50, 50_000))
+                    success = int(rng.random() > 0.45)
+                    pm = rng.choice(PAYMENT_METHODS, p=[0.35, 0.45, 0.05, 0.15])
+                amount = round(amount, 2)
+            fraud_rows.append(
+                {
+                    "timestamp": ts,
+                    "customer_id": rng.choice(accounts),
+                    "device_id": device,
+                    "card_id": card,
+                    "ip_id": ip,
+                    "merchant_id": merchant,
+                    "amount": amount,
+                    "payment_method": pm,
+                    "success": int(success),
+                    "fraud_label": 1,
+                    "fraud_pattern": pattern,
+                    "ring_id": ring_id,
+                    "graph_hidden_fraud": int(hidden[e]),
+                    "legitimate_shared_env": 0,
+                }
+            )
+        ring_id += 1
 
-        rows.append(
+    # ------------------------------------------------------------------ legit transactions
+    n_legit = cfg.n_transactions - len(fraud_rows)
+    active_lo = np.maximum(created_at, np.datetime64(TIMELINE_START, "ns"))
+    active_frac = (np.datetime64(TIMELINE_END, "ns") - active_lo) / np.timedelta64(int(timeline_s), "s")
+    activity = rng.gamma(1.5, 1.0, size=n) * np.clip(active_frac, 0.02, 1.0)
+    who = rng.choice(n, size=n_legit, p=activity / activity.sum())
+    intr = _legit_intrinsics(rng, n_legit)
+    # vectorised timestamps: uniform day within each customer's active window, diurnal hour
+    lo_ns = active_lo[who].astype(np.int64)
+    lo_day_ns = (lo_ns // 86_400_000_000_000) * 86_400_000_000_000
+    n_days_active = np.maximum(1, (TIMELINE_END.value - lo_day_ns) // 86_400_000_000_000)
+    day = (rng.random(n_legit) * n_days_active).astype(np.int64)
+    hour = rng.choice(24, size=n_legit, p=LEGIT_HOUR_P)
+    sec = rng.uniform(0, 3600, size=n_legit)
+    ts_ns = lo_day_ns + day * 86_400_000_000_000 + hour * 3_600_000_000_000 + (sec * 1e9).astype(np.int64)
+    ts_ns = np.clip(np.maximum(ts_ns, lo_ns), None, TIMELINE_END.value - 1_000_000_000)
+    legit_ts = ts_ns.astype("datetime64[ns]")
+    legit_rows: list[dict] = []
+    for e, j in enumerate(who):
+        p = aligned[j]
+        ts = legit_ts[e]
+        r = rng.random()
+        if r < 0.02:  # borrowed device
+            device = rng.choice(all_personal_devices)
+        else:
+            device = rng.choice(p["devices"], p=p["device_p"])
+        r = rng.random()
+        if r < 0.75:
+            ip = p["home_ip"]
+        elif r < 0.93:
+            ip = carrier_ips[int(rng.integers(len(carrier_ips)))]
+        else:
+            ip = public_wifi_ips[int(rng.integers(len(public_wifi_ips)))]
+        merchant = rng.choice(p["merchants"]) if rng.random() < 0.9 else rng.choice(merchant_arr, p=merchant_p)
+        legit_rows.append(
             {
-                "transaction_id": f"TX{i:06d}",
                 "timestamp": ts,
-                "customer_id": customer_id,
-                "device_id": device_id,
-                "card_id": card_id,
-                "ip_id": ip_id,
-                "merchant_id": merchant_id,
-                "amount": round(amount, 2),
-                "payment_method": payment_method,
-                "success": int(success),
-                "fraud_label": int(is_fraud),
-                "fraud_pattern": fraud_pattern,
-                "graph_hidden_fraud": int(is_fraud and is_graph_hidden),
-                "legitimate_shared_env": int(is_legitimate_shared and not is_fraud),
+                "customer_id": legit_customers[j],
+                "device_id": device,
+                "card_id": rng.choice(p["cards"]),
+                "ip_id": ip,
+                "merchant_id": merchant,
+                "amount": intr["amount"][e],
+                "payment_method": intr["payment_method"][e],
+                "success": int(intr["success"][e]),
+                "fraud_label": 0,
+                "fraud_pattern": "",
+                "ring_id": -1,
+                "graph_hidden_fraud": 0,
+                "legitimate_shared_env": int(p["household"] or ip_kind.get(ip) == "public_wifi"),
             }
         )
 
-    tx = pd.DataFrame(rows)
-    return tx
+    tx = pd.DataFrame(legit_rows + fraud_rows)
+    tx["timestamp"] = pd.to_datetime(tx["timestamp"])
+    tx = tx.sort_values(["timestamp", "customer_id"], kind="stable").reset_index(drop=True)
+    tx.insert(0, "transaction_id", [f"TX{i:06d}" for i in range(len(tx))])
 
+    # ------------------------------------------------------------------ entity tables
+    customers = pd.DataFrame(
+        {
+            "customer_id": legit_customers + [c for c, _ in fraud_customers],
+            "created_at": np.concatenate([created_at, np.array([t for _, t in fraud_customers], dtype="datetime64[ns]")]),
+            "segment": list(segment) + ["new_user"] * len(fraud_customers),
+        }
+    )
+    dev_list = [f"D{i:06d}" for i in range(dev_ids.n)]
+    devices = pd.DataFrame(
+        {"device_id": dev_list, "device_type": rng.choice(["mobile", "desktop", "tablet"], size=len(dev_list), p=[0.65, 0.30, 0.05])}
+    )
+    card_list = [f"K{i:06d}" for i in range(card_ids.n)]
+    cards = pd.DataFrame(
+        {"card_id": card_list, "issuer": rng.choice(["visa", "mastercard", "rupay", "amex"], size=len(card_list), p=[0.45, 0.35, 0.15, 0.05])}
+    )
+    ip_list = [f"I{i:06d}" for i in range(ip_ids.n)]
+    ips = pd.DataFrame(
+        {
+            "ip_id": ip_list,
+            "region": rng.choice(["north", "south", "east", "west", "central"], size=len(ip_list), p=[0.22, 0.25, 0.18, 0.20, 0.15]),
+        }
+    )
 
-def generate_all(output_dir: str = DATA_DIR, seed: int = RANDOM_SEED) -> dict[str, pd.DataFrame]:
-    """Generate and save all datasets."""
-    os.makedirs(output_dir, exist_ok=True)
-    rng = _rng(seed)
-    entities = generate_entity_tables(rng)
-    transactions = generate_transactions(entities, rng)
+    out = {"customers": customers, "devices": devices, "cards": cards, "ips": ips, "merchants": merchants, "transactions": tx}
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
+        for name, df in out.items():
+            df.to_csv(os.path.join(output_dir, f"{name}.csv"), index=False)
 
-    for name, df in entities.items():
-        path = os.path.join(output_dir, f"{name}.csv")
-        df.to_csv(path, index=False)
-
-    tx_path = os.path.join(output_dir, "transactions.csv")
-    transactions.to_csv(tx_path, index=False)
-
-    print(f"Generated {len(transactions):,} transactions "
-          f"({transactions['fraud_label'].sum():,} fraud, "
-          f"{transactions['graph_hidden_fraud'].sum():,} graph-hidden, "
-          f"{transactions['legitimate_shared_env'].sum():,} legitimate shared)")
-
-    return {**entities, "transactions": transactions}
+    print(
+        f"Generated {len(tx):,} transactions ({tx['fraud_label'].sum():,} fraud in {ring_id} rings, "
+        f"{tx['graph_hidden_fraud'].sum():,} graph-hidden, {tx['legitimate_shared_env'].sum():,} legitimate shared)"
+    )
+    return out
 
 
 if __name__ == "__main__":

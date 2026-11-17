@@ -1,0 +1,6 @@
+transaction_id,fraud_pattern,baseline_score,combined_score,signals
+TX086545,ip_concentration,0.0021,0.999,Connected device/card/IP history shows a 50.0% failure rate. | 1 other customers share both this device and this IP. | Customer is forming 1.14 new relationships per day.
+TX089105,account_takeover,0.0026,0.9992,3 distinct accounts used this device in the last 7 days. | Device previously used by 5 different customers. | 3 other customers share both this device and this IP. | Device usage is spread across many accounts (entropy 2.05). | Card previously linked to 2 customers.
+TX089332,account_farm,0.0038,0.999,3 distinct accounts used this device in the last 7 days. | Customer is forming 1.71 new relationships per day. | 3 other customers share both this device and this IP. | 7 distinct accounts used this IP in the last 7 days. | Device usage is spread across many accounts (entropy 1.58).
+TX091649,ip_concentration,0.0033,0.9976,Connected device/card/IP history shows a 44.4% failure rate. | 1 other customers share both this device and this IP. | 7 distinct accounts used this IP in the last 7 days. | Customer is forming 1.00 new relationships per day.
+TX088253,ip_concentration,0.0054,0.9978,Connected device/card/IP history shows a 50.0% failure rate. | Customer is forming 1.14 new relationships per day.

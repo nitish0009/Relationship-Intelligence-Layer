@@ -3,7 +3,6 @@ __pycache__/
 .pytest_cache/
 .mpl/
 results/.mpl/
-*.joblib
 .DS_Store
 ._*
 .vscode/
