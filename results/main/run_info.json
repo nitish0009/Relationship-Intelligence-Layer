@@ -1,0 +1,17 @@
+{
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "classifier": "XGBoost",
+  "budgets": [
+    0.001,
+    0.005,
+    0.01
+  ],
+  "primary_budget": 0.005,
+  "minutes": 31.010757346947987
+}

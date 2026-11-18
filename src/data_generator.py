@@ -57,17 +57,57 @@ FRAUD_PATTERNS = [
 
 
 @dataclass(frozen=True)
+class AdversaryConfig:
+    """Evasion strategies (C4). None / 0 disables a strategy.
+
+    device_max_uses   -- each attacker device is retired after k transactions (device rotation)
+    account_max_uses  -- each ring account is retired after k transactions (account rotation)
+    ip_max_uses       -- each attacker IP is retired after k transactions (IP rotation / proxies)
+    carrier_ip_share  -- share of ring transactions routed through carrier-grade NAT IPs
+                         shared with legitimate users (hiding in the crowd)
+    slow_factor       -- ring lifetime is multiplied by this factor at constant volume
+                         (slow-and-low: fewer transactions per detection window)
+    adapt_from        -- only rings starting at or after this fraction of the timeline adapt
+                         (e.g. 0.85 = attackers change behaviour in the test period only)
+    """
+
+    device_max_uses: int | None = None
+    account_max_uses: int | None = None
+    ip_max_uses: int | None = None
+    carrier_ip_share: float = 0.0
+    slow_factor: float = 1.0
+    adapt_from: float = 0.0
+
+    def active(self) -> bool:
+        return any([self.device_max_uses, self.account_max_uses, self.ip_max_uses,
+                    self.carrier_ip_share > 0, self.slow_factor != 1.0])
+
+
+@dataclass(frozen=True)
 class GeneratorConfig:
     n_customers: int = 20_000
     n_transactions: int = 100_000
     n_merchants: int = 1_000
     fraud_rate: float = 0.035
-    graph_hidden_share: float = 0.45  # share of fraud txns with normal-looking intrinsic attrs
+    graph_hidden_share: float = 0.45  # mean share of fraud txns with normal-looking intrinsic attrs
+    # Ring sophistication heterogeneity: each ring's hidden share ~ Beta(k*mu, k*(1-mu)) with
+    # mu = graph_hidden_share. Small k -> many rings are almost fully camouflaged and others crude.
+    # None -> every transaction is hidden independently with probability mu (homogeneous rings).
+    ring_hidden_concentration: float | None = 1.5
     noisy_infra_share: float = 0.25  # share of fraud txns that use clean/legit-looking infra
     household_share: float = 0.12
     new_user_share: float = 0.08
     n_carrier_ips: int = 300  # carrier-grade NAT: many legit users behind one IP
     n_public_wifi_ips: int = 60
+    # ring lifetime in days, sampled uniformly from [lo, hi] (C2)
+    ring_duration_days: tuple[int, int] = (3, 21)
+    # probability that each ring device / IP / account is drawn from a persistent attacker
+    # pool instead of being fresh (C3 "reuse dial"; 0 = fully rotating rings, 1 = fixed pool)
+    infra_reuse: float = 0.0
+    n_pool_devices: int = 40
+    n_pool_ips: int = 35
+    n_pool_accounts: int = 400
+    adversary: AdversaryConfig = AdversaryConfig()
 
 
 class _IdFactory:
@@ -209,9 +249,19 @@ def generate_all(
     fraud_customers: list[tuple[str, np.datetime64]] = []
     established = np.flatnonzero(segment != "new_user")
     ring_id = 0
+    ring_meta: list[dict] = []
+    if cfg.infra_reuse > 0:
+        pool_devices = dev_ids.many(cfg.n_pool_devices)
+        pool_ips = ip_ids.many(cfg.n_pool_ips)
+        pool_accounts = cust_ids.many(cfg.n_pool_accounts)
+        for cid in pool_accounts:
+            fraud_customers.append((cid, np.datetime64(TIMELINE_START - pd.Timedelta(days=30), "ns")))
+        for ip in pool_ips:
+            ip_kind[ip] = "fraud"
+    adv = cfg.adversary
     while len(fraud_rows) < n_fraud_target:
         pattern = FRAUD_PATTERNS[int(rng.integers(len(FRAUD_PATTERNS)))]
-        duration = int(rng.integers(3, 22))
+        duration = int(rng.integers(cfg.ring_duration_days[0], cfg.ring_duration_days[1] + 1))
         # Rings may straddle the timeline edges (clipped, volume scaled by the visible share),
         # which keeps ring density uniform over time -> no prevalence drift between splits.
         start_day = int(rng.integers(-duration + 1, n_days))
@@ -221,6 +271,9 @@ def generate_all(
         n_events = int(rng.integers(20, 51) if pattern == "card_testing" else rng.integers(10, 41))
         n_events = max(1, int(round(n_events * (hi_day - lo_day) / duration)))
         n_events = min(n_events, n_fraud_target - len(fraud_rows))
+        adapted = adv.active() and (adv.adapt_from <= 0 or start_day >= adv.adapt_from * n_days)
+        if adapted and adv.slow_factor != 1.0:  # slow-and-low: stretch the active window
+            end = min(TIMELINE_END, start + (end - start) * adv.slow_factor)
 
         def new_accounts(k: int) -> list[str]:
             ids = cust_ids.many(k)
@@ -243,8 +296,33 @@ def generate_all(
             victims = rng.choice(established, size=int(rng.integers(5, 16)), replace=False)
             accounts = [legit_customers[v] for v in victims]
             devices, ips = dev_ids.many(rng.integers(1, 4)), ip_ids.many(rng.integers(1, 4))
+        if cfg.infra_reuse > 0:  # C3: draw infrastructure from the persistent attacker pool
+            devices = [pool_devices[int(rng.integers(len(pool_devices)))] if rng.random() < cfg.infra_reuse else d
+                       for d in devices]
+            ips = [pool_ips[int(rng.integers(len(pool_ips)))] if rng.random() < cfg.infra_reuse else i for i in ips]
+            if pattern != "account_takeover":
+                accounts = [pool_accounts[int(rng.integers(len(pool_accounts)))] if rng.random() < cfg.infra_reuse
+                            else a for a in accounts]
         for ip in ips:
             ip_kind[ip] = "fraud"
+        devices, ips, accounts = list(devices), list(ips), list(accounts)
+        uses = {"device": {}, "ip": {}, "account": {}}
+
+        def rotate(kind: str, pool: list, max_uses: int | None, factory) -> str:
+            """Pick from the ring's pool; with rotation, retire an entity after max_uses."""
+            if not (adapted and max_uses):
+                return rng.choice(pool)
+            live = [x for x in pool if uses[kind].get(x, 0) < max_uses]
+            x = live[int(rng.integers(len(live)))] if live else factory()
+            if not live:
+                pool.append(x)
+            uses[kind][x] = uses[kind].get(x, 0) + 1
+            return x
+
+        def new_rotated_account() -> str:
+            if pattern == "account_takeover":
+                return legit_customers[int(rng.choice(established))]
+            return new_accounts(1)[0]
 
         # stolen cards: fresh, occasionally a real legit customer's card
         n_cards = max(2, int(len(accounts) * 1.5))
@@ -261,16 +339,23 @@ def generate_all(
         else:
             ring_merchants = rng.choice(merchant_arr, size=int(rng.integers(2, 5)), replace=False)
 
-        hidden = rng.random(n_events) < cfg.graph_hidden_share
+        if cfg.ring_hidden_concentration is None:
+            ring_hidden_p = cfg.graph_hidden_share
+        else:
+            kappa, mu = cfg.ring_hidden_concentration, cfg.graph_hidden_share
+            ring_hidden_p = float(rng.beta(kappa * mu, kappa * (1 - mu)))
+        hidden = rng.random(n_events) < ring_hidden_p
         ts_hidden = _timestamps(rng, n_events, start, end, LEGIT_HOUR_P)
         ts_overt = _timestamps(rng, n_events, start, end, FRAUD_HOUR_P)
         legit_like = _legit_intrinsics(rng, n_events)
         for e in range(n_events):
             noisy = rng.random() < cfg.noisy_infra_share
-            device = rng.choice(devices) if not noisy or rng.random() < 0.5 else (
+            device = rotate("device", devices, adv.device_max_uses, dev_ids.new) if not noisy or rng.random() < 0.5 else (
                 dev_ids.new() if rng.random() < 0.5 else rng.choice(all_personal_devices)
             )
-            ip = rng.choice(ips) if not noisy or rng.random() < 0.5 else carrier_ips[int(rng.integers(len(carrier_ips)))]
+            ip = rotate("ip", ips, adv.ip_max_uses, ip_ids.new) if not noisy or rng.random() < 0.5 else carrier_ips[int(rng.integers(len(carrier_ips)))]
+            if adapted and adv.carrier_ip_share > 0 and rng.random() < adv.carrier_ip_share:
+                ip = carrier_ips[int(rng.integers(len(carrier_ips)))]
             if pattern == "card_testing" and rng.random() < 0.7:
                 card = card_ids.new()
             else:
@@ -297,7 +382,7 @@ def generate_all(
             fraud_rows.append(
                 {
                     "timestamp": ts,
-                    "customer_id": rng.choice(accounts),
+                    "customer_id": rotate("account", accounts, adv.account_max_uses, new_rotated_account),
                     "device_id": device,
                     "card_id": card,
                     "ip_id": ip,
@@ -310,8 +395,27 @@ def generate_all(
                     "ring_id": ring_id,
                     "graph_hidden_fraud": int(hidden[e]),
                     "legitimate_shared_env": 0,
+                    "segment": "fraud",
                 }
             )
+        ring_rows = fraud_rows[len(fraud_rows) - n_events:]
+        ring_meta.append(
+            {
+                "ring_id": ring_id,
+                "fraud_pattern": pattern,
+                "planned_start": start,
+                "planned_end": end,
+                "lifetime_days": (end - start).total_seconds() / 86400,
+                "n_events": n_events,
+                "n_devices": len({r["device_id"] for r in ring_rows}),
+                "n_ips": len({r["ip_id"] for r in ring_rows}),
+                "n_accounts": len({r["customer_id"] for r in ring_rows}),
+                "n_cards": len({r["card_id"] for r in ring_rows}),
+                "total_amount": float(sum(r["amount"] for r in ring_rows)),
+                "adapted": int(adapted),
+                "hidden_share": float(np.mean(hidden)),
+            }
+        )
         ring_id += 1
 
     # ------------------------------------------------------------------ legit transactions
@@ -364,6 +468,8 @@ def generate_all(
                 "ring_id": -1,
                 "graph_hidden_fraud": 0,
                 "legitimate_shared_env": int(p["household"] or ip_kind.get(ip) == "public_wifi"),
+                "segment": "household" if p["household"] else {"public_wifi": "public_wifi", "carrier": "carrier_nat"}.get(
+                    ip_kind.get(ip), "residential"),
             }
         )
 
@@ -395,8 +501,11 @@ def generate_all(
             "region": rng.choice(["north", "south", "east", "west", "central"], size=len(ip_list), p=[0.22, 0.25, 0.18, 0.20, 0.15]),
         }
     )
+    ips["kind"] = ips["ip_id"].map(ip_kind).fillna("single_use")
 
-    out = {"customers": customers, "devices": devices, "cards": cards, "ips": ips, "merchants": merchants, "transactions": tx}
+    rings = pd.DataFrame(ring_meta)
+    out = {"customers": customers, "devices": devices, "cards": cards, "ips": ips, "merchants": merchants,
+           "rings": rings, "transactions": tx}
     if output_dir:
         os.makedirs(output_dir, exist_ok=True)
         for name, df in out.items():

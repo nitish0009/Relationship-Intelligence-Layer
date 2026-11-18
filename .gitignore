@@ -9,3 +9,6 @@ results/.mpl/
 .venv/
 venv/
 .env
+data/IEEE_CIS/
+# experiment logs
+results/logs/

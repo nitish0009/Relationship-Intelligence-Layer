@@ -17,20 +17,14 @@ except Exception:  # pragma: no cover - fallback path
     HAS_XGB = False
 
 
-def get_classifier(seed: int = RANDOM_SEED) -> Any:
+DEFAULT_PARAMS = dict(n_estimators=200, max_depth=6, learning_rate=0.08, subsample=0.8, colsample_bytree=0.8)
+
+
+def get_classifier(seed: int = RANDOM_SEED, **overrides) -> Any:
     """Deterministic for a given seed (XGBoost 'hist' on CPU is deterministic)."""
     if HAS_XGB:
-        return _xgb.XGBClassifier(
-            n_estimators=200,
-            max_depth=6,
-            learning_rate=0.08,
-            subsample=0.8,
-            colsample_bytree=0.8,
-            tree_method="hist",
-            eval_metric="logloss",
-            random_state=seed,
-            n_jobs=4,
-        )
+        params = {**DEFAULT_PARAMS, **overrides}
+        return _xgb.XGBClassifier(**params, tree_method="hist", eval_metric="logloss", random_state=seed, n_jobs=4)
     return HistGradientBoostingClassifier(max_iter=200, max_depth=6, learning_rate=0.08, random_state=seed)
 
 

@@ -14,6 +14,12 @@ import pandas as pd
 
 PAYMENT_METHODS = ["card", "netbanking", "upi", "wallet"]
 
+
+def set_payment_methods(categories: list[str]) -> None:
+    """Change the payment-method categories in place (e.g. IEEE-CIS ProductCD values).
+    In-place so that modules which imported PAYMENT_METHODS see the change."""
+    PAYMENT_METHODS[:] = list(categories)
+
 TRANSACTION_FEATURE_COLS = [
     "amount",
     "hour",

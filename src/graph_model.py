@@ -193,3 +193,24 @@ class GraphSAGEModel:
             raise ValueError("history must end before the scored transactions start (leakage guard)")
         graph = _EntityGraph(sort_chronologically(history))
         return self.classifier.predict_proba(self._tx_matrix(df, graph, self._embed(graph)))[:, 1]
+
+
+class GraphSAGETransductive(GraphSAGEModel):
+    """'Published-style' transductive GraphSAGE (C3 contrast): the graph is built from ALL
+    transactions -- including validation/test -- and each training row contributes to its own
+    embedding. This is the leaky protocol common in the literature; never use it for claims."""
+
+    def __init__(self, all_df: pd.DataFrame, **kw):
+        super().__init__(**kw)
+        self.name = "GraphSAGE (transductive)"
+        self.all_df = all_df
+
+    def fit(self, train_df: pd.DataFrame, y: np.ndarray) -> "GraphSAGETransductive":
+        self.graph = _EntityGraph(sort_chronologically(self.all_df))
+        self._train_encoder(self.graph)
+        self.emb = self._embed(self.graph)
+        self.classifier.fit(self._tx_matrix(train_df, self.graph, self.emb), y)
+        return self
+
+    def predict_proba(self, df: pd.DataFrame, history: Optional[pd.DataFrame] = None) -> np.ndarray:
+        return self.classifier.predict_proba(self._tx_matrix(df, self.graph, self.emb))[:, 1]
