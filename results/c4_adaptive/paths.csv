@@ -1,0 +1,48 @@
+defender,step,move,device_max_uses,account_max_uses,ip_max_uses,carrier_ip_share,slow_factor,cost,shadow_recall
+Transaction Baseline,0,none,0,0,0,0,0,1.0,0.7058571428571428
+Transaction Baseline,1,ip_max_uses,0,0,1,0,0,1.0031376778404946,0.6911428571428572
+Transaction Baseline,2,device_max_uses,1,0,1,0,0,1.0474259190612758,0.6818571428571429
+Transaction Baseline,3,ip_max_uses,1,0,2,0,0,1.0812306643270395,0.6658571428571429
+Transaction Baseline,4,slow_factor,1,0,2,0,1,1.9937689241386014,0.6087142857142858
+Transaction Baseline,5,account_max_uses,1,1,2,0,1,2.127984960620314,0.6004285714285714
+Transaction Baseline,6,device_max_uses,2,1,2,0,1,2.0272016023022985,0.5894285714285714
+Transaction Baseline,7,account_max_uses,2,2,2,0,1,1.991823246401542,0.5772857142857143
+Transaction Baseline,8,device_max_uses,3,2,2,0,1,2.1803779455828716,0.5242857142857142
+Transaction Baseline,9,device_max_uses,4,2,2,0,1,2.3138920496105078,0.4494285714285714
+Transaction Baseline,10,account_max_uses,4,3,2,0,1,2.5143568741983424,0.42414285714285715
++ Temporal relationships,0,none,0,0,0,0,0,1.0,0.9241428571428572
++ Temporal relationships,1,ip_max_uses,0,0,1,0,0,1.0031376778404946,0.9148571428571428
++ Temporal relationships,2,ip_max_uses,0,0,2,0,0,1.1704055468466277,0.9025714285714286
++ Temporal relationships,3,slow_factor,0,0,2,0,1,2.053682549756684,0.8872857142857142
++ Temporal relationships,4,account_max_uses,0,1,2,0,1,2.074456303099267,0.8821428571428571
++ Temporal relationships,5,device_max_uses,1,1,2,0,1,2.127984960620314,0.8735714285714286
++ Temporal relationships,6,slow_factor,1,1,2,0,2,3.801708143267903,0.827
++ Temporal relationships,7,device_max_uses,2,1,2,0,2,3.584490051454635,0.8141428571428571
++ Temporal relationships,8,device_max_uses,3,1,2,0,2,3.6215978854971946,0.7978571428571428
++ Temporal relationships,9,device_max_uses,4,1,2,0,2,3.957988785113489,0.7581428571428571
++ Temporal relationships,10,slow_factor,4,1,2,0,3,6.500218109375719,0.7157142857142857
+Combined (full graph),0,none,0,0,0,0,0,1.0,0.9454285714285714
+Combined (full graph),1,ip_max_uses,0,0,1,0,0,1.0031376778404946,0.9362857142857143
+Combined (full graph),2,account_max_uses,0,1,1,0,0,1.0494258141710944,0.9305714285714286
+Combined (full graph),3,ip_max_uses,0,1,2,0,0,1.0745289516515384,0.9185714285714286
+Combined (full graph),4,slow_factor,0,1,2,0,1,2.074456303099267,0.8942857142857142
+Combined (full graph),5,ip_max_uses,0,1,3,0,1,2.3852164264912465,0.8872857142857142
+Combined (full graph),6,slow_factor,0,1,3,0,2,4.106305926560016,0.862
+Combined (full graph),7,slow_factor,0,1,3,0,3,6.751265115363378,0.8320000000000001
+Combined + delayed labels,0,none,0,0,0,0,0,1.0,0.9461428571428572
+Combined + delayed labels,1,ip_max_uses,0,0,1,0,0,1.0031376778404946,0.9344285714285714
+Combined + delayed labels,2,ip_max_uses,0,0,2,0,0,1.1704055468466277,0.9214285714285714
+Combined + delayed labels,3,ip_max_uses,0,0,3,0,0,1.2994489337101873,0.9112857142857143
+Combined + delayed labels,4,carrier_ip_share,0,0,3,1,0,1.641063302563034,0.8981428571428571
+Combined + delayed labels,5,slow_factor,0,0,3,1,1,2.5429416191955347,0.8862857142857142
+Combined + delayed labels,6,slow_factor,0,0,3,1,2,4.132355312263959,0.8638571428571429
+Combined + delayed labels,7,carrier_ip_share,0,0,3,2,2,4.344763584233074,0.8587142857142858
+Combined + delayed labels,8,slow_factor,0,0,3,2,3,6.7613950770507,0.8291428571428572
+Neighbour-Aggregation XGBoost,0,none,0,0,0,0,0,1.0,0.9601428571428572
+Neighbour-Aggregation XGBoost,1,ip_max_uses,0,0,1,0,0,1.0031376778404946,0.9492857142857143
+Neighbour-Aggregation XGBoost,2,ip_max_uses,0,0,2,0,0,1.1704055468466277,0.9385714285714286
+Neighbour-Aggregation XGBoost,3,ip_max_uses,0,0,3,0,0,1.2994489337101873,0.9265714285714286
+Neighbour-Aggregation XGBoost,4,carrier_ip_share,0,0,3,1,0,1.641063302563034,0.9108571428571428
+Neighbour-Aggregation XGBoost,5,slow_factor,0,0,3,1,1,2.5429416191955347,0.8832857142857142
+Neighbour-Aggregation XGBoost,6,slow_factor,0,0,3,1,2,4.132355312263959,0.8058571428571428
+Neighbour-Aggregation XGBoost,7,slow_factor,0,0,3,1,3,6.648534932914436,0.7312857142857143

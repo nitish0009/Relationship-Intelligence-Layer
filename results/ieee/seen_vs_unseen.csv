@@ -1,0 +1,29 @@
+model,stratum,n_fraud,recall
+Transaction Baseline,seen-bad entity,506,0.03162055335968379
+Transaction Baseline,unseen entities,2577,0.05820721769499418
+Combined (full graph),seen-bad entity,506,0.039525691699604744
+Combined (full graph),unseen entities,2577,0.13581684128831975
+Combined + delayed labels,seen-bad entity,506,0.8260869565217391
+Combined + delayed labels,unseen entities,2577,0.15560729530461778
+Vesta features (XGBoost),seen-bad entity,506,0.3359683794466403
+Vesta features (XGBoost),unseen entities,2577,0.4221963523476911
+Vesta + our graph features,seen-bad entity,506,0.30434782608695654
+Vesta + our graph features,unseen entities,2577,0.4167636786961583
+Vesta + graph + delayed labels,seen-bad entity,506,0.932806324110672
+Vesta + graph + delayed labels,unseen entities,2577,0.4198680636398913
+Neighbour-Aggregation XGBoost,seen-bad entity,506,0.06126482213438735
+Neighbour-Aggregation XGBoost,unseen entities,2577,0.15521924718665114
+Vesta + Neighbour-Aggregation XGBoost,seen-bad entity,506,0.26877470355731226
+Vesta + Neighbour-Aggregation XGBoost,unseen entities,2577,0.4136592937524253
+Temporal GraphSAGE,seen-bad entity,506,0.09090909090909091
+Temporal GraphSAGE,unseen entities,2577,0.1839348079161816
+Temporal GAT,seen-bad entity,506,0.07312252964426877
+Temporal GAT,unseen entities,2577,0.18083042297244858
+Vesta + Temporal GAT,seen-bad entity,506,0.1956521739130435
+Vesta + Temporal GAT,unseen entities,2577,0.38649592549476136
+TGN-style Memory,seen-bad entity,506,0.019762845849802372
+TGN-style Memory,unseen entities,2577,0.08110205665502522
+"GraphSAGE (entity, inductive)",seen-bad entity,506,0.0
+"GraphSAGE (entity, inductive)",unseen entities,2577,0.041133100504462554
+GraphSAGE (transductive),seen-bad entity,506,0.4288537549407115
+GraphSAGE (transductive),unseen entities,2577,0.09856422196352348

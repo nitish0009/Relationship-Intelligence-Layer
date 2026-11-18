@@ -215,3 +215,50 @@ def test_ieee_mapping_and_proxy_rings():
     assert rings[2] == -1  # legit
     assert rings[0] == rings[1] and rings[3] == rings[4] and rings[0] != rings[3]
     assert (tx.timestamp.iloc[0] == pd.Timestamp("2017-12-02"))
+
+
+# ------------------------------------------------------------------ audit fixes (IEEE first-fraud, AMLworld)
+
+
+def test_first_fraud_mask_marks_only_each_clients_first_fraud():
+    from experiments.ieee_cis import first_fraud_mask
+
+    tx = pd.DataFrame({"transaction_id": list("abcdef"), "timestamp": pd.date_range("2024", periods=6, freq="h"),
+                       "customer_id": ["u1", "u1", "u2", "u1", "u2", "u3"], "fraud_label": [0, 1, 1, 1, 1, 0]})
+    assert first_fraud_mask(tx).tolist() == [False, True, True, False, False, False]
+
+
+def test_parse_aml_patterns(tmp_path):
+    from experiments.amlworld import parse_patterns
+
+    p = tmp_path / "pat.txt"
+    p.write_text("BEGIN LAUNDERING ATTEMPT - FAN-OUT:  Max 2-degree Fan-Out\n"
+                 "2022/09/01 00:06,021,800A,012,800B,10.00,Euro,10.00,Euro,ACH,1\n"
+                 "2022/09/01 04:33,021,800A,020,800C,20.00,Euro,20.00,Euro,ACH,1\n"
+                 "END LAUNDERING ATTEMPT - FAN-OUT\n\n"
+                 "BEGIN LAUNDERING ATTEMPT - CYCLE:  Max 2 hops\n"
+                 "2022/09/02 01:00,001,800X,002,800Y,5.00,US Dollar,5.00,US Dollar,Wire,1\n"
+                 "END LAUNDERING ATTEMPT - CYCLE\n")
+    df = parse_patterns(str(p))
+    assert df["attempt"].tolist() == [0, 0, 1] and df["typology"].tolist() == ["fan-out", "fan-out", "cycle"]
+    assert df["From Bank"].iloc[0] == "021"  # leading zeros preserved for matching
+
+
+def test_pyg_reference_tgn_has_no_future_leakage(small_tx):
+    pytest.importorskip("torch_geometric")
+    import torch
+
+    from src.temporal_gnn import TemporalIndex
+    from src.tgn_pyg import TGNReference
+
+    tx = build_transaction_features(small_tx)
+    tx["_row"] = np.arange(len(tx))
+    train = tx.iloc[:5000]
+    m = TGNReference(TemporalIndex(tx), epochs=1).fit(train, train.fraud_label.to_numpy(), full_df=tx)
+    m._reset_events(6000)
+    with torch.no_grad():
+        a = m._stream(6000)
+    m._reset_events(len(tx))
+    with torch.no_grad():
+        b = m._stream(len(tx))
+    np.testing.assert_allclose(a, b[:6000], atol=1e-6)

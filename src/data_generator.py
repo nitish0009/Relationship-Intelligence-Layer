@@ -84,7 +84,7 @@ class AdversaryConfig:
 
 
 @dataclass(frozen=True)
-class GeneratorConfig:
+class GeneratorConfig:  # noqa: D101 -- see HARD_PRESET below for the robustness setting
     n_customers: int = 20_000
     n_transactions: int = 100_000
     n_merchants: int = 1_000
@@ -101,6 +101,7 @@ class GeneratorConfig:
     n_public_wifi_ips: int = 60
     # ring lifetime in days, sampled uniformly from [lo, hi] (C2)
     ring_duration_days: tuple[int, int] = (3, 21)
+    ring_size_scale: float = 1.0  # multiplies the number of transactions per ring
     # probability that each ring device / IP / account is drawn from a persistent attacker
     # pool instead of being fresh (C3 "reuse dial"; 0 = fully rotating rings, 1 = fixed pool)
     infra_reuse: float = 0.0
@@ -269,7 +270,7 @@ def generate_all(
         start = TIMELINE_START + pd.Timedelta(days=lo_day)
         end = TIMELINE_START + pd.Timedelta(days=hi_day)
         n_events = int(rng.integers(20, 51) if pattern == "card_testing" else rng.integers(10, 41))
-        n_events = max(1, int(round(n_events * (hi_day - lo_day) / duration)))
+        n_events = max(1, int(round(n_events * cfg.ring_size_scale * (hi_day - lo_day) / duration)))
         n_events = min(n_events, n_fraud_target - len(fraud_rows))
         adapted = adv.active() and (adv.adapt_from <= 0 or start_day >= adv.adapt_from * n_days)
         if adapted and adv.slow_factor != 1.0:  # slow-and-low: stretch the active window
@@ -520,3 +521,9 @@ def generate_all(
 
 if __name__ == "__main__":
     generate_all()
+
+
+# Harder robustness setting (fix for ceiling effects): more camouflage, noisier attacker
+# infrastructure, more heterogeneous rings, smaller rings, more legitimate sharing.
+HARD_PRESET = dict(graph_hidden_share=0.65, noisy_infra_share=0.5, ring_hidden_concentration=1.0,
+                   ring_size_scale=0.6, household_share=0.2, n_carrier_ips=150, n_public_wifi_ips=30)

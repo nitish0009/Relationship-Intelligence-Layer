@@ -194,15 +194,45 @@ def build_ieee_dataset(raw: pd.DataFrame, ident, label_delay_days: float = 30.0)
     return Dataset(tx, train, val, test, rings, 42, label_delay_days, {})
 
 
-def run(seeds=None, nrows: int | None = None) -> None:
+def first_fraud_mask(tx: pd.DataFrame) -> np.ndarray:
+    """True for each client's (uid's) FIRST fraud transaction. IEEE-CIS labels every transaction of
+    a client after a reported fraud as fraud, so later fraud rows are partly predictable from the
+    labelling convention itself; first-fraud rows are not."""
+    f = tx[tx.fraud_label == 1].sort_values(["timestamp", "transaction_id"])
+    first_ids = set(f.drop_duplicates("customer_id")["transaction_id"])
+    return tx["transaction_id"].isin(first_ids).to_numpy()
+
+
+def _first_fraud_ap(test: pd.DataFrame, p: np.ndarray) -> float:
+    m = (test["fraud_label"].to_numpy() == 0) | test["first_fraud"].to_numpy()
+    return float(average_precision_score(test["fraud_label"].to_numpy()[m], p[m]))
+
+
+def calibration_stats(ds) -> dict:
+    """Statistics comparable with the synthetic generator (fix 4: sim-to-real calibration)."""
+    trf, tef = ds.train[ds.train.fraud_label == 1], ds.test[ds.test.fraud_label == 1]
+    spec_card, spec_dev = specific_keys(ds.tx, "card_id"), specific_keys(ds.tx, "device_id")
+    seen_c = tef.customer_id.isin(set(trf.customer_id))
+    seen_d = tef.device_id.isin(set(trf.device_id) & spec_dev)
+    seen_k = tef.card_id.isin(set(trf.card_id) & spec_card)
+    return {"seen_bad_customer": float(seen_c.mean()), "seen_bad_device": float(seen_d.mean()),
+            "seen_bad_card": float(seen_k.mean()), "seen_bad_any": float((seen_c | seen_d | seen_k).mean()),
+            "fraud_rate": float(ds.tx.fraud_label.mean())}
+
+
+def run(seeds=(42, 43, 44), nrows: int | None = None) -> None:
     out = out_dir("ieee")
     t0 = time.time()
     raw, ident = load_ieee(nrows)
     ds = build_ieee_dataset(raw, ident, 30.0)
+    ff = first_fraud_mask(ds.tx)
+    for part in (ds.tx, ds.train, ds.val, ds.test):
+        part["first_fraud"] = ff[part["_row"].to_numpy()]
     print(f"IEEE-CIS: {len(ds.tx):,} txns, fraud {ds.tx.fraud_label.mean():.2%}, proxy rings "
-          f"{ds.rings.shape[0]:,} (median size {ds.rings.n_events.median():.0f}, median lifetime "
-          f"{ds.rings.lifetime_days.median():.1f} d)", flush=True)
+          f"{ds.rings.shape[0]:,}; test fraud {int(ds.test.fraud_label.sum())} of which first-of-client "
+          f"{int(ds.test.first_fraud.sum())}", flush=True)
     ds.rings.describe().to_csv(os.path.join(out, "proxy_ring_stats.csv"))
+    save_json(calibration_stats(ds), os.path.join(out, "calibration_stats.json"))
     idx = TemporalIndex(ds.tx, k=20)
     graph_cols = FEATURE_FAMILIES["Combined (full graph)"][len(FEATURE_FAMILIES["Transaction Baseline"]):]
     vesta = VestaXGB(raw)
@@ -210,48 +240,71 @@ def run(seeds=None, nrows: int | None = None) -> None:
 
     def vesta_dense_fn(df):  # NaN -> 0 plus missingness indicators (neural nets)
         X = vesta._mat(df)
-        miss = np.isnan(X)
-        return np.hstack([np.nan_to_num(np.sign(X) * np.log1p(np.abs(X))), miss[:, miss.any(0) | True].astype(np.float32)])
-    models = {
-        "Transaction Baseline": None, "Combined (full graph)": None, "Combined + delayed labels": None,
-        "Vesta features (XGBoost)": lambda p: VestaXGB(raw, None, 42, p),
-        "Vesta + our graph features": lambda p: VestaXGB(raw, graph_cols, 42, p),
-        "Vesta + graph + delayed labels": lambda p: VestaXGB(raw, graph_cols + LABEL_FEATURE_COLS, 42, p),
-        "Neighbour-Aggregation XGBoost": None,
-        "Vesta + Neighbour-Aggregation XGBoost": lambda p: NeighborAggXGB(idx, 42, target_fn=vesta_fn),
-        "Temporal GraphSAGE": None, "Temporal GAT": None,
-        "Vesta + Temporal GAT": lambda p: TemporalGNN(idx, "gat", seed=42, val_df=ds.val, target_fn=vesta_dense_fn),
-        "TGN-style Memory": None, "GraphSAGE (entity, inductive)": None, "GraphSAGE (transductive)": None,
+        return np.hstack([np.nan_to_num(np.sign(X) * np.log1p(np.abs(X))), np.isnan(X).astype(np.float32)])
+
+    from src.classifier_utils import get_classifier
+    from src.pipeline import XGB_SPACE, tune
+    vesta_factories = {
+        "Vesta features (XGBoost)": lambda p, s: VestaXGB(raw, None, s, p),
+        "Vesta + our graph features": lambda p, s: VestaXGB(raw, graph_cols, s, p),
+        "Vesta + graph + delayed labels": lambda p, s: VestaXGB(raw, graph_cols + LABEL_FEATURE_COLS, s, p),
+        "Vesta + Neighbour-Aggregation XGBoost":
+            lambda p, s: NeighborAggXGB(idx, s, classifier=get_classifier(s, **p), target_fn=vesta_fn),
     }
+    ours = ["Transaction Baseline", "Combined (full graph)", "Combined + delayed labels",
+            "Neighbour-Aggregation XGBoost", "Temporal GraphSAGE", "Temporal GAT", "TGN-style Memory",
+            "GraphSAGE (entity, inductive)", "GraphSAGE (transductive)"]
+    from experiments.common import ORIGINALS, originals_enabled
+    if originals_enabled():
+        ours += ORIGINALS
+    order = ours[:3] + list(vesta_factories) + ours[3:] + ["Vesta + Temporal GAT"]
+    params: dict = {}
     rows, ring_tabs, scores = [], [], {}
-    for name, factory in models.items():
-        with Timer(name):
-            if factory is None:
-                params = tune_model(name, ds, 42, idx, n_iter=8) if name not in (
-                    "GraphSAGE (entity, inductive)", "GraphSAGE (transductive)") else {}
-                model = make_model(name, ds, 42, params, idx)
-            else:
-                model = factory({})
-            res = fit_score(model, ds)
-        sc = score_all(ds, res)
-        scores[name] = res
-        y = ds.test.fraud_label.to_numpy()
-        boot = cluster_bootstrap_indices(ds.test, 300, 42)
-        rng = np.random.default_rng(0)
-        iid = [rng.integers(0, len(y), len(y)) for _ in range(300)]
-        lo, hi = bootstrap_ci(y, res["p_test"], boot)
-        ilo, ihi = bootstrap_ci(y, res["p_test"], iid)
-        rows.append({"model": name, **sc["row"], "pr_auc_ci_ring": f"[{lo:.3f}, {hi:.3f}]",
-                     "pr_auc_ci_iid": f"[{ilo:.3f}, {ihi:.3f}]"})
-        for b in BUDGETS:  # C1 on proxy rings with >= 3 transactions in the test window
-            rt_b = ring_rows(ds, res["p_test"], sc["thr"][b], model=name, budget=b)
-            ring_tabs.append(rt_b[rt_b.ring_txns >= 3] if len(rt_b) else rt_b)
-        print(f"   PR-AUC {sc['row']['pr_auc']:.4f}", flush=True)
-    pd.DataFrame(rows).to_csv(os.path.join(out, "metrics.csv"), index=False)
-    rt = pd.concat([t for t in ring_tabs if len(t)], ignore_index=True)
-    rt.to_csv(os.path.join(out, "ring_tables.csv"), index=False)
-    from experiments.main import _pool_rings
-    _pool_rings(rt, ["model", "budget"]).to_csv(os.path.join(out, "ring_summary.csv"), index=False)
+    for seed in seeds:
+        for name in order:
+            with Timer(f"{name} seed {seed}"):
+                if name not in params:  # every model tuned once on validation (seed 42), reused for other seeds
+                    if name in vesta_factories:
+                        params[name] = tune(lambda p: vesta_factories[name](p, 42), ds, XGB_SPACE, 8, 42)
+                    elif name in ("GraphSAGE (entity, inductive)", "GraphSAGE (transductive)", "Vesta + Temporal GAT") \
+                            or name in ORIGINALS:
+                        params[name] = {}
+                    else:
+                        params[name] = tune_model(name, ds, 42, idx, n_iter=8)
+                if name in vesta_factories:
+                    model = vesta_factories[name](params[name], seed)
+                elif name == "Vesta + Temporal GAT":
+                    model = TemporalGNN(idx, "gat", seed=seed, val_df=ds.val, target_fn=vesta_dense_fn)
+                else:
+                    model = make_model(name, ds, seed, params[name], idx)
+                res = fit_score(model, ds)
+            sc = score_all(ds, res)
+            y = ds.test.fraud_label.to_numpy()
+            row = {"seed": seed, "model": name, **sc["row"], "pr_auc_first_fraud": _first_fraud_ap(ds.test, res["p_test"])}
+            if seed == seeds[0]:
+                boot = cluster_bootstrap_indices(ds.test, 300, 42)
+                rng = np.random.default_rng(0)
+                iid = [rng.integers(0, len(y), len(y)) for _ in range(300)]
+                row["pr_auc_ci_ring"] = "[%.3f, %.3f]" % bootstrap_ci(y, res["p_test"], boot)
+                row["pr_auc_ci_iid"] = "[%.3f, %.3f]" % bootstrap_ci(y, res["p_test"], iid)
+                scores[name] = res
+                for b in BUDGETS:  # C1 on proxy rings with >= 3 transactions in the test window
+                    rt_b = ring_rows(ds, res["p_test"], sc["thr"][b], model=name, budget=b)
+                    ring_tabs.append(rt_b[rt_b.ring_txns >= 3] if len(rt_b) else rt_b)
+            rows.append(row)
+            print(f"   PR-AUC {sc['row']['pr_auc']:.4f}  first-fraud PR-AUC {row['pr_auc_first_fraud']:.4f}", flush=True)
+            pd.DataFrame(rows).to_csv(os.path.join(out, "metrics_by_seed.csv"), index=False)
+    m = pd.DataFrame(rows)
+    summ = m.groupby("model", sort=False)[["pr_auc", "pr_auc_first_fraud", "roc_auc", "recall_at_1pct_fpr"]].agg(["mean", "std"])
+    summ.columns = [f"{a}_{b}" for a, b in summ.columns]
+    summ.to_csv(os.path.join(out, "metrics_summary.csv"))
+    save_json(params, os.path.join(out, "tuned_params.json"))
+    nonempty = [t for t in ring_tabs if len(t)]
+    if nonempty:  # no qualifying rings in the test window -> skip C1 tables
+        rt = pd.concat(nonempty, ignore_index=True)
+        rt.to_csv(os.path.join(out, "ring_tables.csv"), index=False)
+        from experiments.main import _pool_rings
+        _pool_rings(rt, ["model", "budget"]).to_csv(os.path.join(out, "ring_summary.csv"), index=False)
 
     # C3 analogue: recall on test fraud whose entity was / was not used by fraud in training
     trf = ds.train[ds.train.fraud_label == 1]
@@ -263,26 +316,31 @@ def run(seeds=None, nrows: int | None = None) -> None:
     strata = []
     for name, res in scores.items():
         thr = score_all(ds, res)["thr"][PRIMARY_BUDGET]
-        for label, m in [("seen-bad entity", seen), ("unseen entities", ~seen)]:
-            f = (m & (te.fraud_label == 1)).to_numpy()
+        for label, mk in [("seen-bad entity", seen), ("unseen entities", ~seen)]:
+            f = (mk & (te.fraud_label == 1)).to_numpy()
             strata.append({"model": name, "stratum": label, "n_fraud": int(f.sum()),
                            "recall": float((res["p_test"][f] >= thr).mean()) if f.any() else np.nan})
     pd.DataFrame(strata).to_csv(os.path.join(out, "seen_vs_unseen.csv"), index=False)
 
-    # C2: label-delay sweep
+    # C2: label-delay sweep, all fraud AND first-fraud-of-client only
     sweep = []
     base = with_label_delay(ds, float("inf"))
     for d in DELAYS:
         dsd = base if not np.isfinite(d) else with_label_delay(base, d)
-        for name in ["Combined + delayed labels"]:
-            res = fit_score(make_model(name, dsd, 42, None, idx), dsd)
-            sweep.append({"delay": d, "model": name, "pr_auc": average_precision_score(dsd.test.fraud_label, res["p_test"])})
-        res = fit_score(VestaXGB(raw, graph_cols + LABEL_FEATURE_COLS, 42), dsd)
-        sweep.append({"delay": d, "model": "Vesta + graph + delayed labels",
-                      "pr_auc": average_precision_score(dsd.test.fraud_label, res["p_test"])})
+        for part in (dsd.train, dsd.val, dsd.test):
+            part["first_fraud"] = ff[part["_row"].to_numpy()]
+        for seed in seeds:
+            for name, mk in [("Combined + delayed labels", lambda s: make_model("Combined + delayed labels", dsd, s,
+                                                                               params["Combined + delayed labels"], idx)),
+                             ("Vesta + graph + delayed labels",
+                              lambda s: vesta_factories["Vesta + graph + delayed labels"](params["Vesta + graph + delayed labels"], s))]:
+                res = fit_score(mk(seed), dsd)
+                sweep.append({"delay": d, "seed": seed, "model": name,
+                              "pr_auc": average_precision_score(dsd.test.fraud_label, res["p_test"]),
+                              "pr_auc_first_fraud": _first_fraud_ap(dsd.test, res["p_test"])})
         print(f"   delay {d}: done", flush=True)
-    pd.DataFrame(sweep).to_csv(os.path.join(out, "label_delay_sweep.csv"), index=False)
-    save_json({"n": len(ds.tx), "fraud_rate": float(ds.tx.fraud_label.mean()), "minutes": (time.time() - t0) / 60},
-              os.path.join(out, "run_info.json"))
-    print(pd.DataFrame(rows).round(4).to_string(index=False))
+        pd.DataFrame(sweep).to_csv(os.path.join(out, "label_delay_sweep.csv"), index=False)
+    save_json({"n": len(ds.tx), "fraud_rate": float(ds.tx.fraud_label.mean()), "seeds": list(seeds),
+               "minutes": (time.time() - t0) / 60}, os.path.join(out, "run_info.json"))
+    print(summ.round(4).to_string())
     print(f"ieee done in {(time.time() - t0) / 60:.1f} min")

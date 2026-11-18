@@ -36,6 +36,11 @@ from src.temporal_gnn import TemporalIndex
 MODELS = TABULAR + ["Neighbour-Aggregation XGBoost"] + GNNS + ["GraphSAGE (entity, inductive)"]
 
 
+def _models():
+    from experiments.common import ORIGINALS, originals_enabled
+    return MODELS + (ORIGINALS if originals_enabled() else [])
+
+
 def _entity_age_buckets(ds) -> pd.Series:
     created = ds.extras["customers"].set_index("customer_id")["created_at"]
     age_days = (ds.test["timestamp"] - pd.to_datetime(ds.test["customer_id"].map(created))).dt.total_seconds() / 86400
@@ -57,14 +62,11 @@ def run(seeds=(42, 43, 44, 45, 46)) -> None:
         age_bucket = _entity_age_buckets(ds).to_numpy()
         first_dev = (ds.test["device_transaction_count"] == 0).to_numpy()
         tuned_log[seed] = {}
-        for name in MODELS:
+        for name in _models():
             with Timer(name):
-                if name in GNNS:  # GNN hyper-parameters tuned on the first seed only (cost)
-                    if name not in gnn_params:
-                        gnn_params[name] = tune_model(name, ds, seed, idx)
-                    params = gnn_params[name]
-                else:
-                    params = tune_model(name, ds, seed, idx)
+                # every model is tuned on EVERY seed's validation split (original-code models use
+                # the authors' published defaults)
+                params = tune_model(name, ds, seed, idx)
                 tuned_log[seed][name] = params
                 res = fit_score(make_model(name, ds, seed, params, idx), ds)
             sc = score_all(ds, res)

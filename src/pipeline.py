@@ -130,7 +130,7 @@ def threshold_at_fpr(y_val: np.ndarray, p_val: np.ndarray, fpr: float) -> float:
 def fit_score(model, ds: Dataset) -> Dict[str, object]:
     """Fit on train, tune the threshold on validation, score test. Uniform model interface."""
     y_tr = ds.train["fraud_label"].to_numpy()
-    if hasattr(model, "_stream"):  # TGN-style memory needs the full stream
+    if hasattr(model, "_stream"):  # TGN-style models need the full chronological stream
         model.fit(ds.train, y_tr, full_df=ds.tx)
     else:
         model.fit(ds.train, y_tr)

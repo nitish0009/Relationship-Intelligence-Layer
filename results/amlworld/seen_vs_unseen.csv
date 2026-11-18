@@ -1,0 +1,15 @@
+model,stratum,n_fraud,recall
+Transaction Baseline,seen-bad account,321,0.3613707165109034
+Transaction Baseline,unseen accounts,585,0.6188034188034188
++ Relationship counts,seen-bad account,321,0.5358255451713395
++ Relationship counts,unseen accounts,585,0.7521367521367521
++ Temporal relationships,seen-bad account,321,0.5295950155763239
++ Temporal relationships,unseen accounts,585,0.7897435897435897
+Combined (full graph),seen-bad account,321,0.5264797507788161
+Combined (full graph),unseen accounts,585,0.7794871794871795
+Combined + delayed labels,seen-bad account,321,0.6292834890965732
+Combined + delayed labels,unseen accounts,585,0.7333333333333333
+Neighbour-Aggregation XGBoost,seen-bad account,321,0.6105919003115264
+Neighbour-Aggregation XGBoost,unseen accounts,585,0.8205128205128205
+Temporal GraphSAGE,seen-bad account,321,0.4143302180685358
+Temporal GraphSAGE,unseen accounts,585,0.6273504273504273

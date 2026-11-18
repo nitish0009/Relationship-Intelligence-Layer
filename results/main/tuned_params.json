@@ -71,7 +71,9 @@
       "lr": 0.003
     },
     "TGN-style Memory": {},
-    "GraphSAGE (entity, inductive)": {}
+    "GraphSAGE (entity, inductive)": {},
+    "CARE-GNN (original code)": {},
+    "PC-GNN (original code)": {}
   },
   "43": {
     "Transaction Baseline": {
@@ -128,24 +130,20 @@
       "min_child_weight": 1,
       "reg_lambda": 0.0
     },
-    "Temporal GraphSAGE": {
-      "hidden": 32,
-      "lr": 0.003
-    },
-    "Temporal GAT": {
-      "hidden": 32,
-      "lr": 0.003
-    },
-    "Temporal R-GCN": {
-      "hidden": 64,
-      "lr": 0.003
-    },
+    "Temporal GraphSAGE": {},
+    "Temporal GAT": {},
+    "Temporal R-GCN": {},
     "CARE-style GNN": {
-      "hidden": 64,
+      "hidden": 32,
+      "lr": 0.001
+    },
+    "TGN-style Memory": {
+      "mem_dim": 32,
       "lr": 0.003
     },
-    "TGN-style Memory": {},
-    "GraphSAGE (entity, inductive)": {}
+    "GraphSAGE (entity, inductive)": {},
+    "CARE-GNN (original code)": {},
+    "PC-GNN (original code)": {}
   },
   "44": {
     "Transaction Baseline": {
@@ -203,7 +201,7 @@
       "reg_lambda": 5.0
     },
     "Temporal GraphSAGE": {
-      "hidden": 32,
+      "hidden": 64,
       "lr": 0.003
     },
     "Temporal GAT": {
@@ -211,7 +209,7 @@
       "lr": 0.003
     },
     "Temporal R-GCN": {
-      "hidden": 64,
+      "hidden": 32,
       "lr": 0.003
     },
     "CARE-style GNN": {
@@ -219,7 +217,9 @@
       "lr": 0.003
     },
     "TGN-style Memory": {},
-    "GraphSAGE (entity, inductive)": {}
+    "GraphSAGE (entity, inductive)": {},
+    "CARE-GNN (original code)": {},
+    "PC-GNN (original code)": {}
   },
   "45": {
     "Transaction Baseline": {},
@@ -261,23 +261,25 @@
       "reg_lambda": 0.0
     },
     "Temporal GraphSAGE": {
-      "hidden": 32,
+      "hidden": 64,
       "lr": 0.003
     },
     "Temporal GAT": {
-      "hidden": 32,
+      "hidden": 64,
       "lr": 0.003
     },
     "Temporal R-GCN": {
-      "hidden": 64,
+      "hidden": 32,
       "lr": 0.003
     },
-    "CARE-style GNN": {
-      "hidden": 64,
+    "CARE-style GNN": {},
+    "TGN-style Memory": {
+      "mem_dim": 32,
       "lr": 0.003
     },
-    "TGN-style Memory": {},
-    "GraphSAGE (entity, inductive)": {}
+    "GraphSAGE (entity, inductive)": {},
+    "CARE-GNN (original code)": {},
+    "PC-GNN (original code)": {}
   },
   "46": {
     "Transaction Baseline": {
@@ -335,22 +337,27 @@
       "reg_lambda": 0.0
     },
     "Temporal GraphSAGE": {
-      "hidden": 32,
+      "hidden": 64,
       "lr": 0.003
     },
     "Temporal GAT": {
       "hidden": 32,
-      "lr": 0.003
+      "lr": 0.001
     },
     "Temporal R-GCN": {
       "hidden": 64,
       "lr": 0.003
     },
     "CARE-style GNN": {
-      "hidden": 64,
+      "hidden": 32,
       "lr": 0.003
     },
-    "TGN-style Memory": {},
-    "GraphSAGE (entity, inductive)": {}
+    "TGN-style Memory": {
+      "mem_dim": 32,
+      "lr": 0.003
+    },
+    "GraphSAGE (entity, inductive)": {},
+    "CARE-GNN (original code)": {},
+    "PC-GNN (original code)": {}
   }
 }

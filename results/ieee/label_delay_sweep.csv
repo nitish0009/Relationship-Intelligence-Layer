@@ -1,0 +1,19 @@
+delay,model,pr_auc
+0.0,Combined + delayed labels,0.7504425674165801
+0.0,Vesta + graph + delayed labels,0.8571448470673435
+1.0,Combined + delayed labels,0.6016479049429861
+1.0,Vesta + graph + delayed labels,0.7595354662572631
+3.0,Combined + delayed labels,0.5525309163054763
+3.0,Vesta + graph + delayed labels,0.724770081312198
+7.0,Combined + delayed labels,0.49790796553587535
+7.0,Vesta + graph + delayed labels,0.6883110817374803
+14.0,Combined + delayed labels,0.45210258621752536
+14.0,Vesta + graph + delayed labels,0.6529750076848045
+30.0,Combined + delayed labels,0.387083190029366
+30.0,Vesta + graph + delayed labels,0.6218423120585893
+60.0,Combined + delayed labels,0.3066889286532902
+60.0,Vesta + graph + delayed labels,0.5826682139278441
+90.0,Combined + delayed labels,0.2793631354910385
+90.0,Vesta + graph + delayed labels,0.5560284182881711
+inf,Combined + delayed labels,0.18901962448242857
+inf,Vesta + graph + delayed labels,0.5182972678486636

@@ -14,6 +14,7 @@ from src.evaluation import RESULTS_DIR, compute_metrics
 from src.graph_model import GraphSAGEModel, GraphSAGETransductive
 from src.pipeline import FEATURE_FAMILIES, XGB_SPACE, Dataset, fit_score, tabular, threshold_at_fpr, tune
 from src.ring_metrics import ring_detection_table, summarise_rings, warmup_curve
+from src.original_gnn import OriginalFraudGNN, third_party_available
 from src.temporal_gnn import NeighborAggXGB, TemporalGNN, TemporalIndex, TGNMemoryModel
 
 BUDGETS = [0.001, 0.005, 0.01]  # alert budgets = validation FPR (0.1%, 0.5%, 1%)
@@ -24,6 +25,14 @@ GNNS = ["Temporal GraphSAGE", "Temporal GAT", "Temporal R-GCN", "CARE-style GNN"
 GNN_KIND = {"Temporal GraphSAGE": "sage", "Temporal GAT": "gat", "Temporal R-GCN": "rgcn", "CARE-style GNN": "care"}
 GNN_SPACE = {"hidden": [32, 64], "lr": [1e-3, 3e-3]}
 TGN_SPACE = {"mem_dim": [32, 64], "lr": [1e-3, 3e-3]}
+
+# Original third-party implementations run only when fetched (scripts/fetch_third_party.sh)
+# AND explicitly enabled with RIL_RUN_THIRD_PARTY=1 (they execute external code).
+ORIGINALS = ["CARE-GNN (original code)", "PC-GNN (original code)"]
+
+
+def originals_enabled() -> bool:
+    return os.environ.get("RIL_RUN_THIRD_PARTY") == "1" and third_party_available()
 
 
 def out_dir(name: str) -> str:
@@ -44,6 +53,12 @@ def make_model(name: str, ds: Dataset, seed: int, params: Optional[dict] = None,
         return TemporalGNN(idx, GNN_KIND[name], seed=seed, val_df=ds.val, **params)
     if name == "TGN-style Memory":
         return TGNMemoryModel(idx, seed=seed, val_df=ds.val, **params)
+    if name == "TGN (PyG reference)":
+        from src.tgn_pyg import TGNReference
+        return TGNReference(idx, seed=seed, val_df=ds.val, **params)
+    if name in ORIGINALS:
+        kind = "care" if name.startswith("CARE") else "pcgnn"
+        return OriginalFraudGNN(idx, kind, ds.tx, ds.val, seed=seed)
     if name == "GraphSAGE (entity, inductive)":
         return GraphSAGEModel(seed=seed)
     if name == "GraphSAGE (transductive)":
