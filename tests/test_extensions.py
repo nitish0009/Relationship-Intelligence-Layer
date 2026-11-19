@@ -339,3 +339,87 @@ def test_gnn_neighbour_standardiser_uses_whole_training_period():
     xn, v = idx.neighbour_features(ds.test["_row"].to_numpy())
     z = np.abs(m.std_n(xn)[v])
     assert np.isfinite(z).all() and z.max() < 1e3
+
+
+# ---------------------------------------------------------------- ring-survival loss (exact takedown value)
+
+def test_takedown_share_matches_brute_force():
+    import itertools
+    import numpy as np
+    import src  # noqa: F401  (loads XGBoost's OpenMP before torch; see src/__init__.py)
+    import torch
+    from src.ring_survival import RingIndex, takedown_share
+    rng = np.random.default_rng(0)
+    ring = np.array([0, 1, 0, -1, 1, 0, 2])
+    time = np.array([1, 2, 3, 4, 5, 6, 7])
+    amount = rng.uniform(1, 10, len(ring))
+    ix = RingIndex(ring, time, amount)
+    z = torch.tensor(rng.normal(size=len(ix.rows)), dtype=torch.float64)
+    v = takedown_share(z, torch.from_numpy(ix.seg), torch.from_numpy(ix.remaining_share), ix.n_rings).numpy()
+    p = torch.sigmoid(z).numpy()
+    for r in range(ix.n_rings):
+        k = np.flatnonzero(ix.seg == r)
+        a = amount[ix.rows[k]]
+        exp_saved = 0.0  # enumerate every alert pattern; ring stopped at the first alert
+        for alerts in itertools.product([0, 1], repeat=len(k)):
+            pr = np.prod([p[k[i]] if alerts[i] else 1 - p[k[i]] for i in range(len(k))])
+            if any(alerts):
+                exp_saved += pr * a[alerts.index(1):].sum()
+        assert np.isclose(v[r], exp_saved / a.sum())
+
+
+def test_ring_survival_discounts_late_transactions():
+    """Unlike TVW, once the first transaction is likely alerted, the gradient on later ones vanishes."""
+    import numpy as np
+    import src  # noqa: F401  (loads XGBoost's OpenMP before torch; see src/__init__.py)
+    import torch
+    from src.ring_survival import RingIndex, ring_survival_loss
+    ix = RingIndex(np.array([0, 0, 0]), np.array([1, 2, 3]), np.array([1.0, 1.0, 1.0]))
+    seg, rem, w = torch.from_numpy(ix.seg), torch.from_numpy(ix.remaining_share), torch.from_numpy(ix.ring_weight)
+    for first, expect_small in [(-4.0, False), (6.0, True)]:
+        z = torch.tensor([first, 0.0, 0.0], dtype=torch.float64, requires_grad=True)
+        ring_survival_loss(z, seg, rem, w).backward()
+        late = abs(float(z.grad[2]))
+        assert (late < 1e-2) == expect_small
+
+
+def test_tvw_v2_equals_v1_without_tempering_and_keeps_clock_with_it():
+    import numpy as np
+    import pandas as pd
+    from src.clock_weights import remaining_value, tvw_weights
+    t = pd.to_datetime("2024-01-01") + pd.to_timedelta(np.arange(8), unit="h")
+    base = dict(timestamp=t, fraud_label=[1, 1, 1, 0, 1, 1, 1, 0],
+                customer_id=list("aaabcccd"), device_id=list("xyzuvwqr"), card_id=list("12345678"), ip_id=list("ABCDEFGH"))
+    # comparable amounts: ESS high, gamma = 1 -> v2 == v1
+    df = pd.DataFrame({**base, "amount": [3.0, 2.0, 1.0, 5.0, 3.0, 2.0, 1.0, 5.0]})
+    assert np.allclose(tvw_weights(df, 1.0, tempering="ring"), tvw_weights(df, 1.0, tempering="global"))
+    # one ring is 10^6 x larger: tempering needed; v2 must keep each ring's within-ring ratio R_1/R_3 = 6
+    df2 = pd.DataFrame({**base, "amount": [3e6, 2e6, 1e6, 5.0, 3.0, 2.0, 1.0, 5.0]})
+    w = tvw_weights(df2, 1.0, tempering="ring")
+    assert np.isclose(w[0] / w[2], 6.0) and np.isclose(w[4] / w[6], 6.0)
+    wg = tvw_weights(df2, 1.0, tempering="global")
+    assert wg[4] / wg[6] < 6.0 - 1e-6  # v1 flattens the clock inside rings
+
+
+def test_identity_columns_always_link():
+    import numpy as np
+    import pandas as pd
+    from src.clock_weights import pseudo_rings
+    # receiving account "R" is shared by 12 distinct senders (a fan-in pattern)
+    n = 12
+    df = pd.DataFrame({"timestamp": pd.date_range("2024-01-01", periods=n, freq="h"), "amount": 1.0,
+                       "fraud_label": 1, "customer_id": [f"S{i}" for i in range(n)], "device_id": "R",
+                       "card_id": [f"c{i}" for i in range(n)], "ip_id": [f"i{i}" for i in range(n)]})
+    assert len(set(pseudo_rings(df))) == n                                   # infrastructure rule splits it
+    assert len(set(pseudo_rings(df, identity_cols=("customer_id", "device_id")))) == 1  # identity rule keeps it whole
+
+
+def test_identity_key_links_accounts_across_roles():
+    import pandas as pd
+    from src.clock_weights import pseudo_rings
+    # chain A -> B -> C: B is receiver of transfer 1 and sender of transfer 2
+    df = pd.DataFrame({"timestamp": pd.date_range("2024-01-01", periods=2, freq="h"), "amount": 1.0, "fraud_label": 1,
+                       "customer_id": ["SA", "SB"], "device_id": ["RB", "RC"], "card_id": ["k1", "k2"], "ip_id": ["i1", "i2"]})
+    ids = ("customer_id", "device_id")
+    assert len(set(pseudo_rings(df, identity_cols=ids))) == 2
+    assert len(set(pseudo_rings(df, identity_cols=ids, identity_key=lambda v: v[1:]))) == 1

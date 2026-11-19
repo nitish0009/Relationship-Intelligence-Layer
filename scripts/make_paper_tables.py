@@ -59,8 +59,19 @@ def tab_main() -> None:
              "GraphSAGE (entity, inductive)", "CARE-style GNN", "Temporal GraphSAGE", "Temporal R-GCN", "Temporal GAT"]
     for k in order:
         rows.append([k, s.loc[k, "pr"], s.loc[k, "prs"], s.loc[k, "rec"], r.loc[k, 0.001], r.loc[k, 0.005], first.get(k)])
+    oh = os.path.join(RES, "originals_hard")  # full metrics, same 5 seeds (experiments/originals_hard.py)
     ot = os.path.join(RES, "originals_tuning", "summary.csv")
-    if os.path.exists(ot):
+    if os.path.exists(os.path.join(oh, "ring_summary.csv")):
+        om = pd.read_csv(os.path.join(oh, "metrics_by_seed.csv")).groupby("model", sort=False).agg(
+            pr=("pr_auc", "mean"), prs=("pr_auc", "std"), rec=("recall_at_1pct_fpr", "mean"))
+        orr = pd.read_csv(os.path.join(oh, "ring_summary.csv")).pivot(index="model", columns="budget",
+                                                                       values="amount_lost_share")
+        ow = pd.read_csv(os.path.join(oh, "warmup.csv"))
+        of = ow[ow.k == 1].set_index("model").recall
+        for k in om.index:
+            rows.append([k, om.loc[k, "pr"], om.loc[k, "prs"], om.loc[k, "rec"], orr.loc[k, 0.001],
+                         orr.loc[k, 0.005], of.get(k)])
+    elif os.path.exists(ot):
         o = pd.read_csv(ot)
         o = o[(o.preset == "hard") & (o.config == "validation-tuned")]
         for _, x in o.iterrows():

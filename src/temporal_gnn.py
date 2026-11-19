@@ -177,7 +177,10 @@ class TemporalGNN:
         xn = self.std_n(xn) * valid[..., None]
         return (torch.from_numpy(self.std_t(self.target_fn(df))), torch.from_numpy(xn), torch.from_numpy(valid))
 
-    def fit(self, train_df: pd.DataFrame, y: np.ndarray, sample_weight: Optional[np.ndarray] = None) -> "TemporalGNN":
+    def fit(self, train_df: pd.DataFrame, y: np.ndarray, sample_weight: Optional[np.ndarray] = None,
+            ring_info: Optional[dict] = None) -> "TemporalGNN":
+        """ring_info: {"index": RingIndex over train_df positions, "lam": weight, "batch_rows": int} adds the
+        ring-survival loss (src/ring_survival.py) on whole (pseudo-)rings after each epoch's BCE pass."""
         torch.manual_seed(self.seed)
         rng = np.random.default_rng(self.seed)
         Xt = self.target_fn(train_df)
@@ -213,6 +216,19 @@ class TemporalGNN:
                 opt.zero_grad()
                 loss.backward()
                 opt.step()
+            if ring_info is not None:  # ring-survival term: optimise the exact takedown value per ring
+                from src.ring_survival import ring_survival_loss
+                rix, lam = ring_info["index"], ring_info["lam"]
+                for segs in rix.batches(rng, ring_info.get("batch_rows", self.batch)):
+                    pos, seg = rix.select(segs, rng if ring_info.get("prefix") else None)
+                    rows = torch.from_numpy(rix.rows[pos])
+                    logit, _ = self.net(xt[rows], xn[rows], valid[rows])
+                    loss = lam * ring_survival_loss(logit, torch.from_numpy(seg),
+                                                    torch.from_numpy(rix.remaining_share[pos]).float(),
+                                                    torch.from_numpy(rix.ring_weight[segs]).float())
+                    opt.zero_grad()
+                    loss.backward()
+                    opt.step()
             if self.val_df is not None:  # early stopping on validation PR-AUC
                 ap = average_precision_score(yv, self._predict(*vt))
                 if ap > best:

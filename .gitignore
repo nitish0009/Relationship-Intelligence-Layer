@@ -15,4 +15,4 @@ data/AMLworld/
 results/logs/
 # original third-party code (fetched by scripts/fetch_third_party.sh, not redistributed)
 third_party/
-
+data/Elliptic++/

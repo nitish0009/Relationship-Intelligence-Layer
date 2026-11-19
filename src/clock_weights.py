@@ -41,8 +41,21 @@ import pandas as pd
 LINK_COLS = ("customer_id", "device_id", "card_id", "ip_id")
 
 
-def pseudo_rings(train: pd.DataFrame, cols: Iterable[str] = LINK_COLS, max_customers: int = 10) -> np.ndarray:
-    """Pseudo-ring id per row of ``train`` (-1 for legitimate rows)."""
+def pseudo_rings(train: pd.DataFrame, cols: Iterable[str] = LINK_COLS, max_customers: int = 10,
+                 identity_cols: Iterable[str] = ("customer_id",), identity_key=None) -> np.ndarray:
+    """Pseudo-ring id per row of ``train`` (-1 for legitimate rows).
+
+    ``identity_key`` (optional) maps an identity value to a role-free key, so that the same entity links
+    across roles (e.g. on AMLworld an account is the receiver 'R<bank|acct>' of one transfer and the sender
+    'S<bank|acct>' of the next; identity_key strips the role prefix). Identity columns then share one
+    namespace.
+
+    IDENTITY columns (accounts / customers) always link fraud rows; INFRASTRUCTURE columns (devices, IPs,
+    cards) link only through specific values used by <= max_customers customers, so shared NATs, Wi-Fi and
+    coarse fingerprints cannot merge unrelated fraud. Which columns are identities is a property of the
+    dataset schema (e.g. on AMLworld the 'device' slot holds the receiving ACCOUNT)."""
+    identity_cols = set(identity_cols)
+    shared_first: dict = {}  # one namespace for all identity columns when identity_key is given
     y = train["fraud_label"].to_numpy()
     fraud = np.flatnonzero(y == 1)
     parent = np.arange(len(fraud))
@@ -56,13 +69,16 @@ def pseudo_rings(train: pd.DataFrame, cols: Iterable[str] = LINK_COLS, max_custo
     for col in cols:
         if col not in train.columns:
             continue
-        if col == "customer_id":
+        shared = identity_key is not None and col in identity_cols
+        if col in identity_cols:
             ok = None
         else:
             n_cust = train.groupby(col, sort=False)["customer_id"].nunique()
             ok = set(n_cust.index[n_cust <= max_customers])
-        first: dict = {}
+        first: dict = shared_first if shared else {}
         for j, v in enumerate(train[col].to_numpy()[fraud]):
+            if shared:
+                v = identity_key(v)
             if ok is not None and v not in ok:
                 continue
             if v in first:
@@ -107,17 +123,49 @@ def temper(rel: np.ndarray, min_ess: float) -> tuple[np.ndarray, float]:
     return rel ** lo, lo
 
 
+def ring_totals(train: pd.DataFrame, ring: np.ndarray) -> np.ndarray:
+    """T_r of each row's ring (0 for legitimate rows)."""
+    out = np.zeros(len(train))
+    m = ring >= 0
+    tot = pd.Series(train["amount"].to_numpy(np.float64)[m]).groupby(ring[m]).transform("sum").to_numpy()
+    out[m] = tot
+    return out
+
+
+def temper_rings(within: np.ndarray, ring_money: np.ndarray, min_ess: float) -> tuple[np.ndarray, float]:
+    """u = within * (T / mean T)^gamma with the largest gamma in [0, 1] such that ESS(u) >= min_ess * n.
+    Only the ACROSS-ring money factor is tempered; the within-ring clock R_k / T_r in (0, 1] is kept intact."""
+    t = ring_money / max(ring_money.mean(), 1e-12)
+    if min_ess <= 0 or _ess_share(within * t) >= min_ess:
+        return within * t, 1.0
+    lo, hi = 0.0, 1.0
+    for _ in range(30):
+        mid = (lo + hi) / 2
+        lo, hi = (mid, hi) if _ess_share(within * t ** mid) >= min_ess else (lo, mid)
+    return within * t ** lo, lo
+
+
 def tvw_weights(train: pd.DataFrame, beta: float, ring: Optional[np.ndarray] = None,
-                max_customers: int = 10, min_ess: float = 0.5) -> np.ndarray:
+                max_customers: int = 10, min_ess: float = 0.5, tempering: str = "ring",
+                identity_cols: Iterable[str] = ("customer_id",), identity_key=None) -> np.ndarray:
+    """tempering='ring' (default, v2): w ~ (R_k / T_r) * T_r^gamma, tempering only the across-ring money
+    factor; identical to 'global' when gamma = 1. tempering='global' (v1): w ~ (R_k / mean R)^gamma, which
+    also flattens the within-ring clock (kept for the ablation)."""
     y = train["fraud_label"].to_numpy()
     w = np.ones(len(train), dtype=np.float64)
     if beta <= 0 or not (y == 1).any():
         return w
     if ring is None:
-        ring = pseudo_rings(train, max_customers=max_customers)
+        ring = pseudo_rings(train, max_customers=max_customers, identity_cols=identity_cols,
+                            identity_key=identity_key)
     R = remaining_value(train, ring)
     f = y == 1
-    rel, _ = temper(R[f] / max(R[f].mean(), 1e-12), min_ess)
+    if tempering == "ring":
+        T = ring_totals(train, ring)
+        rel, _ = temper_rings(R[f] / np.maximum(T[f], 1e-12), T[f], min_ess)
+        rel = rel / max(rel.mean(), 1e-12)
+    else:
+        rel, _ = temper(R[f] / max(R[f].mean(), 1e-12), min_ess)
     wf = (1 - beta) + beta * rel
     w[f] = wf / wf.mean()
     return w
@@ -126,16 +174,19 @@ def tvw_weights(train: pd.DataFrame, beta: float, ring: Optional[np.ndarray] = N
 class TVWModel:
     """Wraps any model whose ``fit`` accepts ``sample_weight`` (XGBoost-based models here)."""
 
-    def __init__(self, base, beta: float, oracle: bool = False, max_customers: int = 10, min_ess: float = 0.5):
+    def __init__(self, base, beta: float, oracle: bool = False, max_customers: int = 10, min_ess: float = 0.5,
+                 tempering: str = "ring", identity_cols: Iterable[str] = ("customer_id",), identity_key=None):
         self.base, self.beta, self.oracle, self.max_customers = base, beta, oracle, max_customers
-        self.min_ess = min_ess
+        self.min_ess, self.tempering, self.identity_cols = min_ess, tempering, tuple(identity_cols)
+        self.identity_key = identity_key
         self.name = getattr(base, "name", "model") + f" + TVW(beta={beta})"
 
     def fit(self, train_df: pd.DataFrame, y: np.ndarray) -> "TVWModel":
         ring = None
         if self.oracle:
             ring = np.where(train_df["fraud_label"].to_numpy() == 1, train_df["ring_id"].to_numpy(), -1).astype(np.int64)
-        w = tvw_weights(train_df, self.beta, ring=ring, max_customers=self.max_customers, min_ess=self.min_ess)
+        w = tvw_weights(train_df, self.beta, ring=ring, max_customers=self.max_customers, min_ess=self.min_ess,
+                        tempering=self.tempering, identity_cols=self.identity_cols, identity_key=self.identity_key)
         self.base.fit(train_df, y, sample_weight=w)
         return self
 

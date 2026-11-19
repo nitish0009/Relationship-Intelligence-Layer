@@ -1,0 +1,1401 @@
+ring_id,fraud_pattern,ring_txns,ring_amount,detected,txns_before_alert,amount_before_alert,hours_to_alert,prevented_takedown,prevented_blocking,model,seed,variant,budget_multiple
+99,bipartite,10,114065.21875,True,4,36033.1875,8.35,0.6841001324078029,0.11878870969376894,Combined (full graph),42,control,0.05
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),42,control,0.05
+101,scatter-gather,12,90983.203125,False,12,90983.203125,,0.0,0.0,Combined (full graph),42,control,0.05
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),42,control,0.05
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),42,control,0.05
+104,bipartite,8,75432.078125,False,8,75432.078125,,0.0,0.0,Combined (full graph),42,control,0.05
+105,stack,3,41713.78125,False,3,41713.78125,,0.0,0.0,Combined (full graph),42,control,0.05
+106,cycle,3,44101.34765625,True,1,16283.1982421875,3.433333333333333,0.6307777850113531,0.6307777850113531,Combined (full graph),42,control,0.05
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Combined (full graph),42,control,0.05
+109,cycle,4,69846.0,True,2,34950.4609375,4.05,0.49960683593190736,0.49960683593190736,Combined (full graph),42,control,0.05
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Combined (full graph),42,control,0.05
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),42,control,0.05
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),42,control,0.05
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),42,control,0.05
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.5171902751907009,Combined (full graph),42,control,0.15
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),42,control,0.15
+101,scatter-gather,12,90983.203125,False,12,90983.203125,,0.0,0.0,Combined (full graph),42,control,0.15
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),42,control,0.15
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),42,control,0.15
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.662608155557162,Combined (full graph),42,control,0.15
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.23916748324332263,Combined (full graph),42,control,0.15
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),42,control,0.15
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),42,control,0.15
+109,cycle,4,69846.0,True,2,34950.4609375,4.05,0.49960683593190736,0.49960683593190736,Combined (full graph),42,control,0.15
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,0.8481760672492167,Combined (full graph),42,control,0.15
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),42,control,0.15
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),42,control,0.15
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),42,control,0.15
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.5966677643573975,Combined (full graph),42,control,0.3
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),42,control,0.3
+101,scatter-gather,12,90983.203125,False,12,90983.203125,,0.0,0.0,Combined (full graph),42,control,0.3
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),42,control,0.3
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),42,control,0.3
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.662608155557162,Combined (full graph),42,control,0.3
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.23916748324332263,Combined (full graph),42,control,0.3
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),42,control,0.3
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),42,control,0.3
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Combined (full graph),42,control,0.3
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,0.8481760672492167,Combined (full graph),42,control,0.3
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),42,control,0.3
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),42,control,0.3
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),42,control,0.3
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.5966677643573975,Combined (full graph),42,control,0.5
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),42,control,0.5
+101,scatter-gather,12,90983.203125,False,12,90983.203125,,0.0,0.0,Combined (full graph),42,control,0.5
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),42,control,0.5
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),42,control,0.5
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.662608155557162,Combined (full graph),42,control,0.5
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.23916748324332263,Combined (full graph),42,control,0.5
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),42,control,0.5
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),42,control,0.5
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Combined (full graph),42,control,0.5
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,0.8481760672492167,Combined (full graph),42,control,0.5
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),42,control,0.5
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),42,control,0.5
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),42,control,0.5
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.5966677643573975,Combined (full graph),42,control,1.0
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),42,control,1.0
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.06611879982998235,Combined (full graph),42,control,1.0
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),42,control,1.0
+103,bipartite,2,18082.48046875,True,0,0.0,0.0,1.0,0.6722385380358881,Combined (full graph),42,control,1.0
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.9114390574467551,Combined (full graph),42,control,1.0
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Combined (full graph),42,control,1.0
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),42,control,1.0
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),42,control,1.0
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Combined (full graph),42,control,1.0
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,1.0,Combined (full graph),42,control,1.0
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),42,control,1.0
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),42,control,1.0
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),42,control,1.0
+99,bipartite,10,114065.21875,True,4,36033.1875,8.35,0.6841001324078029,0.11878870969376894,Combined (full graph),42,TVW,0.05
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),42,TVW,0.05
+101,scatter-gather,12,90983.203125,False,12,90983.203125,,0.0,0.0,Combined (full graph),42,TVW,0.05
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),42,TVW,0.05
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),42,TVW,0.05
+104,bipartite,8,75432.078125,False,8,75432.078125,,0.0,0.0,Combined (full graph),42,TVW,0.05
+105,stack,3,41713.78125,False,3,41713.78125,,0.0,0.0,Combined (full graph),42,TVW,0.05
+106,cycle,3,44101.34765625,True,2,29378.728515625,10.8,0.3338360594316447,0.3338360594316447,Combined (full graph),42,TVW,0.05
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Combined (full graph),42,TVW,0.05
+109,cycle,4,69846.0,True,2,34950.4609375,4.05,0.49960683593190736,0.49960683593190736,Combined (full graph),42,TVW,0.05
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Combined (full graph),42,TVW,0.05
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),42,TVW,0.05
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),42,TVW,0.05
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),42,TVW,0.05
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.18534931496153378,Combined (full graph),42,TVW,0.15
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),42,TVW,0.15
+101,scatter-gather,12,90983.203125,False,12,90983.203125,,0.0,0.0,Combined (full graph),42,TVW,0.15
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),42,TVW,0.15
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),42,TVW,0.15
+104,bipartite,8,75432.078125,True,4,56322.43359375,11.283333333333333,0.2533358859884917,0.21995071932469049,Combined (full graph),42,TVW,0.15
+105,stack,3,41713.78125,False,3,41713.78125,,0.0,0.0,Combined (full graph),42,TVW,0.15
+106,cycle,3,44101.34765625,True,1,16283.1982421875,3.433333333333333,0.6307777850113531,0.6307777850113531,Combined (full graph),42,TVW,0.15
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),42,TVW,0.15
+109,cycle,4,69846.0,True,2,34950.4609375,4.05,0.49960683593190736,0.49960683593190736,Combined (full graph),42,TVW,0.15
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,0.8481760672492167,Combined (full graph),42,TVW,0.15
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),42,TVW,0.15
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),42,TVW,0.15
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),42,TVW,0.15
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.27250112463072795,Combined (full graph),42,TVW,0.3
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),42,TVW,0.3
+101,scatter-gather,12,90983.203125,False,12,90983.203125,,0.0,0.0,Combined (full graph),42,TVW,0.3
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),42,TVW,0.3
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),42,TVW,0.3
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.4660082756569289,Combined (full graph),42,TVW,0.3
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.23916748324332263,Combined (full graph),42,TVW,0.3
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),42,TVW,0.3
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),42,TVW,0.3
+109,cycle,4,69846.0,True,2,34950.4609375,4.05,0.49960683593190736,0.49960683593190736,Combined (full graph),42,TVW,0.3
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,0.8481760672492167,Combined (full graph),42,TVW,0.3
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),42,TVW,0.3
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),42,TVW,0.3
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),42,TVW,0.3
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.5171902751907009,Combined (full graph),42,TVW,0.5
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),42,TVW,0.5
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.06611879982998235,Combined (full graph),42,TVW,0.5
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),42,TVW,0.5
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),42,TVW,0.5
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.4660082756569289,Combined (full graph),42,TVW,0.5
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.23916748324332263,Combined (full graph),42,TVW,0.5
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),42,TVW,0.5
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),42,TVW,0.5
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Combined (full graph),42,TVW,0.5
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,0.8481760672492167,Combined (full graph),42,TVW,0.5
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),42,TVW,0.5
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),42,TVW,0.5
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),42,TVW,0.5
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.5966677643573975,Combined (full graph),42,TVW,1.0
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),42,TVW,1.0
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.06611879982998235,Combined (full graph),42,TVW,1.0
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),42,TVW,1.0
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),42,TVW,1.0
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.9114390574467551,Combined (full graph),42,TVW,1.0
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.5270438108358974,Combined (full graph),42,TVW,1.0
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),42,TVW,1.0
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),42,TVW,1.0
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Combined (full graph),42,TVW,1.0
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,1.0,Combined (full graph),42,TVW,1.0
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),42,TVW,1.0
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),42,TVW,1.0
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),42,TVW,1.0
+99,bipartite,10,114065.21875,True,4,36033.1875,8.35,0.6841001324078029,0.11878870969376894,Combined (full graph),43,control,0.05
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),43,control,0.05
+101,scatter-gather,12,90983.203125,False,12,90983.203125,,0.0,0.0,Combined (full graph),43,control,0.05
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),43,control,0.05
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),43,control,0.05
+104,bipartite,8,75432.078125,False,8,75432.078125,,0.0,0.0,Combined (full graph),43,control,0.05
+105,stack,3,41713.78125,False,3,41713.78125,,0.0,0.0,Combined (full graph),43,control,0.05
+106,cycle,3,44101.34765625,True,1,16283.1982421875,3.433333333333333,0.6307777850113531,0.6307777850113531,Combined (full graph),43,control,0.05
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Combined (full graph),43,control,0.05
+109,cycle,4,69846.0,True,2,34950.4609375,4.05,0.49960683593190736,0.49960683593190736,Combined (full graph),43,control,0.05
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Combined (full graph),43,control,0.05
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),43,control,0.05
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),43,control,0.05
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),43,control,0.05
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.4311975988517534,Combined (full graph),43,control,0.15
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),43,control,0.15
+101,scatter-gather,12,90983.203125,False,12,90983.203125,,0.0,0.0,Combined (full graph),43,control,0.15
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),43,control,0.15
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),43,control,0.15
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.4660082756569289,Combined (full graph),43,control,0.15
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.23916748324332263,Combined (full graph),43,control,0.15
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),43,control,0.15
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),43,control,0.15
+109,cycle,4,69846.0,True,2,34950.4609375,4.05,0.49960683593190736,0.49960683593190736,Combined (full graph),43,control,0.15
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,0.8481760672492167,Combined (full graph),43,control,0.15
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),43,control,0.15
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),43,control,0.15
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),43,control,0.15
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.5966677643573975,Combined (full graph),43,control,0.3
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),43,control,0.3
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.06611879982998235,Combined (full graph),43,control,0.3
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),43,control,0.3
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),43,control,0.3
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.662608155557162,Combined (full graph),43,control,0.3
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.23916748324332263,Combined (full graph),43,control,0.3
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),43,control,0.3
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),43,control,0.3
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Combined (full graph),43,control,0.3
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,0.8481760672492167,Combined (full graph),43,control,0.3
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),43,control,0.3
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),43,control,0.3
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),43,control,0.3
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.5966677643573975,Combined (full graph),43,control,0.5
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),43,control,0.5
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.06611879982998235,Combined (full graph),43,control,0.5
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),43,control,0.5
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),43,control,0.5
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.662608155557162,Combined (full graph),43,control,0.5
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.5270438108358974,Combined (full graph),43,control,0.5
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),43,control,0.5
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),43,control,0.5
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Combined (full graph),43,control,0.5
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,0.8481760672492167,Combined (full graph),43,control,0.5
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),43,control,0.5
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),43,control,0.5
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),43,control,0.5
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.5966677643573975,Combined (full graph),43,control,1.0
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),43,control,1.0
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.33161594044230347,Combined (full graph),43,control,1.0
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),43,control,1.0
+103,bipartite,2,18082.48046875,True,0,0.0,0.0,1.0,0.6722385380358881,Combined (full graph),43,control,1.0
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.9114390574467551,Combined (full graph),43,control,1.0
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Combined (full graph),43,control,1.0
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),43,control,1.0
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),43,control,1.0
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Combined (full graph),43,control,1.0
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,1.0,Combined (full graph),43,control,1.0
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),43,control,1.0
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),43,control,1.0
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),43,control,1.0
+99,bipartite,10,114065.21875,True,4,36033.1875,8.35,0.6841001324078029,0.11878870969376894,Combined (full graph),43,TVW,0.05
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),43,TVW,0.05
+101,scatter-gather,12,90983.203125,False,12,90983.203125,,0.0,0.0,Combined (full graph),43,TVW,0.05
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),43,TVW,0.05
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),43,TVW,0.05
+104,bipartite,8,75432.078125,True,4,56322.43359375,11.283333333333333,0.2533358859884917,0.03868566218926671,Combined (full graph),43,TVW,0.05
+105,stack,3,41713.78125,False,3,41713.78125,,0.0,0.0,Combined (full graph),43,TVW,0.05
+106,cycle,3,44101.34765625,True,1,16283.1982421875,3.433333333333333,0.6307777850113531,0.6307777850113531,Combined (full graph),43,TVW,0.05
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Combined (full graph),43,TVW,0.05
+109,cycle,4,69846.0,True,2,34950.4609375,4.05,0.49960683593190736,0.49960683593190736,Combined (full graph),43,TVW,0.05
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Combined (full graph),43,TVW,0.05
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),43,TVW,0.05
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),43,TVW,0.05
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),43,TVW,0.05
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.18534931496153378,Combined (full graph),43,TVW,0.15
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),43,TVW,0.15
+101,scatter-gather,12,90983.203125,False,12,90983.203125,,0.0,0.0,Combined (full graph),43,TVW,0.15
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),43,TVW,0.15
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),43,TVW,0.15
+104,bipartite,8,75432.078125,True,4,56322.43359375,11.283333333333333,0.2533358859884917,0.21995071932469049,Combined (full graph),43,TVW,0.15
+105,stack,3,41713.78125,False,3,41713.78125,,0.0,0.0,Combined (full graph),43,TVW,0.15
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),43,TVW,0.15
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),43,TVW,0.15
+109,cycle,4,69846.0,True,2,34950.4609375,4.05,0.49960683593190736,0.49960683593190736,Combined (full graph),43,TVW,0.15
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,0.8481760672492167,Combined (full graph),43,TVW,0.15
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),43,TVW,0.15
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),43,TVW,0.15
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),43,TVW,0.15
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.358493783846796,Combined (full graph),43,TVW,0.3
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),43,TVW,0.3
+101,scatter-gather,12,90983.203125,False,12,90983.203125,,0.0,0.0,Combined (full graph),43,TVW,0.3
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),43,TVW,0.3
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),43,TVW,0.3
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.4660082756569289,Combined (full graph),43,TVW,0.3
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.23916748324332263,Combined (full graph),43,TVW,0.3
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),43,TVW,0.3
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),43,TVW,0.3
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Combined (full graph),43,TVW,0.3
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,0.8481760672492167,Combined (full graph),43,TVW,0.3
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),43,TVW,0.3
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),43,TVW,0.3
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),43,TVW,0.3
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.5171902751907009,Combined (full graph),43,TVW,0.5
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),43,TVW,0.5
+101,scatter-gather,12,90983.203125,False,12,90983.203125,,0.0,0.0,Combined (full graph),43,TVW,0.5
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),43,TVW,0.5
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),43,TVW,0.5
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.9114390574467551,Combined (full graph),43,TVW,0.5
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.23916748324332263,Combined (full graph),43,TVW,0.5
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),43,TVW,0.5
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),43,TVW,0.5
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Combined (full graph),43,TVW,0.5
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,0.8481760672492167,Combined (full graph),43,TVW,0.5
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),43,TVW,0.5
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),43,TVW,0.5
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),43,TVW,0.5
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.5966677643573975,Combined (full graph),43,TVW,1.0
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),43,TVW,1.0
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.06611879982998235,Combined (full graph),43,TVW,1.0
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),43,TVW,1.0
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),43,TVW,1.0
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.9114390574467551,Combined (full graph),43,TVW,1.0
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.5270438108358974,Combined (full graph),43,TVW,1.0
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),43,TVW,1.0
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),43,TVW,1.0
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Combined (full graph),43,TVW,1.0
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,1.0,Combined (full graph),43,TVW,1.0
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),43,TVW,1.0
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),43,TVW,1.0
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),43,TVW,1.0
+99,bipartite,10,114065.21875,True,4,36033.1875,8.35,0.6841001324078029,0.11878870969376894,Combined (full graph),44,control,0.05
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),44,control,0.05
+101,scatter-gather,12,90983.203125,False,12,90983.203125,,0.0,0.0,Combined (full graph),44,control,0.05
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),44,control,0.05
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),44,control,0.05
+104,bipartite,8,75432.078125,False,8,75432.078125,,0.0,0.0,Combined (full graph),44,control,0.05
+105,stack,3,41713.78125,False,3,41713.78125,,0.0,0.0,Combined (full graph),44,control,0.05
+106,cycle,3,44101.34765625,True,1,16283.1982421875,3.433333333333333,0.6307777850113531,0.6307777850113531,Combined (full graph),44,control,0.05
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Combined (full graph),44,control,0.05
+109,cycle,4,69846.0,True,2,34950.4609375,4.05,0.49960683593190736,0.49960683593190736,Combined (full graph),44,control,0.05
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Combined (full graph),44,control,0.05
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),44,control,0.05
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),44,control,0.05
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),44,control,0.05
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.5171902751907009,Combined (full graph),44,control,0.15
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),44,control,0.15
+101,scatter-gather,12,90983.203125,False,12,90983.203125,,0.0,0.0,Combined (full graph),44,control,0.15
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),44,control,0.15
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),44,control,0.15
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.662608155557162,Combined (full graph),44,control,0.15
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.23916748324332263,Combined (full graph),44,control,0.15
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),44,control,0.15
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),44,control,0.15
+109,cycle,4,69846.0,True,2,34950.4609375,4.05,0.49960683593190736,0.49960683593190736,Combined (full graph),44,control,0.15
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,0.8481760672492167,Combined (full graph),44,control,0.15
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),44,control,0.15
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),44,control,0.15
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),44,control,0.15
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.5966677643573975,Combined (full graph),44,control,0.3
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),44,control,0.3
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.06611879982998235,Combined (full graph),44,control,0.3
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),44,control,0.3
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),44,control,0.3
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.662608155557162,Combined (full graph),44,control,0.3
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.23916748324332263,Combined (full graph),44,control,0.3
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),44,control,0.3
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),44,control,0.3
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Combined (full graph),44,control,0.3
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,0.8481760672492167,Combined (full graph),44,control,0.3
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),44,control,0.3
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),44,control,0.3
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),44,control,0.3
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.5966677643573975,Combined (full graph),44,control,0.5
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),44,control,0.5
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.06611879982998235,Combined (full graph),44,control,0.5
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),44,control,0.5
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),44,control,0.5
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.9114390574467551,Combined (full graph),44,control,0.5
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Combined (full graph),44,control,0.5
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),44,control,0.5
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),44,control,0.5
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Combined (full graph),44,control,0.5
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,0.8481760672492167,Combined (full graph),44,control,0.5
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),44,control,0.5
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),44,control,0.5
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),44,control,0.5
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.5966677643573975,Combined (full graph),44,control,1.0
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),44,control,1.0
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.33161594044230347,Combined (full graph),44,control,1.0
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),44,control,1.0
+103,bipartite,2,18082.48046875,True,0,0.0,0.0,1.0,0.6722385380358881,Combined (full graph),44,control,1.0
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.9114390574467551,Combined (full graph),44,control,1.0
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Combined (full graph),44,control,1.0
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),44,control,1.0
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),44,control,1.0
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Combined (full graph),44,control,1.0
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,1.0,Combined (full graph),44,control,1.0
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),44,control,1.0
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),44,control,1.0
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),44,control,1.0
+99,bipartite,10,114065.21875,True,4,36033.1875,8.35,0.6841001324078029,0.11878870969376894,Combined (full graph),44,TVW,0.05
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),44,TVW,0.05
+101,scatter-gather,12,90983.203125,False,12,90983.203125,,0.0,0.0,Combined (full graph),44,TVW,0.05
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),44,TVW,0.05
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),44,TVW,0.05
+104,bipartite,8,75432.078125,True,4,56322.43359375,11.283333333333333,0.2533358859884917,0.03868566218926671,Combined (full graph),44,TVW,0.05
+105,stack,3,41713.78125,False,3,41713.78125,,0.0,0.0,Combined (full graph),44,TVW,0.05
+106,cycle,3,44101.34765625,True,1,16283.1982421875,3.433333333333333,0.6307777850113531,0.6307777850113531,Combined (full graph),44,TVW,0.05
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Combined (full graph),44,TVW,0.05
+109,cycle,4,69846.0,True,2,34950.4609375,4.05,0.49960683593190736,0.49960683593190736,Combined (full graph),44,TVW,0.05
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Combined (full graph),44,TVW,0.05
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),44,TVW,0.05
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),44,TVW,0.05
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),44,TVW,0.05
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.18534931496153378,Combined (full graph),44,TVW,0.15
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),44,TVW,0.15
+101,scatter-gather,12,90983.203125,False,12,90983.203125,,0.0,0.0,Combined (full graph),44,TVW,0.15
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),44,TVW,0.15
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),44,TVW,0.15
+104,bipartite,8,75432.078125,True,4,56322.43359375,11.283333333333333,0.2533358859884917,0.21995071932469049,Combined (full graph),44,TVW,0.15
+105,stack,3,41713.78125,False,3,41713.78125,,0.0,0.0,Combined (full graph),44,TVW,0.15
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),44,TVW,0.15
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),44,TVW,0.15
+109,cycle,4,69846.0,True,2,34950.4609375,4.05,0.49960683593190736,0.49960683593190736,Combined (full graph),44,TVW,0.15
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,0.8481760672492167,Combined (full graph),44,TVW,0.15
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),44,TVW,0.15
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),44,TVW,0.15
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),44,TVW,0.15
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.5171902751907009,Combined (full graph),44,TVW,0.3
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),44,TVW,0.3
+101,scatter-gather,12,90983.203125,False,12,90983.203125,,0.0,0.0,Combined (full graph),44,TVW,0.3
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),44,TVW,0.3
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),44,TVW,0.3
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.4660082756569289,Combined (full graph),44,TVW,0.3
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.23916748324332263,Combined (full graph),44,TVW,0.3
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),44,TVW,0.3
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),44,TVW,0.3
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Combined (full graph),44,TVW,0.3
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,0.8481760672492167,Combined (full graph),44,TVW,0.3
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),44,TVW,0.3
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),44,TVW,0.3
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),44,TVW,0.3
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.5171902751907009,Combined (full graph),44,TVW,0.5
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),44,TVW,0.5
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.06611879982998235,Combined (full graph),44,TVW,0.5
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),44,TVW,0.5
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),44,TVW,0.5
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.7148391257615243,Combined (full graph),44,TVW,0.5
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.23916748324332263,Combined (full graph),44,TVW,0.5
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),44,TVW,0.5
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),44,TVW,0.5
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Combined (full graph),44,TVW,0.5
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,0.8481760672492167,Combined (full graph),44,TVW,0.5
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),44,TVW,0.5
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),44,TVW,0.5
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),44,TVW,0.5
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.5966677643573975,Combined (full graph),44,TVW,1.0
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),44,TVW,1.0
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.06611879982998235,Combined (full graph),44,TVW,1.0
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),44,TVW,1.0
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),44,TVW,1.0
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.9114390574467551,Combined (full graph),44,TVW,1.0
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.23916748324332263,Combined (full graph),44,TVW,1.0
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),44,TVW,1.0
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),44,TVW,1.0
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Combined (full graph),44,TVW,1.0
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,1.0,Combined (full graph),44,TVW,1.0
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),44,TVW,1.0
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),44,TVW,1.0
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),44,TVW,1.0
+99,bipartite,10,114065.21875,True,4,36033.1875,8.35,0.6841001324078029,0.11878870969376894,Combined (full graph),45,control,0.05
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),45,control,0.05
+101,scatter-gather,12,90983.203125,False,12,90983.203125,,0.0,0.0,Combined (full graph),45,control,0.05
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),45,control,0.05
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),45,control,0.05
+104,bipartite,8,75432.078125,False,8,75432.078125,,0.0,0.0,Combined (full graph),45,control,0.05
+105,stack,3,41713.78125,False,3,41713.78125,,0.0,0.0,Combined (full graph),45,control,0.05
+106,cycle,3,44101.34765625,True,1,16283.1982421875,3.433333333333333,0.6307777850113531,0.6307777850113531,Combined (full graph),45,control,0.05
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Combined (full graph),45,control,0.05
+109,cycle,4,69846.0,True,2,34950.4609375,4.05,0.49960683593190736,0.49960683593190736,Combined (full graph),45,control,0.05
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Combined (full graph),45,control,0.05
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),45,control,0.05
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),45,control,0.05
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),45,control,0.05
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.5966677643573975,Combined (full graph),45,control,0.15
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),45,control,0.15
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.06611879982998235,Combined (full graph),45,control,0.15
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),45,control,0.15
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),45,control,0.15
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.4660082756569289,Combined (full graph),45,control,0.15
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.23916748324332263,Combined (full graph),45,control,0.15
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),45,control,0.15
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),45,control,0.15
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Combined (full graph),45,control,0.15
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,0.8481760672492167,Combined (full graph),45,control,0.15
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),45,control,0.15
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),45,control,0.15
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),45,control,0.15
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.5966677643573975,Combined (full graph),45,control,0.3
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),45,control,0.3
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.06611879982998235,Combined (full graph),45,control,0.3
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),45,control,0.3
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),45,control,0.3
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.662608155557162,Combined (full graph),45,control,0.3
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.23916748324332263,Combined (full graph),45,control,0.3
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),45,control,0.3
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),45,control,0.3
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Combined (full graph),45,control,0.3
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,0.8481760672492167,Combined (full graph),45,control,0.3
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),45,control,0.3
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),45,control,0.3
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),45,control,0.3
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.5966677643573975,Combined (full graph),45,control,0.5
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),45,control,0.5
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.06611879982998235,Combined (full graph),45,control,0.5
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),45,control,0.5
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),45,control,0.5
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.9114390574467551,Combined (full graph),45,control,0.5
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.7121236255853693,Combined (full graph),45,control,0.5
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),45,control,0.5
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),45,control,0.5
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Combined (full graph),45,control,0.5
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,0.8481760672492167,Combined (full graph),45,control,0.5
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),45,control,0.5
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),45,control,0.5
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),45,control,0.5
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.5966677643573975,Combined (full graph),45,control,1.0
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),45,control,1.0
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.33161594044230347,Combined (full graph),45,control,1.0
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),45,control,1.0
+103,bipartite,2,18082.48046875,True,0,0.0,0.0,1.0,0.6722385380358881,Combined (full graph),45,control,1.0
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.9114390574467551,Combined (full graph),45,control,1.0
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Combined (full graph),45,control,1.0
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),45,control,1.0
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),45,control,1.0
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Combined (full graph),45,control,1.0
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,1.0,Combined (full graph),45,control,1.0
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),45,control,1.0
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),45,control,1.0
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),45,control,1.0
+99,bipartite,10,114065.21875,True,4,36033.1875,8.35,0.6841001324078029,0.11878870969376894,Combined (full graph),45,TVW,0.05
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),45,TVW,0.05
+101,scatter-gather,12,90983.203125,False,12,90983.203125,,0.0,0.0,Combined (full graph),45,TVW,0.05
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),45,TVW,0.05
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),45,TVW,0.05
+104,bipartite,8,75432.078125,True,4,56322.43359375,11.283333333333333,0.2533358859884917,0.03868566218926671,Combined (full graph),45,TVW,0.05
+105,stack,3,41713.78125,False,3,41713.78125,,0.0,0.0,Combined (full graph),45,TVW,0.05
+106,cycle,3,44101.34765625,True,1,16283.1982421875,3.433333333333333,0.6307777850113531,0.6307777850113531,Combined (full graph),45,TVW,0.05
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Combined (full graph),45,TVW,0.05
+109,cycle,4,69846.0,True,2,34950.4609375,4.05,0.49960683593190736,0.49960683593190736,Combined (full graph),45,TVW,0.05
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Combined (full graph),45,TVW,0.05
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),45,TVW,0.05
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),45,TVW,0.05
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),45,TVW,0.05
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.18534931496153378,Combined (full graph),45,TVW,0.15
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),45,TVW,0.15
+101,scatter-gather,12,90983.203125,False,12,90983.203125,,0.0,0.0,Combined (full graph),45,TVW,0.15
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),45,TVW,0.15
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),45,TVW,0.15
+104,bipartite,8,75432.078125,True,4,56322.43359375,11.283333333333333,0.2533358859884917,0.21995071932469049,Combined (full graph),45,TVW,0.15
+105,stack,3,41713.78125,False,3,41713.78125,,0.0,0.0,Combined (full graph),45,TVW,0.15
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),45,TVW,0.15
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Combined (full graph),45,TVW,0.15
+109,cycle,4,69846.0,True,2,34950.4609375,4.05,0.49960683593190736,0.49960683593190736,Combined (full graph),45,TVW,0.15
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,0.8481760672492167,Combined (full graph),45,TVW,0.15
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),45,TVW,0.15
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),45,TVW,0.15
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),45,TVW,0.15
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.4311975988517534,Combined (full graph),45,TVW,0.3
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),45,TVW,0.3
+101,scatter-gather,12,90983.203125,False,12,90983.203125,,0.0,0.0,Combined (full graph),45,TVW,0.3
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),45,TVW,0.3
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),45,TVW,0.3
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.4660082756569289,Combined (full graph),45,TVW,0.3
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.23916748324332263,Combined (full graph),45,TVW,0.3
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),45,TVW,0.3
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),45,TVW,0.3
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Combined (full graph),45,TVW,0.3
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,0.8481760672492167,Combined (full graph),45,TVW,0.3
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),45,TVW,0.3
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),45,TVW,0.3
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),45,TVW,0.3
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.5966677643573975,Combined (full graph),45,TVW,0.5
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),45,TVW,0.5
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.06611879982998235,Combined (full graph),45,TVW,0.5
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),45,TVW,0.5
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),45,TVW,0.5
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.7148391257615243,Combined (full graph),45,TVW,0.5
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.23916748324332263,Combined (full graph),45,TVW,0.5
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),45,TVW,0.5
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),45,TVW,0.5
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Combined (full graph),45,TVW,0.5
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,1.0,Combined (full graph),45,TVW,0.5
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),45,TVW,0.5
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),45,TVW,0.5
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),45,TVW,0.5
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.5966677643573975,Combined (full graph),45,TVW,1.0
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),45,TVW,1.0
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.06611879982998235,Combined (full graph),45,TVW,1.0
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),45,TVW,1.0
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),45,TVW,1.0
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.9114390574467551,Combined (full graph),45,TVW,1.0
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.5270438108358974,Combined (full graph),45,TVW,1.0
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),45,TVW,1.0
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),45,TVW,1.0
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Combined (full graph),45,TVW,1.0
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,1.0,Combined (full graph),45,TVW,1.0
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),45,TVW,1.0
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),45,TVW,1.0
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),45,TVW,1.0
+99,bipartite,10,114065.21875,True,4,36033.1875,8.35,0.6841001324078029,0.11878870969376894,Combined (full graph),46,control,0.05
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),46,control,0.05
+101,scatter-gather,12,90983.203125,False,12,90983.203125,,0.0,0.0,Combined (full graph),46,control,0.05
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),46,control,0.05
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),46,control,0.05
+104,bipartite,8,75432.078125,True,4,56322.43359375,11.283333333333333,0.2533358859884917,0.03868566218926671,Combined (full graph),46,control,0.05
+105,stack,3,41713.78125,False,3,41713.78125,,0.0,0.0,Combined (full graph),46,control,0.05
+106,cycle,3,44101.34765625,True,1,16283.1982421875,3.433333333333333,0.6307777850113531,0.6307777850113531,Combined (full graph),46,control,0.05
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Combined (full graph),46,control,0.05
+109,cycle,4,69846.0,True,2,34950.4609375,4.05,0.49960683593190736,0.49960683593190736,Combined (full graph),46,control,0.05
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Combined (full graph),46,control,0.05
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),46,control,0.05
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),46,control,0.05
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),46,control,0.05
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.5171902751907009,Combined (full graph),46,control,0.15
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),46,control,0.15
+101,scatter-gather,12,90983.203125,False,12,90983.203125,,0.0,0.0,Combined (full graph),46,control,0.15
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),46,control,0.15
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),46,control,0.15
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.662608155557162,Combined (full graph),46,control,0.15
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.23916748324332263,Combined (full graph),46,control,0.15
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),46,control,0.15
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),46,control,0.15
+109,cycle,4,69846.0,True,2,34950.4609375,4.05,0.49960683593190736,0.49960683593190736,Combined (full graph),46,control,0.15
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,0.8481760672492167,Combined (full graph),46,control,0.15
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),46,control,0.15
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),46,control,0.15
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),46,control,0.15
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.5966677643573975,Combined (full graph),46,control,0.3
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),46,control,0.3
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.06611879982998235,Combined (full graph),46,control,0.3
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),46,control,0.3
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),46,control,0.3
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.662608155557162,Combined (full graph),46,control,0.3
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.23916748324332263,Combined (full graph),46,control,0.3
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),46,control,0.3
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),46,control,0.3
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Combined (full graph),46,control,0.3
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,0.8481760672492167,Combined (full graph),46,control,0.3
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),46,control,0.3
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),46,control,0.3
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),46,control,0.3
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.5966677643573975,Combined (full graph),46,control,0.5
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),46,control,0.5
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.06611879982998235,Combined (full graph),46,control,0.5
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),46,control,0.5
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),46,control,0.5
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.9114390574467551,Combined (full graph),46,control,0.5
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.7121236255853693,Combined (full graph),46,control,0.5
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),46,control,0.5
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),46,control,0.5
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Combined (full graph),46,control,0.5
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,0.8481760672492167,Combined (full graph),46,control,0.5
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),46,control,0.5
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),46,control,0.5
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),46,control,0.5
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.5966677643573975,Combined (full graph),46,control,1.0
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),46,control,1.0
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.06611879982998235,Combined (full graph),46,control,1.0
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),46,control,1.0
+103,bipartite,2,18082.48046875,True,0,0.0,0.0,1.0,0.6722385380358881,Combined (full graph),46,control,1.0
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.9114390574467551,Combined (full graph),46,control,1.0
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Combined (full graph),46,control,1.0
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),46,control,1.0
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),46,control,1.0
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Combined (full graph),46,control,1.0
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,1.0,Combined (full graph),46,control,1.0
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),46,control,1.0
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),46,control,1.0
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),46,control,1.0
+99,bipartite,10,114065.21875,True,4,36033.1875,8.35,0.6841001324078029,0.11878870969376894,Combined (full graph),46,TVW,0.05
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),46,TVW,0.05
+101,scatter-gather,12,90983.203125,False,12,90983.203125,,0.0,0.0,Combined (full graph),46,TVW,0.05
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),46,TVW,0.05
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),46,TVW,0.05
+104,bipartite,8,75432.078125,False,8,75432.078125,,0.0,0.0,Combined (full graph),46,TVW,0.05
+105,stack,3,41713.78125,False,3,41713.78125,,0.0,0.0,Combined (full graph),46,TVW,0.05
+106,cycle,3,44101.34765625,True,2,29378.728515625,10.8,0.3338360594316447,0.3338360594316447,Combined (full graph),46,TVW,0.05
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Combined (full graph),46,TVW,0.05
+109,cycle,4,69846.0,True,2,34950.4609375,4.05,0.49960683593190736,0.49960683593190736,Combined (full graph),46,TVW,0.05
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Combined (full graph),46,TVW,0.05
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),46,TVW,0.05
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),46,TVW,0.05
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),46,TVW,0.05
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.18534931496153378,Combined (full graph),46,TVW,0.15
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),46,TVW,0.15
+101,scatter-gather,12,90983.203125,False,12,90983.203125,,0.0,0.0,Combined (full graph),46,TVW,0.15
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),46,TVW,0.15
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),46,TVW,0.15
+104,bipartite,8,75432.078125,True,4,56322.43359375,11.283333333333333,0.2533358859884917,0.21995071932469049,Combined (full graph),46,TVW,0.15
+105,stack,3,41713.78125,False,3,41713.78125,,0.0,0.0,Combined (full graph),46,TVW,0.15
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),46,TVW,0.15
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),46,TVW,0.15
+109,cycle,4,69846.0,True,2,34950.4609375,4.05,0.49960683593190736,0.49960683593190736,Combined (full graph),46,TVW,0.15
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,0.8481760672492167,Combined (full graph),46,TVW,0.15
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),46,TVW,0.15
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),46,TVW,0.15
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),46,TVW,0.15
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.4311975988517534,Combined (full graph),46,TVW,0.3
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),46,TVW,0.3
+101,scatter-gather,12,90983.203125,False,12,90983.203125,,0.0,0.0,Combined (full graph),46,TVW,0.3
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),46,TVW,0.3
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),46,TVW,0.3
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.4660082756569289,Combined (full graph),46,TVW,0.3
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.23916748324332263,Combined (full graph),46,TVW,0.3
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),46,TVW,0.3
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),46,TVW,0.3
+109,cycle,4,69846.0,True,2,34950.4609375,4.05,0.49960683593190736,0.49960683593190736,Combined (full graph),46,TVW,0.3
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,0.8481760672492167,Combined (full graph),46,TVW,0.3
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),46,TVW,0.3
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),46,TVW,0.3
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),46,TVW,0.3
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.5171902751907009,Combined (full graph),46,TVW,0.5
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),46,TVW,0.5
+101,scatter-gather,12,90983.203125,False,12,90983.203125,,0.0,0.0,Combined (full graph),46,TVW,0.5
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),46,TVW,0.5
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),46,TVW,0.5
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.7148391257615243,Combined (full graph),46,TVW,0.5
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.23916748324332263,Combined (full graph),46,TVW,0.5
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),46,TVW,0.5
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),46,TVW,0.5
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Combined (full graph),46,TVW,0.5
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,0.8481760672492167,Combined (full graph),46,TVW,0.5
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),46,TVW,0.5
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),46,TVW,0.5
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),46,TVW,0.5
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.5966677643573975,Combined (full graph),46,TVW,1.0
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Combined (full graph),46,TVW,1.0
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.06611879982998235,Combined (full graph),46,TVW,1.0
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Combined (full graph),46,TVW,1.0
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Combined (full graph),46,TVW,1.0
+104,bipartite,8,75432.078125,True,1,4162.02978515625,1.1166666666666667,0.9448242241105564,0.9114390574467551,Combined (full graph),46,TVW,1.0
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.23916748324332263,Combined (full graph),46,TVW,1.0
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Combined (full graph),46,TVW,1.0
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Combined (full graph),46,TVW,1.0
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Combined (full graph),46,TVW,1.0
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,1.0,Combined (full graph),46,TVW,1.0
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Combined (full graph),46,TVW,1.0
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Combined (full graph),46,TVW,1.0
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Combined (full graph),46,TVW,1.0
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.4454312664328275,Neighbour-Aggregation XGBoost,42,control,0.05
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Neighbour-Aggregation XGBoost,42,control,0.05
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.28103661390108925,Neighbour-Aggregation XGBoost,42,control,0.05
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,42,control,0.05
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Neighbour-Aggregation XGBoost,42,control,0.05
+104,bipartite,8,75432.078125,True,6,61481.42578125,15.766666666666667,0.1849433358197037,0.18126506037198614,Neighbour-Aggregation XGBoost,42,control,0.05
+105,stack,3,41713.78125,True,2,29705.369140625,19.633333333333333,0.2878763275925747,0.2878763275925747,Neighbour-Aggregation XGBoost,42,control,0.05
+106,cycle,3,44101.34765625,False,3,44101.34765625,,0.0,0.0,Neighbour-Aggregation XGBoost,42,control,0.05
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Neighbour-Aggregation XGBoost,42,control,0.05
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.5014957012570512,Neighbour-Aggregation XGBoost,42,control,0.05
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,42,control,0.05
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Neighbour-Aggregation XGBoost,42,control,0.05
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Neighbour-Aggregation XGBoost,42,control,0.05
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,42,control,0.05
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.4454312664328275,Neighbour-Aggregation XGBoost,42,control,0.15
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,42,control,0.15
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.867692182193657,Neighbour-Aggregation XGBoost,42,control,0.15
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,42,control,0.15
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Neighbour-Aggregation XGBoost,42,control,0.15
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.4852717769897712,Neighbour-Aggregation XGBoost,42,control,0.15
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,control,0.15
+106,cycle,3,44101.34765625,True,2,29378.728515625,10.8,0.3338360594316447,0.3338360594316447,Neighbour-Aggregation XGBoost,42,control,0.15
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Neighbour-Aggregation XGBoost,42,control,0.15
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,control,0.15
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,42,control,0.15
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Neighbour-Aggregation XGBoost,42,control,0.15
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,0.008746523261561225,Neighbour-Aggregation XGBoost,42,control,0.15
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,42,control,0.15
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.6901203313784028,Neighbour-Aggregation XGBoost,42,control,0.3
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,42,control,0.3
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9854982676232306,Neighbour-Aggregation XGBoost,42,control,0.3
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,42,control,0.3
+103,bipartite,2,18082.48046875,True,1,12155.740234375,8.45,0.32776146196411193,0.32776146196411193,Neighbour-Aggregation XGBoost,42,control,0.3
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.4852717769897712,Neighbour-Aggregation XGBoost,42,control,0.3
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,control,0.3
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,control,0.3
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Neighbour-Aggregation XGBoost,42,control,0.3
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,control,0.3
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,42,control,0.3
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,0.48533177621082046,Neighbour-Aggregation XGBoost,42,control,0.3
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,0.008746523261561225,Neighbour-Aggregation XGBoost,42,control,0.3
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,42,control,0.3
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.6901203313784028,Neighbour-Aggregation XGBoost,42,control,0.5
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,42,control,0.5
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9854982676232306,Neighbour-Aggregation XGBoost,42,control,0.5
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,42,control,0.5
+103,bipartite,2,18082.48046875,True,1,12155.740234375,8.45,0.32776146196411193,0.32776146196411193,Neighbour-Aggregation XGBoost,42,control,0.5
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.527635737282692,Neighbour-Aggregation XGBoost,42,control,0.5
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,control,0.5
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,control,0.5
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Neighbour-Aggregation XGBoost,42,control,0.5
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,control,0.5
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,42,control,0.5
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,control,0.5
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,0.008746523261561225,Neighbour-Aggregation XGBoost,42,control,0.5
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,42,control,0.5
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,control,1.0
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,42,control,1.0
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9854982676232306,Neighbour-Aggregation XGBoost,42,control,1.0
+102,scatter-gather,2,1145.1199951171875,True,0,0.0,0.0,1.0,0.5451393763638862,Neighbour-Aggregation XGBoost,42,control,1.0
+103,bipartite,2,18082.48046875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,control,1.0
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.7242356689679229,Neighbour-Aggregation XGBoost,42,control,1.0
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,control,1.0
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,control,1.0
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,control,1.0
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,control,1.0
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,control,1.0
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,control,1.0
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,control,1.0
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,42,control,1.0
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.24716499908084383,Neighbour-Aggregation XGBoost,42,TVW,0.05
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Neighbour-Aggregation XGBoost,42,TVW,0.05
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.6334395514281912,Neighbour-Aggregation XGBoost,42,TVW,0.05
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,42,TVW,0.05
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Neighbour-Aggregation XGBoost,42,TVW,0.05
+104,bipartite,8,75432.078125,True,2,22722.66015625,1.9666666666666666,0.698766667778318,0.43009594931532985,Neighbour-Aggregation XGBoost,42,TVW,0.05
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.5270438108358974,Neighbour-Aggregation XGBoost,42,TVW,0.05
+106,cycle,3,44101.34765625,False,3,44101.34765625,,0.0,0.0,Neighbour-Aggregation XGBoost,42,TVW,0.05
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Neighbour-Aggregation XGBoost,42,TVW,0.05
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Neighbour-Aggregation XGBoost,42,TVW,0.05
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,42,TVW,0.05
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Neighbour-Aggregation XGBoost,42,TVW,0.05
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Neighbour-Aggregation XGBoost,42,TVW,0.05
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,42,TVW,0.05
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.6041277235309733,Neighbour-Aggregation XGBoost,42,TVW,0.15
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,42,TVW,0.15
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9854982676232306,Neighbour-Aggregation XGBoost,42,TVW,0.15
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,42,TVW,0.15
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Neighbour-Aggregation XGBoost,42,TVW,0.15
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.4852717769897712,Neighbour-Aggregation XGBoost,42,TVW,0.15
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,TVW,0.15
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,TVW,0.15
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Neighbour-Aggregation XGBoost,42,TVW,0.15
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,TVW,0.15
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,42,TVW,0.15
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Neighbour-Aggregation XGBoost,42,TVW,0.15
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,TVW,0.15
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,42,TVW,0.15
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.9965183021664963,Neighbour-Aggregation XGBoost,42,TVW,0.3
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,42,TVW,0.3
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9854982676232306,Neighbour-Aggregation XGBoost,42,TVW,0.3
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,42,TVW,0.3
+103,bipartite,2,18082.48046875,True,1,12155.740234375,8.45,0.32776146196411193,0.32776146196411193,Neighbour-Aggregation XGBoost,42,TVW,0.3
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.523957448888725,Neighbour-Aggregation XGBoost,42,TVW,0.3
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,TVW,0.3
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,TVW,0.3
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Neighbour-Aggregation XGBoost,42,TVW,0.3
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,TVW,0.3
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,42,TVW,0.3
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,TVW,0.3
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,TVW,0.3
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,42,TVW,0.3
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,TVW,0.5
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,42,TVW,0.5
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9854982676232306,Neighbour-Aggregation XGBoost,42,TVW,0.5
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,42,TVW,0.5
+103,bipartite,2,18082.48046875,True,1,12155.740234375,8.45,0.32776146196411193,0.32776146196411193,Neighbour-Aggregation XGBoost,42,TVW,0.5
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.7205573805739559,Neighbour-Aggregation XGBoost,42,TVW,0.5
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,TVW,0.5
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,TVW,0.5
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,TVW,0.5
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,TVW,0.5
+113,fan-out,2,22713.08984375,True,1,19264.69921875,3.466666666666667,0.1518239005040974,0.1518239005040974,Neighbour-Aggregation XGBoost,42,TVW,0.5
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,TVW,0.5
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,TVW,0.5
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,42,TVW,0.5
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,TVW,1.0
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,42,TVW,1.0
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9966309028538063,Neighbour-Aggregation XGBoost,42,TVW,1.0
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,42,TVW,1.0
+103,bipartite,2,18082.48046875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,TVW,1.0
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.9666149369061944,Neighbour-Aggregation XGBoost,42,TVW,1.0
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,TVW,1.0
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,TVW,1.0
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,TVW,1.0
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,TVW,1.0
+113,fan-out,2,22713.08984375,True,1,19264.69921875,3.466666666666667,0.1518239005040974,0.1518239005040974,Neighbour-Aggregation XGBoost,42,TVW,1.0
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,TVW,1.0
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,42,TVW,1.0
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,42,TVW,1.0
+99,bipartite,10,114065.21875,True,1,7592.25,0.4166666666666667,0.9334393947322351,0.28541804277541877,Neighbour-Aggregation XGBoost,43,control,0.05
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Neighbour-Aggregation XGBoost,43,control,0.05
+101,scatter-gather,12,90983.203125,True,4,18053.5,17.583333333333332,0.801573350163363,0.39408119630598026,Neighbour-Aggregation XGBoost,43,control,0.05
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,43,control,0.05
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Neighbour-Aggregation XGBoost,43,control,0.05
+104,bipartite,8,75432.078125,True,6,61481.42578125,15.766666666666667,0.1849433358197037,0.18126506037198614,Neighbour-Aggregation XGBoost,43,control,0.05
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.23916748324332263,Neighbour-Aggregation XGBoost,43,control,0.05
+106,cycle,3,44101.34765625,False,3,44101.34765625,,0.0,0.0,Neighbour-Aggregation XGBoost,43,control,0.05
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Neighbour-Aggregation XGBoost,43,control,0.05
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.5014957012570512,Neighbour-Aggregation XGBoost,43,control,0.05
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,43,control,0.05
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Neighbour-Aggregation XGBoost,43,control,0.05
+115,fan-out,3,2830463.5,True,1,8719.5244140625,0.6333333333333333,0.9969194091356416,0.005665923771738269,Neighbour-Aggregation XGBoost,43,control,0.05
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,43,control,0.05
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.4454312664328275,Neighbour-Aggregation XGBoost,43,control,0.15
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Neighbour-Aggregation XGBoost,43,control,0.15
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9854982676232306,Neighbour-Aggregation XGBoost,43,control,0.15
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,43,control,0.15
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Neighbour-Aggregation XGBoost,43,control,0.15
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.4852717769897712,Neighbour-Aggregation XGBoost,43,control,0.15
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,control,0.15
+106,cycle,3,44101.34765625,False,3,44101.34765625,,0.0,0.0,Neighbour-Aggregation XGBoost,43,control,0.15
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Neighbour-Aggregation XGBoost,43,control,0.15
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,control,0.15
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,43,control,0.15
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,0.48533177621082046,Neighbour-Aggregation XGBoost,43,control,0.15
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,0.008746523261561225,Neighbour-Aggregation XGBoost,43,control,0.15
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,43,control,0.15
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.6901203313784028,Neighbour-Aggregation XGBoost,43,control,0.3
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,43,control,0.3
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9854982676232306,Neighbour-Aggregation XGBoost,43,control,0.3
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,43,control,0.3
+103,bipartite,2,18082.48046875,True,1,12155.740234375,8.45,0.32776146196411193,0.32776146196411193,Neighbour-Aggregation XGBoost,43,control,0.3
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.523957448888725,Neighbour-Aggregation XGBoost,43,control,0.3
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,control,0.3
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,control,0.3
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Neighbour-Aggregation XGBoost,43,control,0.3
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,control,0.3
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,43,control,0.3
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,0.48533177621082046,Neighbour-Aggregation XGBoost,43,control,0.3
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,control,0.3
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,43,control,0.3
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.6901203313784028,Neighbour-Aggregation XGBoost,43,control,0.5
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,43,control,0.5
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9854982676232306,Neighbour-Aggregation XGBoost,43,control,0.5
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,43,control,0.5
+103,bipartite,2,18082.48046875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,control,0.5
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.527635737282692,Neighbour-Aggregation XGBoost,43,control,0.5
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,control,0.5
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,control,0.5
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,control,0.5
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,control,0.5
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,control,0.5
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,control,0.5
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,control,0.5
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,43,control,0.5
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.6901203313784028,Neighbour-Aggregation XGBoost,43,control,1.0
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,43,control,1.0
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9854982676232306,Neighbour-Aggregation XGBoost,43,control,1.0
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,43,control,1.0
+103,bipartite,2,18082.48046875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,control,1.0
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.7242356689679229,Neighbour-Aggregation XGBoost,43,control,1.0
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,control,1.0
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,control,1.0
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,control,1.0
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,control,1.0
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,control,1.0
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,control,1.0
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,control,1.0
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,43,control,1.0
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.36595370877461275,Neighbour-Aggregation XGBoost,43,TVW,0.05
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Neighbour-Aggregation XGBoost,43,TVW,0.05
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.45427615845988056,Neighbour-Aggregation XGBoost,43,TVW,0.05
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,43,TVW,0.05
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Neighbour-Aggregation XGBoost,43,TVW,0.05
+104,bipartite,8,75432.078125,True,2,22722.66015625,1.9666666666666666,0.698766667778318,0.43009594931532985,Neighbour-Aggregation XGBoost,43,TVW,0.05
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.5270438108358974,Neighbour-Aggregation XGBoost,43,TVW,0.05
+106,cycle,3,44101.34765625,False,3,44101.34765625,,0.0,0.0,Neighbour-Aggregation XGBoost,43,TVW,0.05
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Neighbour-Aggregation XGBoost,43,TVW,0.05
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Neighbour-Aggregation XGBoost,43,TVW,0.05
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,43,TVW,0.05
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Neighbour-Aggregation XGBoost,43,TVW,0.05
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Neighbour-Aggregation XGBoost,43,TVW,0.05
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,43,TVW,0.05
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.6041277235309733,Neighbour-Aggregation XGBoost,43,TVW,0.15
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,43,TVW,0.15
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.867692182193657,Neighbour-Aggregation XGBoost,43,TVW,0.15
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,43,TVW,0.15
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Neighbour-Aggregation XGBoost,43,TVW,0.15
+104,bipartite,8,75432.078125,True,2,22722.66015625,1.9666666666666666,0.698766667778318,0.43009594931532985,Neighbour-Aggregation XGBoost,43,TVW,0.15
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,TVW,0.15
+106,cycle,3,44101.34765625,True,2,29378.728515625,10.8,0.3338360594316447,0.3338360594316447,Neighbour-Aggregation XGBoost,43,TVW,0.15
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Neighbour-Aggregation XGBoost,43,TVW,0.15
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,TVW,0.15
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,43,TVW,0.15
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,0.48533177621082046,Neighbour-Aggregation XGBoost,43,TVW,0.15
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,0.008746523261561225,Neighbour-Aggregation XGBoost,43,TVW,0.15
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,43,TVW,0.15
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.9965183021664963,Neighbour-Aggregation XGBoost,43,TVW,0.3
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,43,TVW,0.3
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9854982676232306,Neighbour-Aggregation XGBoost,43,TVW,0.3
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,43,TVW,0.3
+103,bipartite,2,18082.48046875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,TVW,0.3
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.7205573805739559,Neighbour-Aggregation XGBoost,43,TVW,0.3
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,TVW,0.3
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,TVW,0.3
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Neighbour-Aggregation XGBoost,43,TVW,0.3
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,TVW,0.3
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,43,TVW,0.3
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,TVW,0.3
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,TVW,0.3
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,43,TVW,0.3
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.9965183021664963,Neighbour-Aggregation XGBoost,43,TVW,0.5
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,43,TVW,0.5
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9854982676232306,Neighbour-Aggregation XGBoost,43,TVW,0.5
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,43,TVW,0.5
+103,bipartite,2,18082.48046875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,TVW,0.5
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.7205573805739559,Neighbour-Aggregation XGBoost,43,TVW,0.5
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,TVW,0.5
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,TVW,0.5
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,TVW,0.5
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,TVW,0.5
+113,fan-out,2,22713.08984375,True,1,19264.69921875,3.466666666666667,0.1518239005040974,0.1518239005040974,Neighbour-Aggregation XGBoost,43,TVW,0.5
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,TVW,0.5
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,TVW,0.5
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,43,TVW,0.5
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.9965183021664963,Neighbour-Aggregation XGBoost,43,TVW,1.0
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,43,TVW,1.0
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9854982676232306,Neighbour-Aggregation XGBoost,43,TVW,1.0
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,43,TVW,1.0
+103,bipartite,2,18082.48046875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,TVW,1.0
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.9666149369061944,Neighbour-Aggregation XGBoost,43,TVW,1.0
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,TVW,1.0
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,TVW,1.0
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,TVW,1.0
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,TVW,1.0
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,TVW,1.0
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,TVW,1.0
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,43,TVW,1.0
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,43,TVW,1.0
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.27250112463072795,Neighbour-Aggregation XGBoost,44,control,0.05
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Neighbour-Aggregation XGBoost,44,control,0.05
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.607055560564493,Neighbour-Aggregation XGBoost,44,control,0.05
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,44,control,0.05
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Neighbour-Aggregation XGBoost,44,control,0.05
+104,bipartite,8,75432.078125,True,2,22722.66015625,1.9666666666666666,0.698766667778318,0.24883087599709425,Neighbour-Aggregation XGBoost,44,control,0.05
+105,stack,3,41713.78125,False,3,41713.78125,,0.0,0.0,Neighbour-Aggregation XGBoost,44,control,0.05
+106,cycle,3,44101.34765625,False,3,44101.34765625,,0.0,0.0,Neighbour-Aggregation XGBoost,44,control,0.05
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Neighbour-Aggregation XGBoost,44,control,0.05
+109,cycle,4,69846.0,True,2,34950.4609375,4.05,0.49960683593190736,0.22314047657077715,Neighbour-Aggregation XGBoost,44,control,0.05
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,44,control,0.05
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Neighbour-Aggregation XGBoost,44,control,0.05
+115,fan-out,3,2830463.5,True,1,8719.5244140625,0.6333333333333333,0.9969194091356416,0.005665923771738269,Neighbour-Aggregation XGBoost,44,control,0.05
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,44,control,0.05
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.6041277235309733,Neighbour-Aggregation XGBoost,44,control,0.15
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,44,control,0.15
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9854982676232306,Neighbour-Aggregation XGBoost,44,control,0.15
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,44,control,0.15
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Neighbour-Aggregation XGBoost,44,control,0.15
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.4852717769897712,Neighbour-Aggregation XGBoost,44,control,0.15
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,control,0.15
+106,cycle,3,44101.34765625,True,2,29378.728515625,10.8,0.3338360594316447,0.3338360594316447,Neighbour-Aggregation XGBoost,44,control,0.15
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Neighbour-Aggregation XGBoost,44,control,0.15
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,control,0.15
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,44,control,0.15
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Neighbour-Aggregation XGBoost,44,control,0.15
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,0.008746523261561225,Neighbour-Aggregation XGBoost,44,control,0.15
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,44,control,0.15
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.6936021661949427,Neighbour-Aggregation XGBoost,44,control,0.3
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,44,control,0.3
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9854982676232306,Neighbour-Aggregation XGBoost,44,control,0.3
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,44,control,0.3
+103,bipartite,2,18082.48046875,True,1,12155.740234375,8.45,0.32776146196411193,0.32776146196411193,Neighbour-Aggregation XGBoost,44,control,0.3
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.4852717769897712,Neighbour-Aggregation XGBoost,44,control,0.3
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,control,0.3
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,control,0.3
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Neighbour-Aggregation XGBoost,44,control,0.3
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,control,0.3
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,44,control,0.3
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,control,0.3
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,0.008746523261561225,Neighbour-Aggregation XGBoost,44,control,0.3
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,44,control,0.3
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.8599821045361384,Neighbour-Aggregation XGBoost,44,control,0.5
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,44,control,0.5
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9966309028538063,Neighbour-Aggregation XGBoost,44,control,0.5
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,44,control,0.5
+103,bipartite,2,18082.48046875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,control,0.5
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.48895006538373825,Neighbour-Aggregation XGBoost,44,control,0.5
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,control,0.5
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,control,0.5
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,control,0.5
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,control,0.5
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,44,control,0.5
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,control,0.5
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,control,0.5
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,44,control,0.5
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.8599821045361384,Neighbour-Aggregation XGBoost,44,control,1.0
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,44,control,1.0
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9966309028538063,Neighbour-Aggregation XGBoost,44,control,1.0
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,44,control,1.0
+103,bipartite,2,18082.48046875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,control,1.0
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.48895006538373825,Neighbour-Aggregation XGBoost,44,control,1.0
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,control,1.0
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,control,1.0
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,control,1.0
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,control,1.0
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,control,1.0
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,control,1.0
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,control,1.0
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,44,control,1.0
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.3519786651660632,Neighbour-Aggregation XGBoost,44,TVW,0.05
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Neighbour-Aggregation XGBoost,44,TVW,0.05
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.6334395514281912,Neighbour-Aggregation XGBoost,44,TVW,0.05
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,44,TVW,0.05
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Neighbour-Aggregation XGBoost,44,TVW,0.05
+104,bipartite,8,75432.078125,True,2,22722.66015625,1.9666666666666666,0.698766667778318,0.24883087599709425,Neighbour-Aggregation XGBoost,44,TVW,0.05
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.23916748324332263,Neighbour-Aggregation XGBoost,44,TVW,0.05
+106,cycle,3,44101.34765625,False,3,44101.34765625,,0.0,0.0,Neighbour-Aggregation XGBoost,44,TVW,0.05
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Neighbour-Aggregation XGBoost,44,TVW,0.05
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Neighbour-Aggregation XGBoost,44,TVW,0.05
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,44,TVW,0.05
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Neighbour-Aggregation XGBoost,44,TVW,0.05
+115,fan-out,3,2830463.5,False,3,2830463.5,,0.0,0.0,Neighbour-Aggregation XGBoost,44,TVW,0.05
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,44,TVW,0.05
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.6041277235309733,Neighbour-Aggregation XGBoost,44,TVW,0.15
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,44,TVW,0.15
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.867692182193657,Neighbour-Aggregation XGBoost,44,TVW,0.15
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,44,TVW,0.15
+103,bipartite,2,18082.48046875,True,1,12155.740234375,8.45,0.32776146196411193,0.32776146196411193,Neighbour-Aggregation XGBoost,44,TVW,0.15
+104,bipartite,8,75432.078125,True,2,22722.66015625,1.9666666666666666,0.698766667778318,0.43009594931532985,Neighbour-Aggregation XGBoost,44,TVW,0.15
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,TVW,0.15
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,TVW,0.15
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Neighbour-Aggregation XGBoost,44,TVW,0.15
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,TVW,0.15
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,44,TVW,0.15
+114,cycle,2,3839.4638671875,True,1,1863.413818359375,0.7333333333333333,0.5146682237891795,0.5146682237891795,Neighbour-Aggregation XGBoost,44,TVW,0.15
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,0.008746523261561225,Neighbour-Aggregation XGBoost,44,TVW,0.15
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,44,TVW,0.15
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.9965183021664963,Neighbour-Aggregation XGBoost,44,TVW,0.3
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,44,TVW,0.3
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9854982676232306,Neighbour-Aggregation XGBoost,44,TVW,0.3
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,44,TVW,0.3
+103,bipartite,2,18082.48046875,True,1,12155.740234375,8.45,0.32776146196411193,0.32776146196411193,Neighbour-Aggregation XGBoost,44,TVW,0.3
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.4852717769897712,Neighbour-Aggregation XGBoost,44,TVW,0.3
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,TVW,0.3
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,TVW,0.3
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,TVW,0.3
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,TVW,0.3
+113,fan-out,2,22713.08984375,True,1,19264.69921875,3.466666666666667,0.1518239005040974,0.1518239005040974,Neighbour-Aggregation XGBoost,44,TVW,0.3
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,TVW,0.3
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,TVW,0.3
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,44,TVW,0.3
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,TVW,0.5
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,44,TVW,0.5
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9854982676232306,Neighbour-Aggregation XGBoost,44,TVW,0.5
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,44,TVW,0.5
+103,bipartite,2,18082.48046875,True,1,12155.740234375,8.45,0.32776146196411193,0.32776146196411193,Neighbour-Aggregation XGBoost,44,TVW,0.5
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.4852717769897712,Neighbour-Aggregation XGBoost,44,TVW,0.5
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,TVW,0.5
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,TVW,0.5
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,TVW,0.5
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,TVW,0.5
+113,fan-out,2,22713.08984375,True,1,19264.69921875,3.466666666666667,0.1518239005040974,0.1518239005040974,Neighbour-Aggregation XGBoost,44,TVW,0.5
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,TVW,0.5
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,TVW,0.5
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,44,TVW,0.5
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,TVW,1.0
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,44,TVW,1.0
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9966309028538063,Neighbour-Aggregation XGBoost,44,TVW,1.0
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,44,TVW,1.0
+103,bipartite,2,18082.48046875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,TVW,1.0
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.9279292650072406,Neighbour-Aggregation XGBoost,44,TVW,1.0
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,TVW,1.0
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,TVW,1.0
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,TVW,1.0
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,TVW,1.0
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,TVW,1.0
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,TVW,1.0
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,44,TVW,1.0
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,44,TVW,1.0
+99,bipartite,10,114065.21875,True,1,7592.25,0.4166666666666667,0.9334393947322351,0.28541804277541877,Neighbour-Aggregation XGBoost,45,control,0.05
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Neighbour-Aggregation XGBoost,45,control,0.05
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.28103661390108925,Neighbour-Aggregation XGBoost,45,control,0.05
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,45,control,0.05
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Neighbour-Aggregation XGBoost,45,control,0.05
+104,bipartite,8,75432.078125,False,8,75432.078125,,0.0,0.0,Neighbour-Aggregation XGBoost,45,control,0.05
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.23916748324332263,Neighbour-Aggregation XGBoost,45,control,0.05
+106,cycle,3,44101.34765625,False,3,44101.34765625,,0.0,0.0,Neighbour-Aggregation XGBoost,45,control,0.05
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Neighbour-Aggregation XGBoost,45,control,0.05
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.5014957012570512,Neighbour-Aggregation XGBoost,45,control,0.05
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,45,control,0.05
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Neighbour-Aggregation XGBoost,45,control,0.05
+115,fan-out,3,2830463.5,True,1,8719.5244140625,0.6333333333333333,0.9969194091356416,0.005665923771738269,Neighbour-Aggregation XGBoost,45,control,0.05
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,45,control,0.05
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.6041277235309733,Neighbour-Aggregation XGBoost,45,control,0.15
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,45,control,0.15
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9854982676232306,Neighbour-Aggregation XGBoost,45,control,0.15
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,45,control,0.15
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Neighbour-Aggregation XGBoost,45,control,0.15
+104,bipartite,8,75432.078125,True,2,22722.66015625,1.9666666666666666,0.698766667778318,0.43009594931532985,Neighbour-Aggregation XGBoost,45,control,0.15
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,control,0.15
+106,cycle,3,44101.34765625,True,1,16283.1982421875,3.433333333333333,0.6307777850113531,0.6307777850113531,Neighbour-Aggregation XGBoost,45,control,0.15
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Neighbour-Aggregation XGBoost,45,control,0.15
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,control,0.15
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,45,control,0.15
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Neighbour-Aggregation XGBoost,45,control,0.15
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,0.008746523261561225,Neighbour-Aggregation XGBoost,45,control,0.15
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,45,control,0.15
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.6076094898559952,Neighbour-Aggregation XGBoost,45,control,0.3
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,45,control,0.3
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9854982676232306,Neighbour-Aggregation XGBoost,45,control,0.3
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,45,control,0.3
+103,bipartite,2,18082.48046875,True,1,12155.740234375,8.45,0.32776146196411193,0.32776146196411193,Neighbour-Aggregation XGBoost,45,control,0.3
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.523957448888725,Neighbour-Aggregation XGBoost,45,control,0.3
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,control,0.3
+106,cycle,3,44101.34765625,True,1,16283.1982421875,3.433333333333333,0.6307777850113531,0.6307777850113531,Neighbour-Aggregation XGBoost,45,control,0.3
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Neighbour-Aggregation XGBoost,45,control,0.3
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,control,0.3
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,45,control,0.3
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,0.48533177621082046,Neighbour-Aggregation XGBoost,45,control,0.3
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,control,0.3
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,45,control,0.3
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.8599821045361384,Neighbour-Aggregation XGBoost,45,control,0.5
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,45,control,0.5
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9966309028538063,Neighbour-Aggregation XGBoost,45,control,0.5
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,45,control,0.5
+103,bipartite,2,18082.48046875,True,1,12155.740234375,8.45,0.32776146196411193,0.32776146196411193,Neighbour-Aggregation XGBoost,45,control,0.5
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.523957448888725,Neighbour-Aggregation XGBoost,45,control,0.5
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,control,0.5
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,control,0.5
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,control,0.5
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,control,0.5
+113,fan-out,2,22713.08984375,True,1,19264.69921875,3.466666666666667,0.1518239005040974,0.1518239005040974,Neighbour-Aggregation XGBoost,45,control,0.5
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,0.48533177621082046,Neighbour-Aggregation XGBoost,45,control,0.5
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,control,0.5
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,45,control,0.5
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.8599821045361384,Neighbour-Aggregation XGBoost,45,control,1.0
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,45,control,1.0
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9966309028538063,Neighbour-Aggregation XGBoost,45,control,1.0
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,45,control,1.0
+103,bipartite,2,18082.48046875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,control,1.0
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.7242356689679229,Neighbour-Aggregation XGBoost,45,control,1.0
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,control,1.0
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,control,1.0
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,control,1.0
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,control,1.0
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,control,1.0
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,0.48533177621082046,Neighbour-Aggregation XGBoost,45,control,1.0
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,control,1.0
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,45,control,1.0
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.4454312664328275,Neighbour-Aggregation XGBoost,45,TVW,0.05
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Neighbour-Aggregation XGBoost,45,TVW,0.05
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.38704937810464674,Neighbour-Aggregation XGBoost,45,TVW,0.05
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,45,TVW,0.05
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Neighbour-Aggregation XGBoost,45,TVW,0.05
+104,bipartite,8,75432.078125,True,2,22722.66015625,1.9666666666666666,0.698766667778318,0.24883087599709425,Neighbour-Aggregation XGBoost,45,TVW,0.05
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,0.5270438108358974,Neighbour-Aggregation XGBoost,45,TVW,0.05
+106,cycle,3,44101.34765625,False,3,44101.34765625,,0.0,0.0,Neighbour-Aggregation XGBoost,45,TVW,0.05
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Neighbour-Aggregation XGBoost,45,TVW,0.05
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,TVW,0.05
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,45,TVW,0.05
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Neighbour-Aggregation XGBoost,45,TVW,0.05
+115,fan-out,3,2830463.5,True,1,8719.5244140625,0.6333333333333333,0.9969194091356416,0.005665923771738269,Neighbour-Aggregation XGBoost,45,TVW,0.05
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,45,TVW,0.05
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.6041277235309733,Neighbour-Aggregation XGBoost,45,TVW,0.15
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,45,TVW,0.15
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.977514050069338,Neighbour-Aggregation XGBoost,45,TVW,0.15
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,45,TVW,0.15
+103,bipartite,2,18082.48046875,True,1,12155.740234375,8.45,0.32776146196411193,0.32776146196411193,Neighbour-Aggregation XGBoost,45,TVW,0.15
+104,bipartite,8,75432.078125,True,2,22722.66015625,1.9666666666666666,0.698766667778318,0.43009594931532985,Neighbour-Aggregation XGBoost,45,TVW,0.15
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,TVW,0.15
+106,cycle,3,44101.34765625,True,1,16283.1982421875,3.433333333333333,0.6307777850113531,0.6307777850113531,Neighbour-Aggregation XGBoost,45,TVW,0.15
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Neighbour-Aggregation XGBoost,45,TVW,0.15
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,TVW,0.15
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,45,TVW,0.15
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Neighbour-Aggregation XGBoost,45,TVW,0.15
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,0.008746523261561225,Neighbour-Aggregation XGBoost,45,TVW,0.15
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,45,TVW,0.15
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.9965183021664963,Neighbour-Aggregation XGBoost,45,TVW,0.3
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,45,TVW,0.3
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9854982676232306,Neighbour-Aggregation XGBoost,45,TVW,0.3
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,45,TVW,0.3
+103,bipartite,2,18082.48046875,True,1,12155.740234375,8.45,0.32776146196411193,0.32776146196411193,Neighbour-Aggregation XGBoost,45,TVW,0.3
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.7205573805739559,Neighbour-Aggregation XGBoost,45,TVW,0.3
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,TVW,0.3
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,TVW,0.3
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Neighbour-Aggregation XGBoost,45,TVW,0.3
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,TVW,0.3
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,45,TVW,0.3
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,TVW,0.3
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,TVW,0.3
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,45,TVW,0.3
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,TVW,0.5
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,45,TVW,0.5
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9854982676232306,Neighbour-Aggregation XGBoost,45,TVW,0.5
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,45,TVW,0.5
+103,bipartite,2,18082.48046875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,TVW,0.5
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.9666149369061944,Neighbour-Aggregation XGBoost,45,TVW,0.5
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,TVW,0.5
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,TVW,0.5
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,0.8622907468919644,Neighbour-Aggregation XGBoost,45,TVW,0.5
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,TVW,0.5
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,45,TVW,0.5
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,TVW,0.5
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,TVW,0.5
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,45,TVW,0.5
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,TVW,1.0
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,45,TVW,1.0
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9966309028538063,Neighbour-Aggregation XGBoost,45,TVW,1.0
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,45,TVW,1.0
+103,bipartite,2,18082.48046875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,TVW,1.0
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.9666149369061944,Neighbour-Aggregation XGBoost,45,TVW,1.0
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,TVW,1.0
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,TVW,1.0
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,TVW,1.0
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,TVW,1.0
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,TVW,1.0
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,TVW,1.0
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,45,TVW,1.0
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,45,TVW,1.0
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.3519786651660632,Neighbour-Aggregation XGBoost,46,control,0.05
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Neighbour-Aggregation XGBoost,46,control,0.05
+101,scatter-gather,12,90983.203125,True,5,20454.0,25.883333333333333,0.7751893592996647,0.14769100151556133,Neighbour-Aggregation XGBoost,46,control,0.05
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,46,control,0.05
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Neighbour-Aggregation XGBoost,46,control,0.05
+104,bipartite,8,75432.078125,False,8,75432.078125,,0.0,0.0,Neighbour-Aggregation XGBoost,46,control,0.05
+105,stack,3,41713.78125,True,2,29705.369140625,19.633333333333333,0.2878763275925747,0.2878763275925747,Neighbour-Aggregation XGBoost,46,control,0.05
+106,cycle,3,44101.34765625,False,3,44101.34765625,,0.0,0.0,Neighbour-Aggregation XGBoost,46,control,0.05
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Neighbour-Aggregation XGBoost,46,control,0.05
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Neighbour-Aggregation XGBoost,46,control,0.05
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,46,control,0.05
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Neighbour-Aggregation XGBoost,46,control,0.05
+115,fan-out,3,2830463.5,True,1,8719.5244140625,0.6333333333333333,0.9969194091356416,0.005665923771738269,Neighbour-Aggregation XGBoost,46,control,0.05
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,46,control,0.05
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.6041277235309733,Neighbour-Aggregation XGBoost,46,control,0.15
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Neighbour-Aggregation XGBoost,46,control,0.15
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.867692182193657,Neighbour-Aggregation XGBoost,46,control,0.15
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,46,control,0.15
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Neighbour-Aggregation XGBoost,46,control,0.15
+104,bipartite,8,75432.078125,True,2,22722.66015625,1.9666666666666666,0.698766667778318,0.43009594931532985,Neighbour-Aggregation XGBoost,46,control,0.15
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,control,0.15
+106,cycle,3,44101.34765625,True,1,16283.1982421875,3.433333333333333,0.6307777850113531,0.6307777850113531,Neighbour-Aggregation XGBoost,46,control,0.15
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Neighbour-Aggregation XGBoost,46,control,0.15
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,control,0.15
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,46,control,0.15
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,0.48533177621082046,Neighbour-Aggregation XGBoost,46,control,0.15
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,0.008746523261561225,Neighbour-Aggregation XGBoost,46,control,0.15
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,46,control,0.15
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.6936021661949427,Neighbour-Aggregation XGBoost,46,control,0.3
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,46,control,0.3
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9854982676232306,Neighbour-Aggregation XGBoost,46,control,0.3
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,46,control,0.3
+103,bipartite,2,18082.48046875,True,1,12155.740234375,8.45,0.32776146196411193,0.32776146196411193,Neighbour-Aggregation XGBoost,46,control,0.3
+104,bipartite,8,75432.078125,True,2,22722.66015625,1.9666666666666666,0.698766667778318,0.43009594931532985,Neighbour-Aggregation XGBoost,46,control,0.3
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,control,0.3
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,control,0.3
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Neighbour-Aggregation XGBoost,46,control,0.3
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,control,0.3
+113,fan-out,2,22713.08984375,True,1,19264.69921875,3.466666666666667,0.1518239005040974,0.1518239005040974,Neighbour-Aggregation XGBoost,46,control,0.3
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,control,0.3
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,control,0.3
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,46,control,0.3
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.8599821045361384,Neighbour-Aggregation XGBoost,46,control,0.5
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,46,control,0.5
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9854982676232306,Neighbour-Aggregation XGBoost,46,control,0.5
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,46,control,0.5
+103,bipartite,2,18082.48046875,True,1,12155.740234375,8.45,0.32776146196411193,0.32776146196411193,Neighbour-Aggregation XGBoost,46,control,0.5
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.523957448888725,Neighbour-Aggregation XGBoost,46,control,0.5
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,control,0.5
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,control,0.5
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,control,0.5
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,control,0.5
+113,fan-out,2,22713.08984375,True,1,19264.69921875,3.466666666666667,0.1518239005040974,0.1518239005040974,Neighbour-Aggregation XGBoost,46,control,0.5
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,control,0.5
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,control,0.5
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,46,control,0.5
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,control,1.0
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,46,control,1.0
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9854982676232306,Neighbour-Aggregation XGBoost,46,control,1.0
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,46,control,1.0
+103,bipartite,2,18082.48046875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,control,1.0
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.7242356689679229,Neighbour-Aggregation XGBoost,46,control,1.0
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,control,1.0
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,control,1.0
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,control,1.0
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,control,1.0
+113,fan-out,2,22713.08984375,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,control,1.0
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,control,1.0
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,control,1.0
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,46,control,1.0
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.27250112463072795,Neighbour-Aggregation XGBoost,46,TVW,0.05
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Neighbour-Aggregation XGBoost,46,TVW,0.05
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.6334395514281912,Neighbour-Aggregation XGBoost,46,TVW,0.05
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,46,TVW,0.05
+103,bipartite,2,18082.48046875,False,2,18082.48046875,,0.0,0.0,Neighbour-Aggregation XGBoost,46,TVW,0.05
+104,bipartite,8,75432.078125,True,6,61481.42578125,15.766666666666667,0.1849433358197037,0.18126506037198614,Neighbour-Aggregation XGBoost,46,TVW,0.05
+105,stack,3,41713.78125,False,3,41713.78125,,0.0,0.0,Neighbour-Aggregation XGBoost,46,TVW,0.05
+106,cycle,3,44101.34765625,False,3,44101.34765625,,0.0,0.0,Neighbour-Aggregation XGBoost,46,TVW,0.05
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Neighbour-Aggregation XGBoost,46,TVW,0.05
+109,cycle,4,69846.0,True,1,15508.4599609375,0.5,0.7779620745998339,0.7779620745998339,Neighbour-Aggregation XGBoost,46,TVW,0.05
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,46,TVW,0.05
+114,cycle,2,3839.4638671875,False,2,3839.4638671875,,0.0,0.0,Neighbour-Aggregation XGBoost,46,TVW,0.05
+115,fan-out,3,2830463.5,True,1,8719.5244140625,0.6333333333333333,0.9969194091356416,0.005665923771738269,Neighbour-Aggregation XGBoost,46,TVW,0.05
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,46,TVW,0.05
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.7705077303636872,Neighbour-Aggregation XGBoost,46,TVW,0.15
+100,gather-scatter,2,12907.91015625,False,2,12907.91015625,,0.0,0.0,Neighbour-Aggregation XGBoost,46,TVW,0.15
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9854982676232306,Neighbour-Aggregation XGBoost,46,TVW,0.15
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,46,TVW,0.15
+103,bipartite,2,18082.48046875,True,1,12155.740234375,8.45,0.32776146196411193,0.32776146196411193,Neighbour-Aggregation XGBoost,46,TVW,0.15
+104,bipartite,8,75432.078125,True,2,22722.66015625,1.9666666666666666,0.698766667778318,0.43009594931532985,Neighbour-Aggregation XGBoost,46,TVW,0.15
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,TVW,0.15
+106,cycle,3,44101.34765625,True,1,16283.1982421875,3.433333333333333,0.6307777850113531,0.6307777850113531,Neighbour-Aggregation XGBoost,46,TVW,0.15
+107,fan-in,2,14921.0,False,2,14921.0,,0.0,0.0,Neighbour-Aggregation XGBoost,46,TVW,0.15
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,TVW,0.15
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,46,TVW,0.15
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,0.48533177621082046,Neighbour-Aggregation XGBoost,46,TVW,0.15
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,TVW,0.15
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,46,TVW,0.15
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.8599821045361384,Neighbour-Aggregation XGBoost,46,TVW,0.3
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,46,TVW,0.3
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9854982676232306,Neighbour-Aggregation XGBoost,46,TVW,0.3
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,46,TVW,0.3
+103,bipartite,2,18082.48046875,True,1,12155.740234375,8.45,0.32776146196411193,0.32776146196411193,Neighbour-Aggregation XGBoost,46,TVW,0.3
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.7205573805739559,Neighbour-Aggregation XGBoost,46,TVW,0.3
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,TVW,0.3
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,TVW,0.3
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,TVW,0.3
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,TVW,0.3
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,46,TVW,0.3
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,TVW,0.3
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,TVW,0.3
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,46,TVW,0.3
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,0.8599821045361384,Neighbour-Aggregation XGBoost,46,TVW,0.5
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,46,TVW,0.5
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9854982676232306,Neighbour-Aggregation XGBoost,46,TVW,0.5
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,46,TVW,0.5
+103,bipartite,2,18082.48046875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,TVW,0.5
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.7205573805739559,Neighbour-Aggregation XGBoost,46,TVW,0.5
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,TVW,0.5
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,TVW,0.5
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,TVW,0.5
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,TVW,0.5
+113,fan-out,2,22713.08984375,False,2,22713.08984375,,0.0,0.0,Neighbour-Aggregation XGBoost,46,TVW,0.5
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,TVW,0.5
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,TVW,0.5
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,46,TVW,0.5
+99,bipartite,10,114065.21875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,TVW,1.0
+100,gather-scatter,2,12907.91015625,True,1,2456.159912109375,31.0,0.8097166678015086,0.8097166678015086,Neighbour-Aggregation XGBoost,46,TVW,1.0
+101,scatter-gather,12,90983.203125,True,1,306.5400085449219,3.933333333333333,0.9966309028538063,0.9966309028538063,Neighbour-Aggregation XGBoost,46,TVW,1.0
+102,scatter-gather,2,1145.1199951171875,False,2,1145.1199951171875,,0.0,0.0,Neighbour-Aggregation XGBoost,46,TVW,1.0
+103,bipartite,2,18082.48046875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,TVW,1.0
+104,bipartite,8,75432.078125,True,0,0.0,0.0,1.0,0.7205573805739559,Neighbour-Aggregation XGBoost,46,TVW,1.0
+105,stack,3,41713.78125,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,TVW,1.0
+106,cycle,3,44101.34765625,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,TVW,1.0
+107,fan-in,2,14921.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,TVW,1.0
+109,cycle,4,69846.0,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,TVW,1.0
+113,fan-out,2,22713.08984375,True,1,19264.69921875,3.466666666666667,0.1518239005040974,0.1518239005040974,Neighbour-Aggregation XGBoost,46,TVW,1.0
+114,cycle,2,3839.4638671875,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,TVW,1.0
+115,fan-out,3,2830463.5,True,0,0.0,0.0,1.0,1.0,Neighbour-Aggregation XGBoost,46,TVW,1.0
+116,gather-scatter,2,7849.759765625,False,2,7849.759765625,,0.0,0.0,Neighbour-Aggregation XGBoost,46,TVW,1.0

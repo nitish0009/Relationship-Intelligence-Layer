@@ -90,7 +90,7 @@ More camouflage (65% graph-hidden fraud), noisier infrastructure, more legitimat
 | Temporal GAT | 0.964 ± 0.014 | 8.5% / 4.5% | 52% |
 | Temporal R-GCN | 0.965 ± 0.021 | 9.7% / 4.3% | 52% |
 | Temporal CARE-style GNN | 0.958 ± 0.018 | 10.6% / 5.3% | 48% |
-| CARE-GNN / PC-GNN, original code (validation-tuned) | 0.554 / 0.678 | | |
+| CARE-GNN / PC-GNN, original code (validation-tuned) | 0.519 / 0.640 | 58.1% / 32.3% and 41.1% / 19.6% | 11% / 21% |
 
 - GNNs vs hand-crafted features: +1.1 to +1.8 PR-AUC points on 5/5 seeds (significant for R-GCN p = 0.007 and GraphSAGE p = 0.028; GAT p = 0.06, CARE-style p = 0.09).
 - **On the ring clock every temporal GNN is significantly better**: GraphSAGE / GAT / R-GCN cut money lost before the first alert by **41–45%** vs hand-crafted features (GraphSAGE −3.4 pp, ring-clustered CI [−5.2, −1.9]) and 67–69% vs transaction features; CARE-style 30%.
@@ -98,7 +98,7 @@ More camouflage (65% graph-hidden fraud), noisier infrastructure, more legitimat
 
 ## C5: takedown-value weighting (`src/clock_weights.py`, `results/tvw/`, `results/tvw_gnn/`)
 
-Catching a ring's k-th transaction saves the money it would still move, R_k. The money a takedown saves is bounded by Σ p_k R_k, so TVW trains with fraud weights ∝ R_k (mixed by β, mean-normalised). Rings are **pseudo-rings** from union-find over specific shared entities (no ring labels; ARI 0.93 vs true rings). Weights are **ESS-tempered** (largest γ with effective sample size ≥ 50%), which matters for heavy-tailed amounts (AMLworld raw ESS = 4 of 2,856).
+Catching a ring's k-th transaction saves the money it would still move, R_k. The money a takedown saves is bounded by Σ p_k R_k, so TVW trains with fraud weights ∝ R_k (mixed by β, mean-normalised). Rings are **pseudo-rings** from union-find over specific shared entities (no ring labels; ARI 0.92 (0.88–0.95) vs true rings). Weights are **ESS-tempered** (largest γ with effective sample size ≥ 50%), which matters for heavy-tailed amounts (AMLworld raw ESS = 4 of 2,856).
 
 | Hard preset, 10 seeds, 0.5% budget | Money lost: ordinary → TVW | Δ pp [95% ring-clustered CI] |
 |---|---|---|

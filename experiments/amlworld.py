@@ -55,6 +55,15 @@ KEY = ["Timestamp", "From Bank", "From Account", "To Bank", "To Account", "Amoun
 DELAYS = [0, 0.25, 0.5, 1, 2, 4, float("inf")]
 
 
+# AMLworld schema for TVW pseudo-rings: sender ('S'+bank|acct) and receiver ('R'+bank|acct) are both ACCOUNT
+# identities; strip the role prefix so an account links across roles (receiver of one transfer, sender of next).
+AML_IDENTITY_COLS = ("customer_id", "device_id")
+
+
+def account_key(v: str) -> str:
+    return v[1:]
+
+
 def parse_patterns(path: str) -> pd.DataFrame:
     """Rows of every laundering attempt with attempt id and typology."""
     rows, attempt, typ = [], -1, ""
@@ -71,12 +80,12 @@ def parse_patterns(path: str) -> pd.DataFrame:
     return pd.DataFrame(rows, columns=COLS + ["attempt", "typology"])
 
 
-def load_aml() -> pd.DataFrame:
-    tpath = os.path.join(AML_DIR, "HI-Small_Trans.csv")
+def load_aml(prefix: str = "HI-Small") -> pd.DataFrame:
+    tpath = os.path.join(AML_DIR, f"{prefix}_Trans.csv")
     if not os.path.exists(tpath):
         raise FileNotFoundError(f"{tpath} not found -- see module docstring")
     raw = pd.read_csv(tpath, dtype=str, header=0, names=COLS)
-    pat = parse_patterns(os.path.join(AML_DIR, "HI-Small_Patterns.txt"))
+    pat = parse_patterns(os.path.join(AML_DIR, f"{prefix}_Patterns.txt"))
     raw = raw.merge(pat[KEY + ["attempt", "typology"]].drop_duplicates(KEY), on=KEY, how="left")
     ts = pd.to_datetime(raw["Timestamp"], format="%Y/%m/%d %H:%M")
     keep = (ts < END).to_numpy()
@@ -153,10 +162,10 @@ def _fit_gnn(name, ds, idx, seed, params):
     return {"p_val": p_val, "p_test": p_test, "threshold": select_threshold(ds.val.fraud_label.to_numpy(), p_val)}
 
 
-def prepare(out: str):
+def prepare(out: str, prefix: str = "HI-Small"):
     """Load AMLworld, build all features and the chronological split (shared by run / run_gnn_only)."""
     with Timer("load"):
-        tx = load_aml()
+        tx = load_aml(prefix)
     set_payment_methods(sorted(tx["payment_method"].unique()))
     with Timer("transaction features"):
         tx = _downcast(build_transaction_features(tx))

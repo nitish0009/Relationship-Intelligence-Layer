@@ -1,0 +1,151 @@
+dataset,model,seed,budget_multiple,rings,n_rings,lost_share,first_txn_recall_proxy
+Elliptic++,XGBoost (Elliptic features),42,0.05,all rings,924,0.9932452672822893,0.03896103896103896
+Elliptic++,XGBoost (Elliptic features),42,0.05,>=2 txns,91,1.0,0.0
+Elliptic++,XGBoost (Elliptic features),42,0.15,all rings,924,0.9734645669301106,0.12012987012987013
+Elliptic++,XGBoost (Elliptic features),42,0.15,>=2 txns,91,0.987435258338613,0.01098901098901099
+Elliptic++,XGBoost (Elliptic features),42,0.3,all rings,924,0.9436862981425433,0.25216450216450215
+Elliptic++,XGBoost (Elliptic features),42,0.3,>=2 txns,91,0.9767384680122468,0.02197802197802198
+Elliptic++,XGBoost (Elliptic features),42,0.5,all rings,924,0.8654160478046924,0.474025974025974
+Elliptic++,XGBoost (Elliptic features),42,0.5,>=2 txns,91,0.9601112685370682,0.054945054945054944
+Elliptic++,XGBoost (Elliptic features),42,1.0,all rings,924,0.7514475564944249,0.7738095238095238
+Elliptic++,XGBoost (Elliptic features),42,1.0,>=2 txns,91,0.8220805879002472,0.6373626373626373
+Elliptic++,XGBoost (Elliptic features),43,0.05,all rings,924,0.9966410149018025,0.011904761904761904
+Elliptic++,XGBoost (Elliptic features),43,0.05,>=2 txns,91,1.0,0.0
+Elliptic++,XGBoost (Elliptic features),43,0.15,all rings,924,0.9827688143429751,0.07575757575757576
+Elliptic++,XGBoost (Elliptic features),43,0.15,>=2 txns,91,1.0,0.0
+Elliptic++,XGBoost (Elliptic features),43,0.3,all rings,924,0.946372881095964,0.23917748917748918
+Elliptic++,XGBoost (Elliptic features),43,0.3,>=2 txns,91,0.978943882106153,0.01098901098901099
+Elliptic++,XGBoost (Elliptic features),43,0.5,all rings,924,0.8935156415926959,0.4653679653679654
+Elliptic++,XGBoost (Elliptic features),43,0.5,>=2 txns,91,0.9603324013971909,0.06593406593406594
+Elliptic++,XGBoost (Elliptic features),43,1.0,all rings,924,0.755434751268478,0.7683982683982684
+Elliptic++,XGBoost (Elliptic features),43,1.0,>=2 txns,91,0.8598685417917685,0.5934065934065934
+Elliptic++,XGBoost (Elliptic features),44,0.05,all rings,924,0.9963913571249965,0.016233766233766232
+Elliptic++,XGBoost (Elliptic features),44,0.05,>=2 txns,91,1.0,0.0
+Elliptic++,XGBoost (Elliptic features),44,0.15,all rings,924,0.9771564539425444,0.08982683982683982
+Elliptic++,XGBoost (Elliptic features),44,0.15,>=2 txns,91,0.9882631921968275,0.01098901098901099
+Elliptic++,XGBoost (Elliptic features),44,0.3,all rings,924,0.9435819246867341,0.23160173160173161
+Elliptic++,XGBoost (Elliptic features),44,0.3,>=2 txns,91,0.9791304843646738,0.01098901098901099
+Elliptic++,XGBoost (Elliptic features),44,0.5,all rings,924,0.8827259321409754,0.45670995670995673
+Elliptic++,XGBoost (Elliptic features),44,0.5,>=2 txns,91,0.9565868357423071,0.07692307692307693
+Elliptic++,XGBoost (Elliptic features),44,1.0,all rings,924,0.7550691620068366,0.7608225108225108
+Elliptic++,XGBoost (Elliptic features),44,1.0,>=2 txns,91,0.8542691706524714,0.5824175824175825
+AMLworld HI-Small,Combined (full graph),42,0.05,all rings,74,0.9947194074648703,0.013513513513513514
+AMLworld HI-Small,Combined (full graph),42,0.05,>=2 txns,44,0.994689605227489,0.022727272727272728
+AMLworld HI-Small,Combined (full graph),42,0.15,all rings,74,0.5597471961155104,0.12162162162162163
+AMLworld HI-Small,Combined (full graph),42,0.15,>=2 txns,44,0.5574258590137218,0.1590909090909091
+AMLworld HI-Small,Combined (full graph),42,0.3,all rings,74,0.05637153147634854,0.21621621621621623
+AMLworld HI-Small,Combined (full graph),42,0.3,>=2 txns,44,0.05127211278013258,0.29545454545454547
+AMLworld HI-Small,Combined (full graph),42,0.5,all rings,74,0.011796969446778629,0.33783783783783783
+AMLworld HI-Small,Combined (full graph),42,0.5,>=2 txns,44,0.007170693313452375,0.4318181818181818
+AMLworld HI-Small,Combined (full graph),42,1.0,all rings,74,0.00997731442131123,0.4189189189189189
+AMLworld HI-Small,Combined (full graph),42,1.0,>=2 txns,44,0.005763274671309544,0.5227272727272727
+AMLworld HI-Small,Combined (full graph),43,0.05,all rings,74,0.9936006422389672,0.05405405405405406
+AMLworld HI-Small,Combined (full graph),43,0.05,>=2 txns,44,0.993688831011123,0.06818181818181818
+AMLworld HI-Small,Combined (full graph),43,0.15,all rings,74,0.26029110215723633,0.16216216216216217
+AMLworld HI-Small,Combined (full graph),43,0.15,>=2 txns,44,0.2562797157781946,0.22727272727272727
+AMLworld HI-Small,Combined (full graph),43,0.3,all rings,74,0.015077659108069394,0.2702702702702703
+AMLworld HI-Small,Combined (full graph),43,0.3,>=2 txns,44,0.010256946939355348,0.3409090909090909
+AMLworld HI-Small,Combined (full graph),43,0.5,all rings,74,0.014581342405265141,0.2972972972972973
+AMLworld HI-Small,Combined (full graph),43,0.5,>=2 txns,44,0.0100270884916385,0.36363636363636365
+AMLworld HI-Small,Combined (full graph),43,1.0,all rings,74,0.010895783634852815,0.40540540540540543
+AMLworld HI-Small,Combined (full graph),43,1.0,>=2 txns,44,0.006655126003075286,0.5227272727272727
+AMLworld HI-Small,Combined (full graph),44,0.05,all rings,74,0.9936843914601645,0.02702702702702703
+AMLworld HI-Small,Combined (full graph),44,0.05,>=2 txns,44,0.9937730528902947,0.022727272727272728
+AMLworld HI-Small,Combined (full graph),44,0.15,all rings,74,0.26159883159171377,0.10810810810810811
+AMLworld HI-Small,Combined (full graph),44,0.15,>=2 txns,44,0.25759482568423414,0.13636363636363635
+AMLworld HI-Small,Combined (full graph),44,0.3,all rings,74,0.056200762823758035,0.25675675675675674
+AMLworld HI-Small,Combined (full graph),44,0.3,>=2 txns,44,0.05161213834040192,0.3181818181818182
+AMLworld HI-Small,Combined (full graph),44,0.5,all rings,74,0.014116746882532973,0.3108108108108108
+AMLworld HI-Small,Combined (full graph),44,0.5,>=2 txns,44,0.00989426749697794,0.36363636363636365
+AMLworld HI-Small,Combined (full graph),44,1.0,all rings,74,0.012277380792634539,0.43243243243243246
+AMLworld HI-Small,Combined (full graph),44,1.0,>=2 txns,44,0.008462641708735025,0.5
+AMLworld HI-Small,Neighbour-Aggregation XGBoost,42,0.05,all rings,74,0.996914469566937,0.013513513513513514
+AMLworld HI-Small,Neighbour-Aggregation XGBoost,42,0.05,>=2 txns,44,0.9970503023590709,0.0
+AMLworld HI-Small,Neighbour-Aggregation XGBoost,42,0.15,all rings,74,0.6909934890102444,0.08108108108108109
+AMLworld HI-Small,Neighbour-Aggregation XGBoost,42,0.15,>=2 txns,44,0.6896720457845095,0.09090909090909091
+AMLworld HI-Small,Neighbour-Aggregation XGBoost,42,0.3,all rings,74,0.6832534663517887,0.25675675675675674
+AMLworld HI-Small,Neighbour-Aggregation XGBoost,42,0.3,>=2 txns,44,0.6830717514737971,0.2727272727272727
+AMLworld HI-Small,Neighbour-Aggregation XGBoost,42,0.5,all rings,74,0.008521670675206684,0.4864864864864865
+AMLworld HI-Small,Neighbour-Aggregation XGBoost,42,0.5,>=2 txns,44,0.0054159792300568195,0.5454545454545454
+AMLworld HI-Small,Neighbour-Aggregation XGBoost,42,1.0,all rings,74,0.0042453471524651395,0.6756756756756757
+AMLworld HI-Small,Neighbour-Aggregation XGBoost,42,1.0,>=2 txns,44,0.002444329910453154,0.75
+AMLworld HI-Small,Neighbour-Aggregation XGBoost,43,0.05,all rings,74,0.996563525227,0.013513513513513514
+AMLworld HI-Small,Neighbour-Aggregation XGBoost,43,0.05,>=2 txns,44,0.9966973773841091,0.0
+AMLworld HI-Small,Neighbour-Aggregation XGBoost,43,0.15,all rings,74,0.6921786287739365,0.04054054054054054
+AMLworld HI-Small,Neighbour-Aggregation XGBoost,43,0.15,>=2 txns,44,0.6908638741567872,0.022727272727272728
+AMLworld HI-Small,Neighbour-Aggregation XGBoost,43,0.3,all rings,74,0.6830023787263731,0.2702702702702703
+AMLworld HI-Small,Neighbour-Aggregation XGBoost,43,0.3,>=2 txns,44,0.682498050544794,0.3181818181818182
+AMLworld HI-Small,Neighbour-Aggregation XGBoost,43,0.5,all rings,74,0.007268360663753359,0.5
+AMLworld HI-Small,Neighbour-Aggregation XGBoost,43,0.5,>=2 txns,44,0.004498146329265701,0.5454545454545454
+AMLworld HI-Small,Neighbour-Aggregation XGBoost,43,1.0,all rings,74,0.003497602003852003,0.7297297297297297
+AMLworld HI-Small,Neighbour-Aggregation XGBoost,43,1.0,>=2 txns,44,0.002368944092412424,0.75
+AMLworld HI-Small,Neighbour-Aggregation XGBoost,44,0.05,all rings,74,0.9949031686023493,0.0
+AMLworld HI-Small,Neighbour-Aggregation XGBoost,44,0.05,>=2 txns,44,0.9948744034631731,0.0
+AMLworld HI-Small,Neighbour-Aggregation XGBoost,44,0.15,all rings,74,0.6931692926358077,0.02702702702702703
+AMLworld HI-Small,Neighbour-Aggregation XGBoost,44,0.15,>=2 txns,44,0.6917068823656576,0.022727272727272728
+AMLworld HI-Small,Neighbour-Aggregation XGBoost,44,0.3,all rings,74,0.6848581212250356,0.22972972972972974
+AMLworld HI-Small,Neighbour-Aggregation XGBoost,44,0.3,>=2 txns,44,0.6849144199657111,0.20454545454545456
+AMLworld HI-Small,Neighbour-Aggregation XGBoost,44,0.5,all rings,74,0.008035720019320283,0.47297297297297297
+AMLworld HI-Small,Neighbour-Aggregation XGBoost,44,0.5,>=2 txns,44,0.00526983645368467,0.5
+AMLworld HI-Small,Neighbour-Aggregation XGBoost,44,1.0,all rings,74,0.0035942042421179664,0.7297297297297297
+AMLworld HI-Small,Neighbour-Aggregation XGBoost,44,1.0,>=2 txns,44,0.0025972654862707395,0.75
+AMLworld LI-Small,Combined (full graph),42,0.05,all rings,17,0.9582400499167638,0.0
+AMLworld LI-Small,Combined (full graph),42,0.05,>=2 txns,14,0.957962057564544,0.0
+AMLworld LI-Small,Combined (full graph),42,0.15,all rings,17,0.8980284394267185,0.29411764705882354
+AMLworld LI-Small,Combined (full graph),42,0.15,>=2 txns,14,0.8973496236252919,0.35714285714285715
+AMLworld LI-Small,Combined (full graph),42,0.3,all rings,17,0.8922599017271223,0.29411764705882354
+AMLworld LI-Small,Combined (full graph),42,0.3,>=2 txns,14,0.8915426852724194,0.35714285714285715
+AMLworld LI-Small,Combined (full graph),42,0.5,all rings,17,0.8922599017271223,0.29411764705882354
+AMLworld LI-Small,Combined (full graph),42,0.5,>=2 txns,14,0.8915426852724194,0.35714285714285715
+AMLworld LI-Small,Combined (full graph),42,1.0,all rings,17,0.8599905267433762,0.35294117647058826
+AMLworld LI-Small,Combined (full graph),42,1.0,>=2 txns,14,0.8590584958686724,0.42857142857142855
+AMLworld LI-Small,Combined (full graph),43,0.05,all rings,17,0.9582400499167638,0.0
+AMLworld LI-Small,Combined (full graph),43,0.05,>=2 txns,14,0.957962057564544,0.0
+AMLworld LI-Small,Combined (full graph),43,0.15,all rings,17,0.8980284394267185,0.29411764705882354
+AMLworld LI-Small,Combined (full graph),43,0.15,>=2 txns,14,0.8973496236252919,0.35714285714285715
+AMLworld LI-Small,Combined (full graph),43,0.3,all rings,17,0.865355687994625,0.29411764705882354
+AMLworld LI-Small,Combined (full graph),43,0.3,>=2 txns,14,0.8644593725312976,0.35714285714285715
+AMLworld LI-Small,Combined (full graph),43,0.5,all rings,17,0.865355687994625,0.29411764705882354
+AMLworld LI-Small,Combined (full graph),43,0.5,>=2 txns,14,0.8644593725312976,0.35714285714285715
+AMLworld LI-Small,Combined (full graph),43,1.0,all rings,17,0.8599905267433762,0.35294117647058826
+AMLworld LI-Small,Combined (full graph),43,1.0,>=2 txns,14,0.8590584958686724,0.42857142857142855
+AMLworld LI-Small,Combined (full graph),44,0.05,all rings,17,0.9582400499167638,0.0
+AMLworld LI-Small,Combined (full graph),44,0.05,>=2 txns,14,0.957962057564544,0.0
+AMLworld LI-Small,Combined (full graph),44,0.15,all rings,17,0.8980284394267185,0.29411764705882354
+AMLworld LI-Small,Combined (full graph),44,0.15,>=2 txns,14,0.8973496236252919,0.35714285714285715
+AMLworld LI-Small,Combined (full graph),44,0.3,all rings,17,0.865355687994625,0.29411764705882354
+AMLworld LI-Small,Combined (full graph),44,0.3,>=2 txns,14,0.8644593725312976,0.35714285714285715
+AMLworld LI-Small,Combined (full graph),44,0.5,all rings,17,0.865355687994625,0.29411764705882354
+AMLworld LI-Small,Combined (full graph),44,0.5,>=2 txns,14,0.8644593725312976,0.35714285714285715
+AMLworld LI-Small,Combined (full graph),44,1.0,all rings,17,0.8599905267433762,0.35294117647058826
+AMLworld LI-Small,Combined (full graph),44,1.0,>=2 txns,14,0.8590584958686724,0.42857142857142855
+AMLworld LI-Small,Neighbour-Aggregation XGBoost,42,0.05,all rings,17,0.9154276735003851,0.058823529411764705
+AMLworld LI-Small,Neighbour-Aggregation XGBoost,42,0.05,>=2 txns,14,0.9148646828854666,0.07142857142857142
+AMLworld LI-Small,Neighbour-Aggregation XGBoost,42,0.15,all rings,17,0.03648880672940166,0.29411764705882354
+AMLworld LI-Small,Neighbour-Aggregation XGBoost,42,0.15,>=2 txns,14,0.030074796595924186,0.35714285714285715
+AMLworld LI-Small,Neighbour-Aggregation XGBoost,42,0.3,all rings,17,0.01848091680130303,0.5294117647058824
+AMLworld LI-Small,Neighbour-Aggregation XGBoost,42,0.3,>=2 txns,14,0.0183829850992896,0.5
+AMLworld LI-Small,Neighbour-Aggregation XGBoost,42,0.5,all rings,17,0.014053782417376384,0.5882352941176471
+AMLworld LI-Small,Neighbour-Aggregation XGBoost,42,0.5,>=2 txns,14,0.013926379667180952,0.5714285714285714
+AMLworld LI-Small,Neighbour-Aggregation XGBoost,42,1.0,all rings,17,0.003368265584036253,0.7647058823529411
+AMLworld LI-Small,Neighbour-Aggregation XGBoost,42,1.0,>=2 txns,14,0.0031697302785273322,0.7857142857142857
+AMLworld LI-Small,Neighbour-Aggregation XGBoost,43,0.05,all rings,17,0.07690684042958804,0.058823529411764705
+AMLworld LI-Small,Neighbour-Aggregation XGBoost,43,0.05,>=2 txns,14,0.07076188962779122,0.07142857142857142
+AMLworld LI-Small,Neighbour-Aggregation XGBoost,43,0.15,all rings,17,0.036425583441658166,0.47058823529411764
+AMLworld LI-Small,Neighbour-Aggregation XGBoost,43,0.15,>=2 txns,14,0.03644710782326575,0.42857142857142855
+AMLworld LI-Small,Neighbour-Aggregation XGBoost,43,0.3,all rings,17,0.014053782417376384,0.5882352941176471
+AMLworld LI-Small,Neighbour-Aggregation XGBoost,43,0.3,>=2 txns,14,0.013926379667180952,0.5714285714285714
+AMLworld LI-Small,Neighbour-Aggregation XGBoost,43,0.5,all rings,17,0.0037080283414992394,0.7058823529411765
+AMLworld LI-Small,Neighbour-Aggregation XGBoost,43,0.5,>=2 txns,14,0.003511754807088118,0.7142857142857143
+AMLworld LI-Small,Neighbour-Aggregation XGBoost,43,1.0,all rings,17,0.0037080283414992394,0.7058823529411765
+AMLworld LI-Small,Neighbour-Aggregation XGBoost,43,1.0,>=2 txns,14,0.003511754807088118,0.7142857142857143
+AMLworld LI-Small,Neighbour-Aggregation XGBoost,44,0.05,all rings,17,0.07603387712146155,0.058823529411764705
+AMLworld LI-Small,Neighbour-Aggregation XGBoost,44,0.05,>=2 txns,14,0.06988311507891987,0.07142857142857142
+AMLworld LI-Small,Neighbour-Aggregation XGBoost,44,0.15,all rings,17,0.03648880672940166,0.29411764705882354
+AMLworld LI-Small,Neighbour-Aggregation XGBoost,44,0.15,>=2 txns,14,0.030074796595924186,0.35714285714285715
+AMLworld LI-Small,Neighbour-Aggregation XGBoost,44,0.3,all rings,17,0.02091579632262231,0.47058823529411764
+AMLworld LI-Small,Neighbour-Aggregation XGBoost,44,0.3,>=2 txns,14,0.0183829850992896,0.5
+AMLworld LI-Small,Neighbour-Aggregation XGBoost,44,0.5,all rings,17,0.012881993782829294,0.5882352941176471
+AMLworld LI-Small,Neighbour-Aggregation XGBoost,44,0.5,>=2 txns,14,0.010295702235385682,0.6428571428571429
+AMLworld LI-Small,Neighbour-Aggregation XGBoost,44,1.0,all rings,17,0.0037080283414992394,0.7058823529411765
+AMLworld LI-Small,Neighbour-Aggregation XGBoost,44,1.0,>=2 txns,14,0.003511754807088118,0.7142857142857143

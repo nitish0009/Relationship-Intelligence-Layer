@@ -1,0 +1,7 @@
+{
+  "pseudo_rings": 1271,
+  "true_pattern_rings_train": 244,
+  "ari_pseudo_vs_true_patterns": 0.6150879336273082,
+  "tempering_gamma": 0.16088166926056147,
+  "raw_ess_share": 0.005184475235719041
+}
