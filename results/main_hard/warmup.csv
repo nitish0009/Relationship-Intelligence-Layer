@@ -1,0 +1,241 @@
+model,k,recall,n
++ Relationship counts,1,0.3176470588235294,170.0
++ Relationship counts,2,0.45121951219512196,164.0
++ Relationship counts,3,0.4720496894409938,161.0
++ Relationship counts,4,0.48,150.0
++ Relationship counts,5,0.5202702702702703,148.0
++ Relationship counts,6,0.6549295774647887,142.0
++ Relationship counts,7,0.6592592592592592,135.0
++ Relationship counts,8,0.6967213114754098,122.0
++ Relationship counts,9,0.7456140350877193,114.0
++ Relationship counts,10,0.6728971962616822,107.0
++ Relationship counts,11,0.7326732673267327,101.0
++ Relationship counts,12,0.7065217391304348,92.0
++ Relationship counts,13,0.7380952380952381,84.0
++ Relationship counts,14,0.7692307692307693,78.0
++ Relationship counts,15,0.7205882352941176,68.0
++ Relationship counts,16,0.6923076923076923,65.0
++ Relationship counts,17,0.66,50.0
++ Relationship counts,18,0.725,40.0
++ Relationship counts,19,0.8974358974358975,39.0
++ Relationship counts,20,0.71875,32.0
++ Temporal relationships,1,0.40588235294117647,170.0
++ Temporal relationships,2,0.5487804878048781,164.0
++ Temporal relationships,3,0.6211180124223602,161.0
++ Temporal relationships,4,0.7,150.0
++ Temporal relationships,5,0.6891891891891891,148.0
++ Temporal relationships,6,0.795774647887324,142.0
++ Temporal relationships,7,0.8518518518518519,135.0
++ Temporal relationships,8,0.8688524590163934,122.0
++ Temporal relationships,9,0.9122807017543859,114.0
++ Temporal relationships,10,0.8504672897196262,107.0
++ Temporal relationships,11,0.900990099009901,101.0
++ Temporal relationships,12,0.9130434782608695,92.0
++ Temporal relationships,13,0.9404761904761905,84.0
++ Temporal relationships,14,0.9358974358974359,78.0
++ Temporal relationships,15,0.8970588235294118,68.0
++ Temporal relationships,16,0.9076923076923077,65.0
++ Temporal relationships,17,0.88,50.0
++ Temporal relationships,18,0.9,40.0
++ Temporal relationships,19,1.0,39.0
++ Temporal relationships,20,0.9375,32.0
+CARE-style GNN,1,0.4764705882352941,170.0
+CARE-style GNN,2,0.6951219512195121,164.0
+CARE-style GNN,3,0.7515527950310559,161.0
+CARE-style GNN,4,0.8533333333333334,150.0
+CARE-style GNN,5,0.8513513513513513,148.0
+CARE-style GNN,6,0.9014084507042254,142.0
+CARE-style GNN,7,0.9555555555555556,135.0
+CARE-style GNN,8,0.9098360655737705,122.0
+CARE-style GNN,9,0.9385964912280702,114.0
+CARE-style GNN,10,0.9158878504672897,107.0
+CARE-style GNN,11,0.9108910891089109,101.0
+CARE-style GNN,12,0.9130434782608695,92.0
+CARE-style GNN,13,0.9642857142857143,84.0
+CARE-style GNN,14,0.9487179487179487,78.0
+CARE-style GNN,15,0.9411764705882353,68.0
+CARE-style GNN,16,0.9846153846153847,65.0
+CARE-style GNN,17,0.94,50.0
+CARE-style GNN,18,0.975,40.0
+CARE-style GNN,19,1.0,39.0
+CARE-style GNN,20,0.96875,32.0
+Combined (full graph),1,0.4588235294117647,170.0
+Combined (full graph),2,0.6158536585365854,164.0
+Combined (full graph),3,0.6832298136645962,161.0
+Combined (full graph),4,0.7866666666666666,150.0
+Combined (full graph),5,0.7905405405405406,148.0
+Combined (full graph),6,0.8732394366197183,142.0
+Combined (full graph),7,0.9185185185185185,135.0
+Combined (full graph),8,0.9098360655737705,122.0
+Combined (full graph),9,0.9385964912280702,114.0
+Combined (full graph),10,0.8691588785046729,107.0
+Combined (full graph),11,0.9306930693069307,101.0
+Combined (full graph),12,0.9347826086956522,92.0
+Combined (full graph),13,0.9285714285714286,84.0
+Combined (full graph),14,0.9615384615384616,78.0
+Combined (full graph),15,0.9264705882352942,68.0
+Combined (full graph),16,0.9384615384615385,65.0
+Combined (full graph),17,0.88,50.0
+Combined (full graph),18,0.925,40.0
+Combined (full graph),19,1.0,39.0
+Combined (full graph),20,0.9375,32.0
+Combined + delayed labels,1,0.47058823529411764,170.0
+Combined + delayed labels,2,0.6402439024390244,164.0
+Combined + delayed labels,3,0.7142857142857143,161.0
+Combined + delayed labels,4,0.8133333333333334,150.0
+Combined + delayed labels,5,0.8040540540540541,148.0
+Combined + delayed labels,6,0.8873239436619719,142.0
+Combined + delayed labels,7,0.8888888888888888,135.0
+Combined + delayed labels,8,0.9098360655737705,122.0
+Combined + delayed labels,9,0.9473684210526315,114.0
+Combined + delayed labels,10,0.897196261682243,107.0
+Combined + delayed labels,11,0.9306930693069307,101.0
+Combined + delayed labels,12,0.9456521739130435,92.0
+Combined + delayed labels,13,0.9404761904761905,84.0
+Combined + delayed labels,14,0.9743589743589743,78.0
+Combined + delayed labels,15,0.9264705882352942,68.0
+Combined + delayed labels,16,0.9538461538461539,65.0
+Combined + delayed labels,17,0.94,50.0
+Combined + delayed labels,18,0.9,40.0
+Combined + delayed labels,19,1.0,39.0
+Combined + delayed labels,20,0.9375,32.0
+"GraphSAGE (entity, inductive)",1,0.4411764705882353,170.0
+"GraphSAGE (entity, inductive)",2,0.4817073170731707,164.0
+"GraphSAGE (entity, inductive)",3,0.40993788819875776,161.0
+"GraphSAGE (entity, inductive)",4,0.48,150.0
+"GraphSAGE (entity, inductive)",5,0.4391891891891892,148.0
+"GraphSAGE (entity, inductive)",6,0.47183098591549294,142.0
+"GraphSAGE (entity, inductive)",7,0.4962962962962963,135.0
+"GraphSAGE (entity, inductive)",8,0.45081967213114754,122.0
+"GraphSAGE (entity, inductive)",9,0.5263157894736842,114.0
+"GraphSAGE (entity, inductive)",10,0.4672897196261682,107.0
+"GraphSAGE (entity, inductive)",11,0.48514851485148514,101.0
+"GraphSAGE (entity, inductive)",12,0.5108695652173914,92.0
+"GraphSAGE (entity, inductive)",13,0.39285714285714285,84.0
+"GraphSAGE (entity, inductive)",14,0.3717948717948718,78.0
+"GraphSAGE (entity, inductive)",15,0.5,68.0
+"GraphSAGE (entity, inductive)",16,0.5076923076923077,65.0
+"GraphSAGE (entity, inductive)",17,0.56,50.0
+"GraphSAGE (entity, inductive)",18,0.525,40.0
+"GraphSAGE (entity, inductive)",19,0.6153846153846154,39.0
+"GraphSAGE (entity, inductive)",20,0.4375,32.0
+Neighbour-Aggregation XGBoost,1,0.5058823529411764,170.0
+Neighbour-Aggregation XGBoost,2,0.774390243902439,164.0
+Neighbour-Aggregation XGBoost,3,0.8136645962732919,161.0
+Neighbour-Aggregation XGBoost,4,0.8666666666666667,150.0
+Neighbour-Aggregation XGBoost,5,0.8581081081081081,148.0
+Neighbour-Aggregation XGBoost,6,0.9507042253521126,142.0
+Neighbour-Aggregation XGBoost,7,0.9629629629629629,135.0
+Neighbour-Aggregation XGBoost,8,0.9344262295081968,122.0
+Neighbour-Aggregation XGBoost,9,0.956140350877193,114.0
+Neighbour-Aggregation XGBoost,10,0.9626168224299065,107.0
+Neighbour-Aggregation XGBoost,11,0.9702970297029703,101.0
+Neighbour-Aggregation XGBoost,12,0.9565217391304348,92.0
+Neighbour-Aggregation XGBoost,13,1.0,84.0
+Neighbour-Aggregation XGBoost,14,0.9743589743589743,78.0
+Neighbour-Aggregation XGBoost,15,0.9705882352941176,68.0
+Neighbour-Aggregation XGBoost,16,0.9846153846153847,65.0
+Neighbour-Aggregation XGBoost,17,0.94,50.0
+Neighbour-Aggregation XGBoost,18,0.925,40.0
+Neighbour-Aggregation XGBoost,19,1.0,39.0
+Neighbour-Aggregation XGBoost,20,1.0,32.0
+TGN-style Memory,1,0.3176470588235294,170.0
+TGN-style Memory,2,0.5060975609756098,164.0
+TGN-style Memory,3,0.6335403726708074,161.0
+TGN-style Memory,4,0.72,150.0
+TGN-style Memory,5,0.7364864864864865,148.0
+TGN-style Memory,6,0.823943661971831,142.0
+TGN-style Memory,7,0.8592592592592593,135.0
+TGN-style Memory,8,0.8114754098360656,122.0
+TGN-style Memory,9,0.9122807017543859,114.0
+TGN-style Memory,10,0.7850467289719626,107.0
+TGN-style Memory,11,0.8712871287128713,101.0
+TGN-style Memory,12,0.8260869565217391,92.0
+TGN-style Memory,13,0.8809523809523809,84.0
+TGN-style Memory,14,0.7948717948717948,78.0
+TGN-style Memory,15,0.8088235294117647,68.0
+TGN-style Memory,16,0.7846153846153846,65.0
+TGN-style Memory,17,0.8,50.0
+TGN-style Memory,18,0.8,40.0
+TGN-style Memory,19,0.8974358974358975,39.0
+TGN-style Memory,20,0.78125,32.0
+Temporal GAT,1,0.5235294117647059,170.0
+Temporal GAT,2,0.75,164.0
+Temporal GAT,3,0.8074534161490683,161.0
+Temporal GAT,4,0.8733333333333333,150.0
+Temporal GAT,5,0.8378378378378378,148.0
+Temporal GAT,6,0.9507042253521126,142.0
+Temporal GAT,7,0.9703703703703703,135.0
+Temporal GAT,8,0.9344262295081968,122.0
+Temporal GAT,9,0.9736842105263158,114.0
+Temporal GAT,10,0.9345794392523364,107.0
+Temporal GAT,11,0.9108910891089109,101.0
+Temporal GAT,12,0.9021739130434783,92.0
+Temporal GAT,13,0.9761904761904762,84.0
+Temporal GAT,14,0.9487179487179487,78.0
+Temporal GAT,15,0.9117647058823529,68.0
+Temporal GAT,16,0.9692307692307692,65.0
+Temporal GAT,17,0.92,50.0
+Temporal GAT,18,0.925,40.0
+Temporal GAT,19,1.0,39.0
+Temporal GAT,20,0.96875,32.0
+Temporal GraphSAGE,1,0.5352941176470588,170.0
+Temporal GraphSAGE,2,0.7560975609756098,164.0
+Temporal GraphSAGE,3,0.8012422360248447,161.0
+Temporal GraphSAGE,4,0.8533333333333334,150.0
+Temporal GraphSAGE,5,0.8716216216216216,148.0
+Temporal GraphSAGE,6,0.9295774647887324,142.0
+Temporal GraphSAGE,7,0.9481481481481482,135.0
+Temporal GraphSAGE,8,0.9426229508196722,122.0
+Temporal GraphSAGE,9,0.9385964912280702,114.0
+Temporal GraphSAGE,10,0.9252336448598131,107.0
+Temporal GraphSAGE,11,0.9306930693069307,101.0
+Temporal GraphSAGE,12,0.9456521739130435,92.0
+Temporal GraphSAGE,13,1.0,84.0
+Temporal GraphSAGE,14,0.9743589743589743,78.0
+Temporal GraphSAGE,15,0.9411764705882353,68.0
+Temporal GraphSAGE,16,0.9846153846153847,65.0
+Temporal GraphSAGE,17,0.96,50.0
+Temporal GraphSAGE,18,0.975,40.0
+Temporal GraphSAGE,19,1.0,39.0
+Temporal GraphSAGE,20,0.96875,32.0
+Temporal R-GCN,1,0.5176470588235295,170.0
+Temporal R-GCN,2,0.7317073170731707,164.0
+Temporal R-GCN,3,0.8198757763975155,161.0
+Temporal R-GCN,4,0.8666666666666667,150.0
+Temporal R-GCN,5,0.8378378378378378,148.0
+Temporal R-GCN,6,0.9295774647887324,142.0
+Temporal R-GCN,7,0.9629629629629629,135.0
+Temporal R-GCN,8,0.9344262295081968,122.0
+Temporal R-GCN,9,0.9649122807017544,114.0
+Temporal R-GCN,10,0.9439252336448598,107.0
+Temporal R-GCN,11,0.9405940594059405,101.0
+Temporal R-GCN,12,0.967391304347826,92.0
+Temporal R-GCN,13,0.9880952380952381,84.0
+Temporal R-GCN,14,0.9871794871794872,78.0
+Temporal R-GCN,15,0.9411764705882353,68.0
+Temporal R-GCN,16,1.0,65.0
+Temporal R-GCN,17,0.94,50.0
+Temporal R-GCN,18,0.975,40.0
+Temporal R-GCN,19,1.0,39.0
+Temporal R-GCN,20,1.0,32.0
+Transaction Baseline,1,0.3,170.0
+Transaction Baseline,2,0.42073170731707316,164.0
+Transaction Baseline,3,0.4782608695652174,161.0
+Transaction Baseline,4,0.4666666666666667,150.0
+Transaction Baseline,5,0.5,148.0
+Transaction Baseline,6,0.5422535211267606,142.0
+Transaction Baseline,7,0.5185185185185185,135.0
+Transaction Baseline,8,0.5163934426229508,122.0
+Transaction Baseline,9,0.5614035087719298,114.0
+Transaction Baseline,10,0.5981308411214953,107.0
+Transaction Baseline,11,0.5643564356435643,101.0
+Transaction Baseline,12,0.5869565217391305,92.0
+Transaction Baseline,13,0.6190476190476191,84.0
+Transaction Baseline,14,0.5128205128205128,78.0
+Transaction Baseline,15,0.6029411764705882,68.0
+Transaction Baseline,16,0.5076923076923077,65.0
+Transaction Baseline,17,0.56,50.0
+Transaction Baseline,18,0.5,40.0
+Transaction Baseline,19,0.6410256410256411,39.0
+Transaction Baseline,20,0.59375,32.0

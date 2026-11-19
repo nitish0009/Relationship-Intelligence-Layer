@@ -1,0 +1,56 @@
+{
+  "Transaction Baseline": {
+    "n_estimators": 200,
+    "max_depth": 8,
+    "learning_rate": 0.08,
+    "subsample": 0.8,
+    "colsample_bytree": 0.8,
+    "min_child_weight": 10,
+    "reg_lambda": 0.0
+  },
+  "+ Relationship counts": {},
+  "+ Temporal relationships": {
+    "n_estimators": 200,
+    "max_depth": 8,
+    "learning_rate": 0.08,
+    "subsample": 0.8,
+    "colsample_bytree": 0.8,
+    "min_child_weight": 10,
+    "reg_lambda": 0.0
+  },
+  "Combined (full graph)": {
+    "n_estimators": 200,
+    "max_depth": 8,
+    "learning_rate": 0.08,
+    "subsample": 0.8,
+    "colsample_bytree": 0.8,
+    "min_child_weight": 10,
+    "reg_lambda": 0.0
+  },
+  "Combined + delayed labels": {
+    "n_estimators": 800,
+    "max_depth": 3,
+    "learning_rate": 0.03,
+    "subsample": 0.8,
+    "colsample_bytree": 1.0,
+    "min_child_weight": 10,
+    "reg_lambda": 5.0
+  },
+  "Neighbour-Aggregation XGBoost": {
+    "n_estimators": 200,
+    "max_depth": 8,
+    "learning_rate": 0.08,
+    "subsample": 0.8,
+    "colsample_bytree": 0.8,
+    "min_child_weight": 10,
+    "reg_lambda": 0.0
+  },
+  "Temporal GraphSAGE": {
+    "hidden": 64,
+    "lr": 0.003
+  },
+  "Temporal GAT": {
+    "hidden": 32,
+    "lr": 0.001
+  }
+}

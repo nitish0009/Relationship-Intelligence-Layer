@@ -120,9 +120,41 @@ def _set_labels(ds: Dataset, delay: float) -> None:
         part[LABEL_FEATURE_COLS] = lab[part["_row"].to_numpy()]
 
 
-def run(seeds=(42, 43, 44)) -> None:
-    out = out_dir("amlworld")
-    t0 = time.time()
+GNNS = ["Temporal GraphSAGE", "Temporal GAT"]
+ENTITY_SAGE = ["GraphSAGE (entity, inductive)", "GraphSAGE (transductive)"]
+GNN_GRID = [{"hidden": 32, "lr": 1e-3}, {"hidden": 64, "lr": 1e-3}, {"hidden": 32, "lr": 3e-3}, {"hidden": 64, "lr": 3e-3}]
+LEGIT_SAMPLE = 0.3
+
+
+def _fit_gnn(name, ds, idx, seed, params):
+    """Temporal GNNs on 3.5M training rows: train on all laundering + a LEGIT_SAMPLE share of
+    legitimate rows (neighbour features still come from the full graph; PR-AUC is rank-based and
+    the alert-budget thresholds are set on the full validation split). Hidden size / learning
+    rate are tuned once on a 300k validation subsample (seed 42) and reused for every seed."""
+    from src.evaluation import select_threshold
+    kind = {"Temporal GraphSAGE": "sage", "Temporal GAT": "gat"}[name]
+    vsub = ds.val.sample(min(300_000, len(ds.val)), random_state=0)
+    vsub = vsub if vsub.fraud_label.sum() else ds.val
+
+    def fit(p, s):
+        rng = np.random.default_rng(s)
+        sub = ds.train[(ds.train.fraud_label == 1) | (rng.random(len(ds.train)) < LEGIT_SAMPLE)]
+        return TemporalGNN(idx, kind, seed=s, epochs=8, val_df=vsub, **p).fit(sub, sub.fraud_label.to_numpy())
+
+    if name not in params:
+        best = (-1.0, GNN_GRID[0])
+        for p in GNN_GRID:
+            ap = average_precision_score(vsub.fraud_label, fit(p, 42).predict_proba(vsub))
+            print(f"     tune {name} {p}: val PR-AUC {ap:.4f}", flush=True)
+            best = max(best, (ap, p), key=lambda t: t[0])
+        params[name] = best[1]
+    m = fit(params[name], seed)
+    p_val, p_test = m.predict_proba(ds.val), m.predict_proba(ds.test)
+    return {"p_val": p_val, "p_test": p_test, "threshold": select_threshold(ds.val.fraud_label.to_numpy(), p_val)}
+
+
+def prepare(out: str):
+    """Load AMLworld, build all features and the chronological split (shared by run / run_gnn_only)."""
     with Timer("load"):
         tx = load_aml()
     set_payment_methods(sorted(tx["payment_method"].unique()))
@@ -148,14 +180,20 @@ def run(seeds=(42, 43, 44)) -> None:
     listed.describe().to_csv(os.path.join(out, "pattern_ring_stats.csv"))
     save_json({"n": len(tx), "train": len(train), "val": len(val), "test": len(test)}, os.path.join(out, "split.json"))
 
+    return ds, f, rings
+
+
+def run(seeds=(42, 43, 44)) -> None:
+    out = out_dir("amlworld")
+    t0 = time.time()
+    ds, f, rings = prepare(out)
+    tx, train, val, test = ds.tx, ds.train, ds.val, ds.test
     idx = TemporalIndex(tx, k=10)
     rows, ring_tabs, scores = [], [], {}
-    names = list(FEATURE_FAMILIES) + ["Neighbour-Aggregation XGBoost", "Temporal GraphSAGE"]
+    names = list(FEATURE_FAMILIES) + ["Neighbour-Aggregation XGBoost"] + GNNS + ENTITY_SAGE
     params = {}
     for seed in seeds:
         for name in names:
-            if name == "Temporal GraphSAGE" and seed != seeds[0]:
-                continue  # one GNN seed (cost: 3.5M training rows)
             with Timer(f"{name} seed {seed}"):
                 if name in FEATURE_FAMILIES:
                     if name not in params:
@@ -163,18 +201,19 @@ def run(seeds=(42, 43, 44)) -> None:
                     model = tabular(FEATURE_FAMILIES[name], seed, params[name], name)
                     res = fit_score(model, ds)
                 elif name == "Neighbour-Aggregation XGBoost":
-                    res = fit_score(NeighborAggXGB(idx, seed), ds)
+                    from src.classifier_utils import get_classifier
+                    from src.pipeline import XGB_SPACE, tune
+                    nb = lambda p, s: NeighborAggXGB(idx, s, classifier=get_classifier(s, **p))
+                    if name not in params:
+                        params[name] = tune(lambda p: nb(p, 42), ds, XGB_SPACE, 4, 42)
+                    res = fit_score(nb(params[name], seed), ds)
+                elif name in ENTITY_SAGE:
+                    # C3 on real data: entity GraphSAGE, leakage-safe inductive vs published-style
+                    # transductive (graph over ALL transactions incl. test)
+                    from experiments.common import make_model
+                    res = fit_score(make_model(name, ds, seed, {}, idx), ds)
                 else:
-                    # train on all laundering + a 15% sample of legitimate transactions (neighbour
-                    # features still come from the full graph); PR-AUC is rank-based
-                    rng = np.random.default_rng(seed)
-                    sub = ds.train[(ds.train.fraud_label == 1) | (rng.random(len(ds.train)) < 0.15)]
-                    m = TemporalGNN(idx, "sage", seed=seed, epochs=6, val_df=ds.val.sample(200_000, random_state=seed)
-                                    if len(ds.val) > 200_000 else ds.val)
-                    m.fit(sub, sub.fraud_label.to_numpy())
-                    p_val, p_test = m.predict_proba(ds.val), m.predict_proba(ds.test)
-                    from src.evaluation import select_threshold
-                    res = {"p_val": p_val, "p_test": p_test, "threshold": select_threshold(ds.val.fraud_label.to_numpy(), p_val)}
+                    res = _fit_gnn(name, ds, idx, seed, params)
             sc = score_all(ds, res)
             y = ds.test.fraud_label.to_numpy()
             row = {"seed": seed, "model": name, **sc["row"]}
@@ -236,6 +275,57 @@ def run(seeds=(42, 43, 44)) -> None:
     save_json({"seen_bad_customer": float(sc_.mean()), "seen_bad_device": float(sd_.mean()),
                "seen_bad_any": float((sc_ | sd_).mean()), "fraud_rate": float(ds.tx.fraud_label.mean())},
               os.path.join(out, "calibration_stats.json"))
-    save_json({"minutes": (time.time() - t0) / 60}, os.path.join(out, "run_info.json"))
+    save_json({k: v for k, v in params.items()}, os.path.join(out, "tuned_params.json"))
+    save_json({"seeds": list(seeds), "legit_sample_gnn": LEGIT_SAMPLE, "minutes": (time.time() - t0) / 60},
+              os.path.join(out, "run_info.json"))
     print(summ.round(4).to_string())
     print(f"amlworld done in {(time.time() - t0) / 60:.1f} min")
+
+
+def run_gnn_only(seeds=(42, 43, 44)) -> None:
+    """Refit ONLY the temporal GNNs (after the standardiser fix in src/temporal_gnn.py) and replace
+    their rows in results/amlworld/ -- the XGBoost and entity-GraphSAGE results are unaffected."""
+    out = out_dir("amlworld")
+    t0 = time.time()
+    ds, f, rings = prepare(out)
+    idx = TemporalIndex(ds.tx, k=10)
+    params, rows, tabs, scores = {}, [], [], {}
+    y = ds.test.fraud_label.to_numpy()
+    for seed in seeds:
+        for name in GNNS:
+            with Timer(f"{name} seed {seed}"):
+                res = _fit_gnn(name, ds, idx, seed, params)
+            sc = score_all(ds, res)
+            row = {"seed": seed, "model": name, **sc["row"]}
+            if seed == seeds[0]:
+                boot = cluster_bootstrap_indices(ds.test, 300, 42)
+                rng = np.random.default_rng(0)
+                iid = [rng.integers(0, len(y), len(y)) for _ in range(300)]
+                row["pr_auc_ci_ring"] = "[%.3f, %.3f]" % bootstrap_ci(y, res["p_test"], boot)
+                row["pr_auc_ci_iid"] = "[%.3f, %.3f]" % bootstrap_ci(y, res["p_test"], iid)
+                scores[name] = res
+                for b in BUDGETS:
+                    rt = ring_rows(ds, res["p_test"], sc["thr"][b], model=name, budget=b)
+                    tabs.append(rt[(rt.ring_txns >= 3) & (rt.fraud_pattern != "unlisted")] if len(rt) else rt)
+            rows.append(row)
+            print(f"   {name} seed {seed}: PR-AUC {sc['row']['pr_auc']:.4f}", flush=True)
+    m = pd.read_csv(os.path.join(out, "metrics_by_seed.csv"))
+    m = pd.concat([m[~m.model.isin(GNNS)], pd.DataFrame(rows)], ignore_index=True)
+    m.to_csv(os.path.join(out, "metrics_by_seed.csv"), index=False)
+    summ = m.groupby("model", sort=False)[["pr_auc", "roc_auc", "recall_at_1pct_fpr"]].agg(["mean", "std"])
+    summ.columns = [f"{a}_{b}" for a, b in summ.columns]
+    summ.to_csv(os.path.join(out, "metrics_summary.csv"))
+    rp = os.path.join(out, "ring_tables.csv")
+    if os.path.exists(rp):
+        rt = pd.read_csv(rp)
+        rt = pd.concat([rt[~rt.model.isin(GNNS)]] + [t for t in tabs if len(t)], ignore_index=True)
+        rt.to_csv(rp, index=False)
+        from experiments.main import _pool_rings
+        _pool_rings(rt, ["model", "budget"]).to_csv(os.path.join(out, "ring_summary.csv"), index=False)
+    tp = os.path.join(out, "tuned_params.json")
+    import json
+    old = json.load(open(tp)) if os.path.exists(tp) else {}
+    old.update(params)
+    save_json(old, tp)
+    print(summ.round(4).to_string())
+    print(f"amlworld gnn-only done in {(time.time() - t0) / 60:.1f} min")

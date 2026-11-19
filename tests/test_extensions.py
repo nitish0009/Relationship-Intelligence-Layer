@@ -262,3 +262,80 @@ def test_pyg_reference_tgn_has_no_future_leakage(small_tx):
     with torch.no_grad():
         b = m._stream(len(tx))
     np.testing.assert_allclose(a, b[:6000], atol=1e-6)
+
+
+# ---------------------------------------------------------------- C5: takedown-value weighting
+
+def _toy_tvw():
+    import pandas as pd
+    t = pd.to_datetime("2024-01-01") + pd.to_timedelta([0, 1, 2, 3, 4, 5], unit="h")
+    return pd.DataFrame({
+        "timestamp": t, "amount": [10.0, 20.0, 5.0, 30.0, 1.0, 7.0],
+        "fraud_label": [1, 1, 0, 1, 1, 0],
+        "customer_id": ["a", "b", "c", "d", "e", "f"],
+        "device_id": ["D1", "D1", "D9", "D2", "D2", "D9"],   # ring {0,1} via D1, ring {3,4} via D2
+        "card_id": ["K1", "K2", "K3", "K4", "K5", "K6"], "ip_id": ["NAT"] * 6,  # NAT shared by 6 customers
+        "ring_id": [7, 7, -1, 8, 8, -1],
+    })
+
+
+def test_pseudo_rings_link_specific_entities_only():
+    from src.clock_weights import pseudo_rings
+    df = _toy_tvw()
+    r = pseudo_rings(df, max_customers=3)
+    assert r[2] == -1 and r[5] == -1
+    assert r[0] == r[1] and r[3] == r[4] and r[0] != r[3]  # the shared NAT IP must not merge rings
+    r_loose = pseudo_rings(df, max_customers=10)
+    assert r_loose[0] == r_loose[3]  # a coarse key would merge them -- hence the specificity filter
+
+
+def test_remaining_value_and_weights():
+    import numpy as np
+    from src.clock_weights import pseudo_rings, remaining_value, tvw_weights
+    df = _toy_tvw()
+    R = remaining_value(df, pseudo_rings(df, max_customers=3))
+    assert np.allclose(R, [30, 20, 0, 31, 1, 0])
+    assert np.allclose(tvw_weights(df, 0.0), 1.0)
+    w = tvw_weights(df, 1.0, max_customers=3)
+    f = df.fraud_label.to_numpy() == 1
+    assert np.isclose(w[f].mean(), 1.0) and np.allclose(w[~f], 1.0)  # class balance unchanged
+    assert w[0] > w[1] and w[3] > w[4]  # earlier ring transactions weigh more
+
+
+def test_tvw_uses_training_rows_only():
+    """Weights depend only on the rows passed in: appending future rows cannot change them."""
+    import numpy as np
+    import pandas as pd
+    from src.clock_weights import tvw_weights
+    df = _toy_tvw()
+    w_a = tvw_weights(df.iloc[:4], 1.0, max_customers=3)
+    w_b = tvw_weights(pd.concat([df.iloc[:4], df.iloc[4:]]).iloc[:4], 1.0, max_customers=3)
+    assert np.allclose(w_a, w_b)
+
+
+def test_tvw_ess_tempering():
+    import numpy as np
+    from src.clock_weights import _ess_share, temper
+    rel = np.r_[np.full(99, 0.01), 1000.0]  # one huge transaction
+    assert _ess_share(rel) < 0.05
+    t, g = temper(rel, 0.5)
+    assert _ess_share(t) >= 0.5 - 1e-6 and 0 <= g < 1
+    flat = np.linspace(0.5, 1.5, 100)  # already well spread -> untouched
+    t2, g2 = temper(flat, 0.5)
+    assert g2 == 1.0 and np.allclose(t2, flat)
+
+
+def test_gnn_neighbour_standardiser_uses_whole_training_period():
+    """Regression: the neighbour standardiser must not be fitted on only the earliest rows
+    (on AMLworld those covered 6 minutes, giving |z| ~ 1e4 at test time)."""
+    import numpy as np
+    from src.pipeline import build_dataset
+    from src.data_generator import GeneratorConfig
+    from src.temporal_gnn import TemporalGNN, TemporalIndex
+    ds = build_dataset(7, GeneratorConfig(n_customers=3000, n_transactions=25000), label_delay_days=30.0)
+    idx = TemporalIndex(ds.tx, k=5)
+    m = TemporalGNN(idx, "sage", epochs=1, seed=0)
+    m.fit(ds.train, ds.train.fraud_label.to_numpy())
+    xn, v = idx.neighbour_features(ds.test["_row"].to_numpy())
+    z = np.abs(m.std_n(xn)[v])
+    assert np.isfinite(z).all() and z.max() < 1e3

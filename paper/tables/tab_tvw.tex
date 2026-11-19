@@ -1,0 +1,25 @@
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+ & \multicolumn{2}{c}{Money lost (\%)} & & $\Delta$PR-AUC \\
+\cmidrule(lr){2-3}
+Model & ordinary & TVW & $\Delta$ pp [95\% CI] & (pp) \\
+\midrule
+\multicolumn{5}{@{}l}{\emph{synthetic (hard)} (322 rings)} \\
+Hand-crafted graph features & 7.9 & 6.2 & \textbf{-1.75 [-2.90, -0.83]} & -0.1 \\
+\quad + delayed labels & 7.3 & 6.4 & \textbf{-0.87 [-1.56, -0.29]} & -0.1 \\
+Neighbour-aggregation XGBoost & 5.2 & 3.9 & \textbf{-1.20 [-2.12, -0.47]} & -0.1 \\
+Temporal GraphSAGE & 4.4 & 3.8 & \textbf{-0.58 [-1.14, -0.04]} & -0.4 \\
+Temporal GAT & 4.4 & 4.0 & -0.40 [-1.07, +0.28] & -0.2 \\
+Temporal CARE-style GNN & 5.2 & 4.2 & \textbf{-1.02 [-1.81, -0.25]} & -0.4 \\
+\midrule
+\multicolumn{5}{@{}l}{\emph{AMLworld} (84 rings)} \\
+Hand-crafted graph features & 0.1 & 0.1 & +0.01 [-0.10, +0.15] & +0.7 \\
+\quad + delayed labels & 0.1 & 0.2 & +0.05 [+0.01, +0.16] & -2.6 \\
+Neighbour-aggregation XGBoost & 0.0 & 0.0 & +0.00 [-0.02, +0.02] & -1.6 \\
+\midrule
+\multicolumn{5}{@{}l}{\emph{IEEE-CIS} (675 rings)} \\
+Vesta features & 56.2 & 56.5 & +0.26 [-2.90, +3.45] & -0.3 \\
+Vesta + hand-crafted graph & 56.9 & 56.8 & -0.03 [-5.27, +6.26] & -0.2 \\
+Vesta + graph + delayed labels & 57.4 & 58.1 & +0.74 [-3.55, +5.63] & -0.4 \\
+\bottomrule
+\end{tabular}

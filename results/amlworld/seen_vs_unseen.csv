@@ -9,7 +9,13 @@ Combined (full graph),seen-bad account,321,0.5264797507788161
 Combined (full graph),unseen accounts,585,0.7794871794871795
 Combined + delayed labels,seen-bad account,321,0.6292834890965732
 Combined + delayed labels,unseen accounts,585,0.7333333333333333
-Neighbour-Aggregation XGBoost,seen-bad account,321,0.6105919003115264
-Neighbour-Aggregation XGBoost,unseen accounts,585,0.8205128205128205
-Temporal GraphSAGE,seen-bad account,321,0.4143302180685358
-Temporal GraphSAGE,unseen accounts,585,0.6273504273504273
+Neighbour-Aggregation XGBoost,seen-bad account,321,0.6355140186915887
+Neighbour-Aggregation XGBoost,unseen accounts,585,0.8358974358974359
+Temporal GraphSAGE,seen-bad account,321,0.3707165109034268
+Temporal GraphSAGE,unseen accounts,585,0.6136752136752137
+Temporal GAT,seen-bad account,321,0.42990654205607476
+Temporal GAT,unseen accounts,585,0.6888888888888889
+"GraphSAGE (entity, inductive)",seen-bad account,321,0.08099688473520249
+"GraphSAGE (entity, inductive)",unseen accounts,585,0.17435897435897435
+GraphSAGE (transductive),seen-bad account,321,0.5887850467289719
+GraphSAGE (transductive),unseen accounts,585,0.6085470085470085

@@ -177,16 +177,22 @@ class TemporalGNN:
         xn = self.std_n(xn) * valid[..., None]
         return (torch.from_numpy(self.std_t(self.target_fn(df))), torch.from_numpy(xn), torch.from_numpy(valid))
 
-    def fit(self, train_df: pd.DataFrame, y: np.ndarray) -> "TemporalGNN":
+    def fit(self, train_df: pd.DataFrame, y: np.ndarray, sample_weight: Optional[np.ndarray] = None) -> "TemporalGNN":
         torch.manual_seed(self.seed)
         rng = np.random.default_rng(self.seed)
         Xt = self.target_fn(train_df)
         self.std_t = _Standardiser().fit(Xt)
-        xn_sample, v_sample = self.index.neighbour_features(train_df["_row"].to_numpy()[:20000])
+        # Fit the neighbour standardiser on a RANDOM sample spread over the whole training period.
+        # (Bug fix: the first 20,000 rows covered only the first minutes of AMLworld, so hour/time-gap
+        # features got near-zero s.d. and test inputs reached |z| ~ 1e4, destabilising training.)
+        tr_rows = train_df["_row"].to_numpy()
+        pick = np.sort(rng.choice(len(tr_rows), size=min(20000, len(tr_rows)), replace=False))
+        xn_sample, v_sample = self.index.neighbour_features(tr_rows[pick])
         flat = xn_sample[v_sample]
         self.std_n = _Standardiser().fit(flat if len(flat) else xn_sample.reshape(-1, xn_sample.shape[-1]))
         xt, xn, valid = self._tensors(train_df)
         yt = torch.from_numpy(np.asarray(y, dtype=np.float32))
+        wt = None if sample_weight is None else torch.from_numpy(np.asarray(sample_weight, dtype=np.float32))
         self.net = _Net(self.kind, xt.shape[1], xn.shape[-1], xn.shape[1], self.hidden, self.rho)
         opt = torch.optim.Adam(self.net.parameters(), lr=self.lr, weight_decay=1e-5)
         pos_w = torch.tensor(min(20.0, float((1 - yt.mean()) / max(yt.mean(), 1e-6)) ** 0.5))
@@ -200,9 +206,10 @@ class TemporalGNN:
             for s in range(0, len(perm), self.batch):
                 b = torch.from_numpy(perm[s:s + self.batch])
                 logit, aux = self.net(xt[b], xn[b], valid[b])
-                loss = F.binary_cross_entropy_with_logits(logit, yt[b], pos_weight=pos_w)
+                wb = None if wt is None else wt[b]  # TVW per-example weights (src/clock_weights.py)
+                loss = F.binary_cross_entropy_with_logits(logit, yt[b], weight=wb, pos_weight=pos_w)
                 if aux is not None:
-                    loss = loss + 0.5 * F.binary_cross_entropy_with_logits(aux, yt[b], pos_weight=pos_w)
+                    loss = loss + 0.5 * F.binary_cross_entropy_with_logits(aux, yt[b], weight=wb, pos_weight=pos_w)
                 opt.zero_grad()
                 loss.backward()
                 opt.step()
@@ -245,8 +252,8 @@ class NeighborAggXGB:
         base = self.target_fn(df) if self.target_fn else prepare_feature_matrix(df, TRANSACTION_FEATURE_COLS)
         return np.hstack([base, agg])
 
-    def fit(self, train_df: pd.DataFrame, y: np.ndarray) -> "NeighborAggXGB":
-        self.model.fit(self._X(train_df), y)
+    def fit(self, train_df: pd.DataFrame, y: np.ndarray, sample_weight: Optional[np.ndarray] = None) -> "NeighborAggXGB":
+        self.model.fit(self._X(train_df), y, sample_weight=sample_weight)
         return self
 
     def predict_proba(self, df: pd.DataFrame, history: Optional[pd.DataFrame] = None) -> np.ndarray:

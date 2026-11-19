@@ -29,6 +29,11 @@ TGN_SPACE = {"mem_dim": [32, 64], "lr": [1e-3, 3e-3]}
 # Original third-party implementations run only when fetched (scripts/fetch_third_party.sh)
 # AND explicitly enabled with RIL_RUN_THIRD_PARTY=1 (they execute external code).
 ORIGINALS = ["CARE-GNN (original code)", "PC-GNN (original code)"]
+# Small validation sweep around the authors' defaults (lr 0.01, emb 64, wd 1e-3): their defaults
+# were set for YelpChi/Amazon review graphs, not transaction streams. The first entry ({}) is the
+# authors' configuration, so tuning can only match or improve it on validation.
+ORIGINAL_SPACE = [{}, {"lr": 0.003}, {"lr": 0.03}, {"emb": 32}, {"emb": 128}, {"weight_decay": 1e-4},
+                  {"lr": 0.003, "weight_decay": 1e-4}]
 
 
 def originals_enabled() -> bool:
@@ -58,7 +63,7 @@ def make_model(name: str, ds: Dataset, seed: int, params: Optional[dict] = None,
         return TGNReference(idx, seed=seed, val_df=ds.val, **params)
     if name in ORIGINALS:
         kind = "care" if name.startswith("CARE") else "pcgnn"
-        return OriginalFraudGNN(idx, kind, ds.tx, ds.val, seed=seed)
+        return OriginalFraudGNN(idx, kind, ds.tx, ds.val, seed=seed, **params)
     if name == "GraphSAGE (entity, inductive)":
         return GraphSAGEModel(seed=seed)
     if name == "GraphSAGE (transductive)":
@@ -73,7 +78,20 @@ def tune_model(name: str, ds: Dataset, seed: int, idx: TemporalIndex, n_iter: in
         return tune(lambda p: make_model(name, ds, seed, p, idx), ds, GNN_SPACE, 8, seed)
     if name == "TGN-style Memory":
         return tune(lambda p: make_model(name, ds, seed, p, idx), ds, TGN_SPACE, 8, seed)
+    if name in ORIGINALS:
+        return tune_original(name, ds, seed, idx)
     return {}
+
+
+def tune_original(name: str, ds: Dataset, seed: int, idx: TemporalIndex) -> dict:
+    """Pick the configuration with the best VALIDATION PR-AUC (the runner's own model selection)."""
+    best, best_p = -1.0, {}
+    for p in ORIGINAL_SPACE:
+        m = make_model(name, ds, seed, p, idx).fit(ds.train, ds.train["fraud_label"].to_numpy())
+        print(f"     {name} {p or 'authors default'}: val PR-AUC {m.best_val:.4f}", flush=True)
+        if m.best_val > best:
+            best, best_p = m.best_val, p
+    return best_p
 
 
 def score_all(ds: Dataset, out: Dict[str, object]) -> Dict[str, object]:

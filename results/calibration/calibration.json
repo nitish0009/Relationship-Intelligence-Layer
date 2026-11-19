@@ -1,0 +1,57 @@
+{
+  "ieee": {
+    "real": {
+      "seen_bad_customer": 0.15050275705481675,
+      "seen_bad_device": 0.008108984755108661,
+      "seen_bad_card": 0.01265001621796951,
+      "seen_bad_any": 0.16412585144339928,
+      "fraud_rate": 0.03499000914417313
+    },
+    "p_hat": {
+      "seen_bad_any": 0.1472641294278782,
+      "seen_bad_customer": 0.33051946294215273
+    },
+    "transductive_inflation": {
+      "p_hat_range": [
+        0.1472641294278782,
+        0.33051946294215273
+      ],
+      "predicted_pp_at_p_hat_range": [
+        16.19121202393599,
+        13.567694659701734
+      ],
+      "observed_pp": 16.70770589033721,
+      "observed_within_predicted_band": true,
+      "observed_inductive_pr_auc": 0.0818173012858488,
+      "observed_transductive_pr_auc": 0.2488943601892209,
+      "note": "absolute pp is the comparable quantity (band = predicted range +/- 2 pp); relative inflation is not comparable across base rates"
+    }
+  },
+  "amlworld": {
+    "real": {
+      "seen_bad_customer": 0.23509933774834438,
+      "seen_bad_device": 0.10044150110375276,
+      "seen_bad_any": 0.27483443708609273,
+      "fraud_rate": 0.000890641898339589
+    },
+    "p_hat": {
+      "seen_bad_customer_or_device": 0.21230766866595957,
+      "seen_bad_customer": 0.46636147782499215
+    },
+    "transductive_inflation": {
+      "p_hat_range": [
+        0.21230766866595957,
+        0.46636147782499215
+      ],
+      "predicted_pp_at_p_hat_range": [
+        15.330078536306939,
+        11.436313305735256
+      ],
+      "observed_pp": 33.37784372666067,
+      "observed_within_predicted_band": false,
+      "observed_inductive_pr_auc": 0.004254372052889,
+      "observed_transductive_pr_auc": 0.3380328093194957,
+      "note": "absolute pp is the comparable quantity (band = predicted range +/- 2 pp); relative inflation is not comparable across base rates"
+    }
+  }
+}

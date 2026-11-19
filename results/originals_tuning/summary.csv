@@ -1,0 +1,9 @@
+preset,model,config,mean,std
+default,CARE-GNN (original code),authors' defaults,0.6526733969928683,0.04476242942149454
+default,CARE-GNN (original code),validation-tuned,0.6673340710909743,0.040966789287220105
+default,PC-GNN (original code),authors' defaults,0.7998119112598076,0.027298944791241345
+default,PC-GNN (original code),validation-tuned,0.8270613763199748,0.028421969689887715
+hard,CARE-GNN (original code),authors' defaults,0.5346195023504653,0.04828649909745183
+hard,CARE-GNN (original code),validation-tuned,0.5541693034063592,0.05065213427879038
+hard,PC-GNN (original code),authors' defaults,0.6683693701848813,0.055228089860688716
+hard,PC-GNN (original code),validation-tuned,0.6782814649190291,0.05409348653780577

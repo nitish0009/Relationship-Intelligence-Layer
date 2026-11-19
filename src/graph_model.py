@@ -28,8 +28,8 @@ class TabularRiskModel:
         self.name = name
         self.model = get_classifier(seed)
 
-    def fit(self, df: pd.DataFrame, y: np.ndarray) -> "TabularRiskModel":
-        self.model.fit(prepare_feature_matrix(df, self.feature_cols), y)
+    def fit(self, df: pd.DataFrame, y: np.ndarray, sample_weight: Optional[np.ndarray] = None) -> "TabularRiskModel":
+        self.model.fit(prepare_feature_matrix(df, self.feature_cols), y, sample_weight=sample_weight)
         return self
 
     def predict_proba(self, df: pd.DataFrame, history: Optional[pd.DataFrame] = None) -> np.ndarray:

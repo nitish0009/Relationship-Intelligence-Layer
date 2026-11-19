@@ -36,9 +36,11 @@ def third_party_available() -> bool:
 
 class OriginalFraudGNN:
     def __init__(self, index: TemporalIndex, kind: str, full_df: pd.DataFrame, val_df: pd.DataFrame,
-                 seed: int = 42, epochs: Optional[int] = None, row_norm: bool = True):
+                 seed: int = 42, epochs: Optional[int] = None, row_norm: bool = True,
+                 lr: Optional[float] = None, emb: Optional[int] = None, weight_decay: Optional[float] = None):
         self.index, self.kind, self.full_df, self.val_df, self.seed, self.epochs = index, kind, full_df, val_df, seed, epochs
         self.row_norm = row_norm
+        self.hp = {"--lr": lr, "--emb": emb, "--weight-decay": weight_decay}
         self.name = {"care": "CARE-GNN (original code)", "pcgnn": "PC-GNN (original code)"}[kind]
 
     def _graph(self, train_df: pd.DataFrame) -> dict:
@@ -75,10 +77,14 @@ class OriginalFraudGNN:
                 cmd += ["--epochs", str(self.epochs)]
             if not self.row_norm:
                 cmd += ["--no-row-norm"]
+            for k, v in self.hp.items():
+                if v is not None:
+                    cmd += [k, str(v)]
             proc = subprocess.run(cmd, capture_output=True, text=True)
             if proc.returncode != 0:
                 raise RuntimeError(f"{self.name} failed:\n{proc.stdout[-2000:]}\n{proc.stderr[-3000:]}")
             o = np.load(op)
+            self.best_val = float(o["best_val"])
             self.log = proc.stdout
         self.pred = pd.Series(np.concatenate([o["p_val"], o["p_test"]]),
                               index=np.concatenate([g["idx_val"], g["idx_test"]]))

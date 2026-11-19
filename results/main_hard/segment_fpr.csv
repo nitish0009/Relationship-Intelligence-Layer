@@ -1,0 +1,49 @@
+model,segment,fpr,n
+Transaction Baseline,residential,0.002840790134855892,43289
+Transaction Baseline,carrier_nat,0.0031492434463648877,10471
+Transaction Baseline,household,0.0062583940504238435,14685
+Transaction Baseline,public_wifi,0.004006309019421844,4025
++ Relationship counts,residential,0.003628017662680662,43289
++ Relationship counts,carrier_nat,0.0009504367227680993,10471
++ Relationship counts,household,0.005396715606796788,14685
++ Relationship counts,public_wifi,0.0004947526236881559,4025
++ Temporal relationships,residential,0.0031919427856485034,43289
++ Temporal relationships,carrier_nat,0.002093686796576794,10471
++ Temporal relationships,household,0.0036946245406517275,14685
++ Temporal relationships,public_wifi,0.0005019326295570303,4025
+Combined (full graph),residential,0.0024019665880740853,43289
+Combined (full graph),carrier_nat,0.0036187650628165557,10471
+Combined (full graph),household,0.0027273888584153656,14685
+Combined (full graph),public_wifi,0.0007607466526819515,4025
+Combined + delayed labels,residential,0.001757031996415779,43289
+Combined + delayed labels,carrier_nat,0.008785034321110856,10471
+Combined + delayed labels,household,0.0030601282845791103,14685
+Combined + delayed labels,public_wifi,0.0010070520714011634,4025
+Neighbour-Aggregation XGBoost,residential,0.0014759998211976298,43289
+Neighbour-Aggregation XGBoost,carrier_nat,0.010782254142617475,10471
+Neighbour-Aggregation XGBoost,household,0.004162378831714035,14685
+Neighbour-Aggregation XGBoost,public_wifi,0.003265662476857592,4025
+Temporal GraphSAGE,residential,0.0019539623371596032,43289
+Temporal GraphSAGE,carrier_nat,0.00818108443391324,10471
+Temporal GraphSAGE,household,0.0035967367487377165,14685
+Temporal GraphSAGE,public_wifi,0.008162843701698914,4025
+Temporal GAT,residential,0.0017275429078209073,43289
+Temporal GAT,carrier_nat,0.0070441725178066305,10471
+Temporal GAT,household,0.003070766362911697,14685
+Temporal GAT,public_wifi,0.011733724271406825,4025
+Temporal R-GCN,residential,0.001243576386927555,43289
+Temporal R-GCN,carrier_nat,0.007917540360052204,10471
+Temporal R-GCN,household,0.003198313591779374,14685
+Temporal R-GCN,public_wifi,0.008489945476524355,4025
+CARE-style GNN,residential,0.0016115528948511585,43289
+CARE-style GNN,carrier_nat,0.006487377843165355,10471
+CARE-style GNN,household,0.003132916933694367,14685
+CARE-style GNN,public_wifi,0.012858784575483211,4025
+TGN-style Memory,residential,0.0026300691681881696,43289
+TGN-style Memory,carrier_nat,0.004115251578618747,10471
+TGN-style Memory,household,0.0024592626733609185,14685
+TGN-style Memory,public_wifi,0.005014869867970424,4025
+"GraphSAGE (entity, inductive)",residential,0.006559370414014741,43289
+"GraphSAGE (entity, inductive)",carrier_nat,9.555661729574773e-05,10471
+"GraphSAGE (entity, inductive)",household,6.828269033799932e-05,14685
+"GraphSAGE (entity, inductive)",public_wifi,0.0,4025

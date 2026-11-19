@@ -66,22 +66,31 @@ def run(seeds=(42, 43, 44)) -> None:
             continue
         real = json.load(open(path))
         res[name] = {"real": real, "p_hat": {syn: _interp(curve, syn, real[r]) for syn, r in stat_map.items()}}
-    # consistency test: predicted vs observed transductive inflation on IEEE-CIS
+    # consistency test: predicted vs observed transductive inflation on every real dataset that has
+    # both entity-GraphSAGE runs (IEEE-CIS; AMLworld)
     dose_p = os.path.join(RESULTS_DIR, "c3", "dose.csv")
-    ieee_p = os.path.join(RESULTS_DIR, "ieee", "metrics_summary.csv")
-    if "ieee" in res and os.path.exists(dose_p) and os.path.exists(ieee_p):
+    if os.path.exists(dose_p):
         d = pd.read_csv(dose_p)
         col = "pr_auc_test_window" if "pr_auc_test_window" in d else "pr_auc"
         g = d.pivot_table(index="reuse", columns="model", values=col)
         infl = (g["GraphSAGE (transductive)"] - g["GraphSAGE (entity, inductive)"]) * 100
-        rel = infl / (g["GraphSAGE (entity, inductive)"] * 100)  # relative inflation (scale-free)
-        p_hat = res["ieee"]["p_hat"]["seen_bad_any"]
-        s = pd.read_csv(ieee_p, index_col=0)
-        obs_ind, obs_tr = s.loc["GraphSAGE (entity, inductive)", "pr_auc_mean"], s.loc["GraphSAGE (transductive)", "pr_auc_mean"]
-        res["ieee"]["transductive_inflation"] = {
-            "predicted_relative_at_p_hat": float(np.interp(p_hat, rel.index, rel.values)),
-            "observed_relative": float((obs_tr - obs_ind) / obs_ind),
-            "note": "relative inflation = (transductive - inductive) / inductive PR-AUC"}
+        for name in list(res):
+            mp = os.path.join(RESULTS_DIR, name, "metrics_summary.csv")
+            if not os.path.exists(mp):
+                continue
+            s = pd.read_csv(mp, index_col=0)
+            if not {"GraphSAGE (entity, inductive)", "GraphSAGE (transductive)"} <= set(s.index):
+                continue
+            obs_ind, obs_tr = s.loc["GraphSAGE (entity, inductive)", "pr_auc_mean"], s.loc["GraphSAGE (transductive)", "pr_auc_mean"]
+            rng_ = sorted(res[name]["p_hat"].values())
+            pred = [float(np.interp(p, infl.index, infl.values)) for p in rng_]
+            obs = float((obs_tr - obs_ind) * 100)
+            res[name]["transductive_inflation"] = {
+                "p_hat_range": rng_, "predicted_pp_at_p_hat_range": pred, "observed_pp": obs,
+                "observed_within_predicted_band": bool(min(pred) - 2 <= obs <= max(pred) + 2),
+                "observed_inductive_pr_auc": float(obs_ind), "observed_transductive_pr_auc": float(obs_tr),
+                "note": "absolute pp is the comparable quantity (band = predicted range +/- 2 pp); relative "
+                        "inflation is not comparable across base rates"}
     with open(os.path.join(out, "calibration.json"), "w") as f:
         json.dump(res, f, indent=2, default=float)
     fig, ax = plt.subplots(figsize=(7, 4.5))

@@ -9,4 +9,6 @@ torch==2.13.0
 networkx==3.6.1
 matplotlib==3.10.9
 seaborn==0.13.2
+torch_geometric==2.8.1   # TGN (PyG reference) only; optional
+scipy==1.17.1            # original CARE-GNN / PC-GNN runner only; optional
 pytest

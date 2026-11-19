@@ -48,15 +48,19 @@ def _entity_age_buckets(ds) -> pd.Series:
                                                                     "account >30d"]).astype(str)
 
 
-def run(seeds=(42, 43, 44, 45, 46)) -> None:
-    out = out_dir("main")
+def run(seeds=(42, 43, 44, 45, 46), preset: str = "default") -> None:
+    """preset 'hard' (HARD_PRESET: more camouflage, noisier infrastructure, more legitimate
+    sharing) is the paper's headline setting -- the default preset is near the ceiling."""
+    from src.data_generator import HARD_PRESET, GeneratorConfig
+    cfg = GeneratorConfig(**HARD_PRESET) if preset == "hard" else None
+    out = out_dir("main" if preset == "default" else f"main_{preset}")
     t0 = time.time()
     rows, ring_tabs, warm, seg, age, gh = [], [], [], [], [], []
     gnn_params: dict = {}
     tuned_log: dict = {}
     for si, seed in enumerate(seeds):
         print(f"\n=== main: seed {seed} ===", flush=True)
-        ds = build_dataset(seed, label_delay_days=30.0, save_dir=DATA_DIR if si == 0 else None)
+        ds = build_dataset(seed, cfg, label_delay_days=30.0, save_dir=DATA_DIR if si == 0 and cfg is None else None)
         idx = TemporalIndex(ds.tx, k=20)
         yt = ds.test["fraud_label"].to_numpy()
         age_bucket = _entity_age_buckets(ds).to_numpy()
@@ -122,7 +126,7 @@ def run(seeds=(42, 43, 44, 45, 46)) -> None:
         os.path.join(out, "graph_hidden_recall.csv"))
     save_json({str(k): v for k, v in tuned_log.items()}, os.path.join(out, "tuned_params.json"))
     save_json({"seeds": list(seeds), "classifier": classifier_name(), "budgets": BUDGETS,
-               "primary_budget": PRIMARY_BUDGET, "minutes": (time.time() - t0) / 60}, os.path.join(out, "run_info.json"))
+               "primary_budget": PRIMARY_BUDGET, "preset": preset, "minutes": (time.time() - t0) / 60}, os.path.join(out, "run_info.json"))
     _plots(out, summary, ring_summary, wu)
     print(summary.round(4).to_string())
     print(ring_summary[ring_summary.budget == PRIMARY_BUDGET].round(3).to_string(index=False))

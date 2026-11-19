@@ -166,8 +166,8 @@ class VestaXGB:
             X = np.hstack([X, df[self.extra_cols].to_numpy(dtype=np.float32)])
         return X
 
-    def fit(self, df, y):
-        self.model.fit(self._mat(df), y)
+    def fit(self, df, y, sample_weight=None):
+        self.model.fit(self._mat(df), y, sample_weight=sample_weight)
         return self
 
     def predict_proba(self, df, history=None):

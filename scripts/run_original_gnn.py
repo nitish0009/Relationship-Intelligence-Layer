@@ -7,7 +7,7 @@ called ``src``, which would clash with ours). Hyper-parameters are the authors' 
 defaults (CARE-GNN train.py defaults; PC-GNN config/pcgnn_yelpchi.yml). The only changes are
 (a) our time-respecting graph/features as input and (b) model selection by validation PR-AUC.
 
-Usage: run_original_gnn.py {care,pcgnn} graph.pkl out.npz [--seed S] [--epochs E]
+Usage: run_original_gnn.py {care,pcgnn} graph.pkl out.npz [--seed S] [--epochs E] [--lr L] [--emb D]
 """
 
 import argparse
@@ -30,6 +30,9 @@ def main():
     ap.add_argument("--seed", type=int, default=72)
     ap.add_argument("--epochs", type=int, default=None)
     ap.add_argument("--eval-every", type=int, default=3)
+    ap.add_argument("--lr", type=float, default=None, help="override the authors' learning rate")
+    ap.add_argument("--emb", type=int, default=None, help="override the authors' embedding size")
+    ap.add_argument("--weight-decay", type=float, default=None)
     ap.add_argument("--no-row-norm", action="store_true",
                     help="diagnostic: skip the authors' row-sum feature normalisation (designed for bag-of-words)")
     a = ap.parse_args()
@@ -56,6 +59,9 @@ def main():
         cfg = dict(lr=0.01, weight_decay=1e-3, emb=64, epochs=51, batch=1024, alpha=2.0, rho=0.5)
     if a.epochs:
         cfg["epochs"] = a.epochs
+    for k, v in (("lr", a.lr), ("emb", a.emb), ("weight_decay", a.weight_decay)):
+        if v is not None:
+            cfg[k] = v
 
     with open(a.graph, "rb") as f:
         g = pickle.load(f)

@@ -1,0 +1,21 @@
+\begin{tabular}{@{}lccc@{}}
+\toprule
+ & AMLworld & \multicolumn{2}{c}{IEEE-CIS} \\
+\cmidrule(lr){2-2}\cmidrule(lr){3-4}
+Model & PR-AUC & PR-AUC & PR-AUC (1st fraud) \\
+\midrule
+Transaction features & 0.130\,$\pm$\,0.009 & 0.134\,$\pm$\,0.003 & 0.058\,$\pm$\,0.001 \\
+Hand-crafted graph features & 0.377\,$\pm$\,0.015 & 0.186\,$\pm$\,0.006 & 0.097\,$\pm$\,0.005 \\
+\quad + delayed labels & 0.480\,$\pm$\,0.010 & 0.404\,$\pm$\,0.002 & 0.114\,$\pm$\,0.001 \\
+Neighbour-aggregation XGBoost & 0.539\,$\pm$\,0.005 & 0.218\,$\pm$\,0.004 & 0.117\,$\pm$\,0.001 \\
+Temporal GraphSAGE & 0.470\,$\pm$\,0.007 & 0.224\,$\pm$\,0.006 & 0.132\,$\pm$\,0.009 \\
+Temporal GAT & 0.465\,$\pm$\,0.004 & 0.204\,$\pm$\,0.010 & 0.107\,$\pm$\,0.010 \\
+\midrule
+Entity GraphSAGE (inductive) & 0.004\,$\pm$\,0.000 & 0.082\,$\pm$\,0.014 & 0.046\,$\pm$\,0.009 \\
+Entity GraphSAGE (transductive)$^\dagger$ & 0.338\,$\pm$\,0.033 & 0.249\,$\pm$\,0.012 & 0.103\,$\pm$\,0.011 \\
+\midrule
+Vesta features & n/a & 0.536\,$\pm$\,0.004 & 0.472\,$\pm$\,0.002 \\
+Vesta + hand-crafted graph & n/a & 0.535\,$\pm$\,0.003 & 0.471\,$\pm$\,0.004 \\
+Vesta + graph + delayed labels & n/a & 0.621\,$\pm$\,0.004 & 0.454\,$\pm$\,0.006 \\
+\bottomrule
+\end{tabular}
