@@ -162,12 +162,13 @@ class TemporalGNN:
 
     def __init__(self, index: TemporalIndex, kind: str = "sage", hidden: int = 64, lr: float = 1e-3,
                  epochs: int = 12, batch: int = 512, rho: float = 0.5, seed: int = 42, val_df: Optional[pd.DataFrame] = None,
-                 target_fn=None):
+                 target_fn=None, focal_gamma: float = 0.0):
         """target_fn(df) -> feature matrix for the target transaction (default: our transaction
         features). Used on IEEE-CIS to give GNNs the same rich features as the tabular baseline."""
         self.target_fn = target_fn or _target_matrix
         self.index, self.kind, self.hidden, self.lr = index, kind, hidden, lr
         self.epochs, self.batch, self.rho, self.seed, self.val_df = epochs, batch, rho, seed, val_df
+        self.focal_gamma = focal_gamma  # > 0: focal loss baseline (Lin et al., 2017)
         self.name = {"sage": "Temporal GraphSAGE", "gat": "Temporal GAT", "rgcn": "Temporal R-GCN",
                      "care": "CARE-style GNN"}[kind]
 
@@ -210,7 +211,14 @@ class TemporalGNN:
                 b = torch.from_numpy(perm[s:s + self.batch])
                 logit, aux = self.net(xt[b], xn[b], valid[b])
                 wb = None if wt is None else wt[b]  # TVW per-example weights (src/clock_weights.py)
-                loss = F.binary_cross_entropy_with_logits(logit, yt[b], weight=wb, pos_weight=pos_w)
+                if self.focal_gamma > 0:
+                    ce = F.binary_cross_entropy_with_logits(logit, yt[b], pos_weight=pos_w, reduction="none")
+                    pr = torch.sigmoid(logit)
+                    pt = pr * yt[b] + (1 - pr) * (1 - yt[b])
+                    fl = (1 - pt).pow(self.focal_gamma) * ce
+                    loss = (fl * wb).mean() if wb is not None else fl.mean()
+                else:
+                    loss = F.binary_cross_entropy_with_logits(logit, yt[b], weight=wb, pos_weight=pos_w)
                 if aux is not None:
                     loss = loss + 0.5 * F.binary_cross_entropy_with_logits(aux, yt[b], weight=wb, pos_weight=pos_w)
                 opt.zero_grad()

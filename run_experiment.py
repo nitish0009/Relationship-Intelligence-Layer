@@ -35,7 +35,7 @@ sys.path.insert(0, PROJECT_ROOT)
 
 import src  # noqa: F401  (loads XGBoost before torch; see src/__init__.py)
 
-EXPERIMENTS = ["main", "c2", "c3", "c4", "g5", "examples", "sensitivity", "adaptive", "calibration", "ieee", "aml", "tgn_reference", "tvw", "tvw_gnn", "originals_tuning", "originals_hard", "headroom", "tvw_elliptic", "tvw_aml_matched"]
+EXPERIMENTS = ["main", "c2", "c3", "c4", "g5", "examples", "sensitivity", "adaptive", "calibration", "ieee", "aml", "tgn_reference", "tvw", "tvw_gnn", "originals_tuning", "originals_hard", "headroom", "tvw_elliptic", "tvw_aml_matched", "rolling_aml", "objectives_sim", "ijcai_report"]
 
 
 def main() -> None:
@@ -45,7 +45,7 @@ def main() -> None:
     ap.add_argument("--preset", choices=["default", "hard"], default="default",
                     help="generator preset for 'main' (results/main or results/main_hard)")
     args = ap.parse_args()
-    real = ("ieee", "aml", "calibration", "tvw", "originals_tuning", "originals_hard", "headroom", "tvw_elliptic", "tvw_aml_matched")
+    real = ("ieee", "aml", "calibration", "tvw", "originals_tuning", "originals_hard", "headroom", "tvw_elliptic", "tvw_aml_matched", "rolling_aml", "objectives_sim", "ijcai_report")
     todo = [e for e in EXPERIMENTS if e not in real] if args.experiment == "all" else [args.experiment]
     for name in todo:
         mod = __import__(f"experiments.{ {'c2': 'c2_label_delay', 'c3': 'c3_reuse', 'c4': 'c4_evasion', 'g5': 'g5_coverage', 'ieee': 'ieee_cis', 'adaptive': 'c4_adaptive', 'aml': 'amlworld'}.get(name, name) }", fromlist=["run"])

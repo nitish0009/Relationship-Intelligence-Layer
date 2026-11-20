@@ -164,16 +164,24 @@ def _fit_gnn(name, ds, idx, seed, params):
 
 def prepare(out: str, prefix: str = "HI-Small"):
     """Load AMLworld, build all features and the chronological split (shared by run / run_gnn_only)."""
-    with Timer("load"):
-        tx = load_aml(prefix)
-    set_payment_methods(sorted(tx["payment_method"].unique()))
-    with Timer("transaction features"):
-        tx = _downcast(build_transaction_features(tx))
-    with Timer("graph features"):
-        tx = _downcast(build_graph_features(tx))
-    with Timer("label features"):
-        tx = _downcast(build_label_features(tx, 1.0))
-    tx = add_ring_sequence(tx)
+    cache = os.path.join(AML_DIR, "cache", f"{prefix}_features.parquet")  # git-ignored (data/)
+    if os.path.exists(cache):
+        with Timer("load cached features"):
+            tx = pd.read_parquet(cache)
+        set_payment_methods(sorted(tx["payment_method"].unique()))
+    else:
+        with Timer("load"):
+            tx = load_aml(prefix)
+        set_payment_methods(sorted(tx["payment_method"].unique()))
+        with Timer("transaction features"):
+            tx = _downcast(build_transaction_features(tx))
+        with Timer("graph features"):
+            tx = _downcast(build_graph_features(tx))
+        with Timer("label features"):
+            tx = _downcast(build_label_features(tx, 1.0))
+        tx = add_ring_sequence(tx)
+        os.makedirs(os.path.dirname(cache), exist_ok=True)
+        tx.to_parquet(cache)
     tx["_row"] = np.arange(len(tx))
     train, val, test = _split(tx)
     f = tx[tx.fraud_label == 1]
